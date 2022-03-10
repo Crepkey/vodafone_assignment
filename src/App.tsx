@@ -1,5 +1,5 @@
 /* React */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 
 /* Components */
@@ -17,18 +17,18 @@ const MainContainer = styled.div`
 	height: 100vh;
 	width: 100vw;
 `;
-interface UserID {
+interface ContactID {
 	name: string;
 	value: string;
 }
 
-interface Name {
+interface ContactName {
 	first: string;
 	last: string;
 	title: string;
 }
 
-interface UserLocation {
+interface ContactLocation {
 	city: string;
 	coordinates: { latitude: string; longitude: string };
 	country: string;
@@ -37,23 +37,25 @@ interface UserLocation {
 	street: { number: number; name: string };
 	timezone: { offset: string; description: string };
 }
-interface User {
-	id: UserID;
-	name: Name;
+interface Contact {
+	id: ContactID;
+	name: ContactName;
 	phone: string;
-	location: UserLocation;
+	location: ContactLocation;
 }
 
 function App() {
+	const [users, setUsers] = useState<Contact[]>([]);
+
 	useEffect(() => {
-		getUsers();
+		getContacts();
 	});
 
 	/* FIXME: Error handling is important */
-	async function getUsers() {
+	async function getContacts() {
 		const response: Response = await fetch(`https://randomuser.me/api/?inc=id,name,email,phone,location&results=50&seed=hire_me`);
-		const parsedResponse: User[] = await response.json();
-		console.log(parsedResponse);
+		const parsedResponse: Contact[] = await response.json();
+		setUsers(parsedResponse);
 	}
 	return (
 		<MainContainer>
