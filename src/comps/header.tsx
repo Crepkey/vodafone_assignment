@@ -26,7 +26,9 @@ const SearchField = styled.input`
 export default function Header() {
 	return (
 		<MainContainer>
-			<Logo src={vodafoneLogoPath} alt="This is the official logo of Vodafone company" />
+			<a href="/">
+				<Logo src={vodafoneLogoPath} alt="This is the official logo of Vodafone company" />
+			</a>
 			<SearchField type="search" placeholder="Search for contact" />
 		</MainContainer>
 	);
