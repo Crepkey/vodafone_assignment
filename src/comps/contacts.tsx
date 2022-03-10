@@ -9,6 +9,7 @@ import PageTitle from "./pageTitle";
 const MainContainer = styled.div`
 	display: flex;
 	flex-direction: column;
+	flex: 1;
 	align-items: center;
 	width: 80%;
 	padding: 10px;

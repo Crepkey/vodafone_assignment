@@ -8,6 +8,7 @@ import { Contact } from "./utils/interfaces";
 /* Components */
 import Header from "./comps/header";
 import Contacts from "./comps/contacts";
+import Footer from "./comps/footer";
 import Test2 from "./comps/test2";
 
 /* Styles */
@@ -45,6 +46,7 @@ function App() {
 				<Route path="/" exact render={() => <Contacts contacts={contacts} />} />
 				<Redirect to="/" />
 			</Switch>
+			<Footer />
 		</MainContainer>
 	);
 }
