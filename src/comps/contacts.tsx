@@ -7,6 +7,7 @@ import FilterBar from "./filterBar";
 
 /* Styles */
 import styled from "styled-components";
+import ContactCards from "./contactCards";
 
 const MainContainer = styled.div`
 	display: flex;
@@ -26,6 +27,7 @@ export default function Contacts({ contacts }: ContactsProps) {
 		<MainContainer>
 			<PageTitle text="Contacts" />
 			<FilterBar contacts={contacts} />
+			<ContactCards />
 		</MainContainer>
 	);
 }

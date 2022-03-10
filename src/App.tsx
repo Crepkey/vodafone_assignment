@@ -44,7 +44,6 @@ function App() {
 		if ("error" in parsedResponse) {
 			console.log("ERROR");
 		}
-		console.log(parsedResponse.results);
 		setContacts(parsedResponse.results);
 	}
 
