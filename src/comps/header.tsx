@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import vodafoneLogoPath from "../img/vodafone_logo.svg";
+import { colors } from "../utils/colors";
 
 const MainContainer = styled.div`
 	display: flex;
@@ -15,7 +16,7 @@ const Logo = styled.img`
 `;
 
 const SearchField = styled.input`
-	border: 1px #cfd4d9 solid;
+	border: 1px ${colors.fieldBorder} solid;
 	border-radius: 5px;
 	height: 35px;
 	width: 350px;
