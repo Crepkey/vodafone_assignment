@@ -3,18 +3,24 @@ import vodafoneLogoPath from "../img/vodafone_logo.svg";
 
 const MainContainer = styled.div`
 	display: flex;
-	padding: 10px 0;
-	border: 1px green solid;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px 20px;
+	width: 80%;
 `;
 
 const Logo = styled.img`
-	width: 25%;
+	width: 20%;
+	min-width: 200px;
 `;
 
 const SearchField = styled.input`
 	border: 1px #cfd4d9 solid;
 	border-radius: 5px;
-	height: 50px;
+	height: 35px;
+	width: 350px;
+	font-size: 1rem;
+	padding: 5px 10px;
 `;
 
 export default function Header() {
