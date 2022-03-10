@@ -1,9 +1,13 @@
+/* Interfaces */
+import { Contact } from "../utils/interfaces";
+import uniq from "lodash/uniq";
+
 /* Styles */
 import styled from "styled-components";
 import { colors } from "../utils/colors";
 
 const MainContainer = styled.div`
-	letter-spacing: 10px;
+	letter-spacing: 25px;
 	display: flex;
 	justify-content: center;
 	width: 100%;
@@ -13,6 +17,30 @@ const MainContainer = styled.div`
 	padding: 25px 10px;
 `;
 
-export default function FilterBar() {
-	return <MainContainer>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</MainContainer>;
+const Letter = styled.div`
+	transition: all 0.3s ease;
+	:hover {
+		font-size: 2rem;
+		cursor: pointer;
+	}
+`;
+
+interface FilterBarProps {
+	contacts: Contact[];
+}
+
+export default function FilterBar({ contacts }: FilterBarProps) {
+	const letters: string[] = (() => {
+		const AllFirstLetter: string[] = contacts.map((contact: Contact) => contact.name.first.charAt(0));
+		const uniqLetters: string[] = uniq(AllFirstLetter);
+		return uniqLetters.sort();
+	})();
+
+	return (
+		<MainContainer>
+			{letters.map((letter: string) => (
+				<Letter key={letter}>{letter}</Letter>
+			))}
+		</MainContainer>
+	);
 }

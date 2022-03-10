@@ -22,6 +22,12 @@ const MainContainer = styled.div`
 	width: 100vw;
 `;
 
+interface ParsedResponse {
+	error?: string;
+	info: { page: number; results: number; seed: string; version: string };
+	results: Contact[];
+}
+
 function App() {
 	const [contacts, setContacts] = useState<Contact[]>([]);
 
@@ -31,13 +37,19 @@ function App() {
 
 	/* FIXME: Error handling is important */
 	async function getContacts() {
-		const response: Response = await fetch(`https://randomuser.me/api/?inc=id,name,email,phone,location&results=50&seed=hire_me`);
-		const parsedResponse: Contact[] = await response.json();
+		const response: Response = await fetch(
+			`https://randomuser.me/api/?inc=id,name,email,phone,location&results=50&nat=us,dk,fr,gb&nat=au,br,ca,ch,de,dk,es,fi,fr,gb,ie,no,nl,nz,us&seed=hire_me`,
+		);
+		const parsedResponse: ParsedResponse = await response.json();
 		if ("error" in parsedResponse) {
 			console.log("ERROR");
 		}
-		setContacts(parsedResponse);
+		console.log(parsedResponse.results);
+		setContacts(parsedResponse.results);
 	}
+
+	/* if (contacts.length === 0) return null; */
+
 	return (
 		<MainContainer>
 			<Header />

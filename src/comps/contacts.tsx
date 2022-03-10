@@ -22,11 +22,10 @@ interface ContactsProps {
 }
 
 export default function Contacts({ contacts }: ContactsProps) {
-	console.log("INSIDE OF THE CONTACTS", contacts);
 	return (
 		<MainContainer>
 			<PageTitle text="Contacts" />
-			<FilterBar />
+			<FilterBar contacts={contacts} />
 		</MainContainer>
 	);
 }
