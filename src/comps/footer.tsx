@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { colors } from "../utils/colors";
 
 const MainContainer = styled.div`
+	color: ${colors.title};
 	text-align: center;
 	width: 100%;
 	padding: 10px;

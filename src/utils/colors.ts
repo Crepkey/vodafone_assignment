@@ -13,4 +13,5 @@ export const colors: Colors = {
 
 	//FONTS
 	title: "rgba(34, 37, 41, 1)",
+	filterBar: "rgba(76, 76, 76, 1)",
 };
