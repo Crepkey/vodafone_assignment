@@ -3,7 +3,7 @@ import { Route, Redirect, Switch } from "react-router-dom";
 
 /* Components */
 import Header from "./comps/header";
-import Test1 from "./comps/test1";
+import Contacts from "./comps/contacts";
 import Test2 from "./comps/test2";
 
 /* Styles */
@@ -23,7 +23,7 @@ function App() {
 			<Header />
 			<Switch>
 				<Route path="/test2" component={Test2} />
-				<Route path="/" exact component={Test1} />
+				<Route path="/" exact component={Contacts} />
 				<Redirect to="/" />
 			</Switch>
 		</MainContainer>
