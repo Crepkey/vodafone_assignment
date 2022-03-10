@@ -5,6 +5,12 @@ interface Colors {
 }
 
 export const colors: Colors = {
-	//BORDERS
+	//BASIC COLORS
+	red: "rgba(212, 44, 31, 1)",
+
+	//BORDERS & LINES
 	fieldBorder: "rgba(207, 212, 217, 1)",
+
+	//FONTS
+	title: "rgba(34, 37, 41, 1)",
 };

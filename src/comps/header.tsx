@@ -1,5 +1,8 @@
-import styled from "styled-components";
+/* Images */
 import vodafoneLogoPath from "../img/vodafone_logo.svg";
+
+/* Styles */
+import styled from "styled-components";
 import { colors } from "../utils/colors";
 
 const MainContainer = styled.div`
