@@ -1,3 +1,6 @@
+/* Interfaces */
+import { Contact } from "../utils/interfaces";
+
 /* Styles */
 import { colors } from "../utils/colors";
 import styled from "styled-components";
@@ -11,7 +14,12 @@ const MainContainer = styled.div`
 	padding: 10px;
 `;
 
-export default function Contacts() {
+interface ContactsProps {
+	contacts: Contact[];
+}
+
+export default function Contacts({ contacts }: ContactsProps) {
+	console.log("INSIDE OF THE CONTACTS", contacts);
 	return (
 		<MainContainer>
 			<PageTitle text="Contacts" />
