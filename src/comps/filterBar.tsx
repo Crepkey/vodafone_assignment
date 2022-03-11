@@ -19,10 +19,10 @@ const MainContainer = styled.div`
 
 const Letter = styled.div`
 	transition: all 0.3s ease;
-	:hover {
+	/* :hover {
 		font-size: 2rem;
 		cursor: pointer;
-	}
+	} */
 `;
 
 interface FilterBarProps {

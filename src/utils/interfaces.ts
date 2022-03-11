@@ -19,9 +19,17 @@ interface ContactLocation {
 	timezone: { offset: string; description: string };
 }
 
+interface ContactPicture {
+	large: string;
+	medium: string;
+	thumbnail: string;
+}
+
 export interface Contact {
 	id: ContactID;
 	name: ContactName;
 	phone: string;
+	email: string;
 	location: ContactLocation;
+	picture: ContactPicture;
 }

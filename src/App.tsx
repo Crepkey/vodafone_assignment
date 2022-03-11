@@ -38,7 +38,7 @@ function App() {
 	/* FIXME: Error handling is important */
 	async function getContacts() {
 		const response: Response = await fetch(
-			`https://randomuser.me/api/?inc=id,name,email,phone,location&results=50&nat=us,dk,fr,gb&nat=au,br,ca,ch,de,dk,es,fi,fr,gb,ie,no,nl,nz,us&seed=hire_me`,
+			`https://randomuser.me/api/?inc=id,name,email,phone,location,picture&results=50&nat=us,dk,fr,gb&nat=au,br,ca,ch,de,dk,es,fi,fr,gb,ie,no,nl,nz,us&seed=hire_me`,
 		);
 		const parsedResponse: ParsedResponse = await response.json();
 		if ("error" in parsedResponse) {
@@ -47,7 +47,8 @@ function App() {
 		setContacts(parsedResponse.results);
 	}
 
-	/* if (contacts.length === 0) return null; */
+	/* This exit point is necessary to avoid a useless rendering until all the necessary data has arrived */
+	if (contacts.length === 0) return null;
 
 	return (
 		<MainContainer>
