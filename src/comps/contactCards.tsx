@@ -73,6 +73,12 @@ interface ContactCardProps {
 	displayedContacts: Contact[];
 }
 export default function ContactCards({ displayedContacts }: ContactCardProps) {
+	function trimText(text: string, length: number) {
+		if (text.length < length) return text;
+
+		return text.slice(0, length) + "...";
+	}
+
 	return (
 		<MainContainer>
 			{displayedContacts.map((contact: Contact, index: number) => (
@@ -85,9 +91,12 @@ export default function ContactCards({ displayedContacts }: ContactCardProps) {
 						<ContactPicture src={contact.picture.large} alt="This is the profile picture of the given contact" />
 					</PictureContainer>
 					<DetailsContainer>
-						<ContactName>{`${contact.name.first}, ${contact.name.last}`}</ContactName>
-						<ContactEmail>{contact.email}</ContactEmail>
-						<ContactPhone>{contact.phone}</ContactPhone>
+						{/* I applied the trim on the names separately because the div container can breake the line at the comma 
+						but it cannot handle long (first or last) name which is longer ~25 characters 
+						because there is no space in it where the div can breake the text*/}
+						<ContactName>{`${trimText(contact.name.first, 22)}, ${trimText(contact.name.last, 22)}`}</ContactName>
+						<ContactEmail>{trimText(contact.email, 27)}</ContactEmail>
+						<ContactPhone>{trimText(contact.phone, 27)}</ContactPhone>
 					</DetailsContainer>
 				</ContactCard>
 			))}
