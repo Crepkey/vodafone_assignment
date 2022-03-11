@@ -17,6 +17,7 @@ const MainContainer = styled.div`
 	min-height: 0;
 	min-width: 0;
 	overflow: scroll;
+	padding-bottom: 20px;
 `;
 
 interface ContactCardProps {
