@@ -17,4 +17,5 @@ export const colors: Colors = {
 	filterBar: "rgba(76, 76, 76, 1)",
 	contactName: "rgba(0, 0, 0, 1)",
 	contactDetails: "rgba(143, 143, 143, 1)",
+	addContactButtonFont: "rgba(255, 255, 255, 1)",
 };
