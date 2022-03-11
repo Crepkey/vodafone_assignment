@@ -12,17 +12,15 @@ const MainContainer = styled.div`
 	flex: 1;
 	justify-content: center;
 	gap: 30px;
-	width: 100%;
+	width: 80%;
 	min-height: 0;
 	min-width: 0;
 	overflow: scroll;
-	/* border: 1px solid green; */
 `;
 
 const ContactCard = styled.div`
 	display: flex;
-	width: 30%;
-	min-width: 300px;
+	width: 300px;
 	height: 80px;
 	border: 1px solid ${colors.contactCardBorder};
 	border-radius: 5px;
@@ -34,7 +32,6 @@ const ContactCard = styled.div`
 const PictureContainer = styled.div`
 	display: flex;
 	flex: 1;
-	/* border: 1px solid blue; */
 `;
 
 const ContactPicture = styled.img`
@@ -46,7 +43,6 @@ const DetailsContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	flex: 1;
-	/* border: 1px solid green; */
 `;
 interface ContactCardProps {
 	displayedContacts: Contact[];
@@ -63,7 +59,7 @@ export default function ContactCards({ displayedContacts }: ContactCardProps) {
 					<PictureContainer>
 						<ContactPicture src={contact.picture.large} alt="This is the profile picture of the given contact" />
 					</PictureContainer>
-					<DetailsContainer>{contact.email}</DetailsContainer>
+					<DetailsContainer style={{ fontSize: "0.5rem" }}>{contact.email}</DetailsContainer>
 				</ContactCard>
 			))}
 		</MainContainer>

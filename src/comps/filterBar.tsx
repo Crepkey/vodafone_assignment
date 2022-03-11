@@ -7,22 +7,23 @@ import styled from "styled-components";
 import { colors } from "../utils/colors";
 
 const MainContainer = styled.div`
-	letter-spacing: 25px;
 	display: flex;
 	justify-content: center;
 	width: 100%;
 	color: ${colors.filterBar};
 	font-size: 1.3rem;
 	font-weight: 500;
-	padding: 25px 10px;
+	padding: 25px 0 40px 0;
 `;
 
 const Letter = styled.div`
+	margin: 0 10px 0 10px;
 	transition: all 0.3s ease;
-	/* :hover {
-		font-size: 2rem;
+	border-bottom: 3px solid rgba(0, 0, 0, 0);
+	:hover {
+		border-bottom: 3px solid ${colors.red};
 		cursor: pointer;
-	} */
+	}
 `;
 
 interface FilterBarProps {

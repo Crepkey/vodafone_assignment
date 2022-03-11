@@ -16,12 +16,11 @@ const MainContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 80%;
+	width: 100%;
 	flex: 1;
 	min-height: 0;
 	min-width: 0;
-	padding: 10px;
-	border: 1px solid red;
+	padding-top: 10px;
 `;
 
 interface ContactsProps {
