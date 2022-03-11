@@ -5,7 +5,7 @@ const MainContainer = styled.div`
 	color: ${colors.title};
 	text-align: center;
 	width: 100%;
-	padding: 10px;
+	padding: 10px 0;
 	font-size: 0.9rem;
 	margin-bottom: 20px;
 `;
