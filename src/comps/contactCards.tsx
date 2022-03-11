@@ -16,7 +16,7 @@ const MainContainer = styled.div`
 	width: 100%;
 	min-height: 0;
 	min-width: 0;
-	overflow: scroll;
+	overflow: hidden;
 	padding-bottom: 20px;
 `;
 
