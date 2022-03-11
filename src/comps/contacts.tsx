@@ -37,6 +37,16 @@ const AddNewContactButton = styled.button`
 	font-size: 30px;
 	font-weight: 500;
 	background-color: ${colors.red};
+	transition: all 0.3s ease;
+	:hover {
+		cursor: pointer;
+		width: 65px;
+		height: 65px;
+	}
+	:active {
+		width: 50px;
+		height: 50px;
+	}
 `;
 
 interface ContactsProps {
