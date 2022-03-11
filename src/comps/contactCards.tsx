@@ -48,7 +48,26 @@ const ContactPicture = styled.img`
 const DetailsContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	flex: 1;
+	justify-content: space-between;
+	padding-left: 10px;
+	width: 100%;
+`;
+
+const ContactName = styled.div`
+	color: ${colors.contactName};
+	font-weight: 500;
+	font-size: 1rem;
+`;
+
+const ContactEmail = styled.div`
+	color: ${colors.contactDetails};
+	font-size: 0.75rem;
+	font-weight: 500;
+`;
+const ContactPhone = styled.div`
+	color: ${colors.contactDetails};
+	font-size: 0.8rem;
+	margin-bottom: 10px;
 `;
 interface ContactCardProps {
 	displayedContacts: Contact[];
@@ -65,7 +84,11 @@ export default function ContactCards({ displayedContacts }: ContactCardProps) {
 					<PictureContainer>
 						<ContactPicture src={contact.picture.large} alt="This is the profile picture of the given contact" />
 					</PictureContainer>
-					<DetailsContainer style={{ fontSize: "0.5rem" }}>{contact.email}</DetailsContainer>
+					<DetailsContainer>
+						<ContactName>{`${contact.name.first}, ${contact.name.last}`}</ContactName>
+						<ContactEmail>{contact.email}</ContactEmail>
+						<ContactPhone>{contact.phone}</ContactPhone>
+					</DetailsContainer>
 				</ContactCard>
 			))}
 		</MainContainer>
