@@ -9,7 +9,6 @@ const MainContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	flex: 1;
 	justify-content: center;
 	gap: 30px;
 	width: 80%;
