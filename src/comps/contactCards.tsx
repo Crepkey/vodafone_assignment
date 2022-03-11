@@ -26,7 +26,11 @@ export default function ContactCards({ displayedContacts }: ContactCardProps) {
 	return (
 		<MainContainer>
 			{displayedContacts.map((contact: Contact, index: number) => (
-				<ContactCard contact={contact} contactNumber={index} />
+				/* In some cases the ID, that I get from the server, is null 
+				therefore I need to add the index number to the ID 
+				so that I can avoid the 'missing keys' issues because of the missing IDs.
+				This is not the nicest solution but this is good for quick fix. */
+				<ContactCard key={contact.id.value + index} contact={contact} />
 			))}
 		</MainContainer>
 	);

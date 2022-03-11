@@ -60,10 +60,9 @@ const ContactPhone = styled.div`
 
 interface ContactCardProps {
 	contact: Contact;
-	contactNumber: number;
 }
 
-export default function ContactCard({ contact, contactNumber }: ContactCardProps) {
+export default function ContactCard({ contact }: ContactCardProps) {
 	function trimText(text: string, length: number) {
 		if (text.length < length) return text;
 
@@ -71,10 +70,7 @@ export default function ContactCard({ contact, contactNumber }: ContactCardProps
 	}
 
 	return (
-		/* In some cases the ID, that I get from the server, is null 
-			therefore I need to add the index number (contactNumber) to the ID so that I can avoid the 'missing keys' issues because of the missing IDs.
-			This is not the nicest solution but this is good for quick fix. */
-		<MainContainer key={contact.id.value + contactNumber}>
+		<MainContainer>
 			<PictureContainer>
 				<ContactPicture src={contact.picture.large} alt="This is the profile picture of the given contact" />
 			</PictureContainer>
