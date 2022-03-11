@@ -54,6 +54,7 @@ function App() {
 		<MainContainer>
 			<Header />
 			<Switch>
+				{/* FIXME: Routing doesn't work in the deployed and published app on Netlify */}
 				<Route path="/test2" component={Test2} />
 				<Route path="/" exact render={() => <Contacts contacts={contacts} />} />
 				<Redirect to="/" />
