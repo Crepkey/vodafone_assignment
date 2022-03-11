@@ -24,9 +24,15 @@ const ContactCard = styled.div`
 	height: 80px;
 	border: 1px solid ${colors.contactCardBorder};
 	border-radius: 5px;
+	border-left: 3px solid rgba(0, 0, 0, 0);
 	padding: 7px;
 	-webkit-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.15);
 	box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.15);
+	transition: all 0.3s ease;
+	:hover {
+		cursor: pointer;
+		border-left: 3px solid ${colors.red};
+	}
 `;
 
 const PictureContainer = styled.div`

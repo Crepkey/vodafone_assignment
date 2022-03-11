@@ -18,8 +18,8 @@ const MainContainer = styled.div`
 
 const Letter = styled.div`
 	margin: 0 10px 0 10px;
-	transition: all 0.3s ease;
 	border-bottom: 3px solid rgba(0, 0, 0, 0);
+	transition: all 0.3s ease;
 	:hover {
 		border-bottom: 3px solid ${colors.red};
 		cursor: pointer;
