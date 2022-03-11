@@ -11,7 +11,7 @@ const MainContainer = styled.div`
 	flex-wrap: wrap;
 	justify-content: center;
 	gap: 30px;
-	width: 80%;
+	width: 100%;
 	min-height: 0;
 	min-width: 0;
 	overflow: scroll;

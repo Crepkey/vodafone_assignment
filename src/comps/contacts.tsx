@@ -13,13 +13,14 @@ import styled from "styled-components";
 import ContactCards from "./contactCards";
 
 const MainContainer = styled.div`
+	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	flex: 1;
 	min-height: 0;
 	min-width: 0;
-	padding-top: 10px;
+	padding: 10px 10%;
 `;
 
 interface ContactsProps {

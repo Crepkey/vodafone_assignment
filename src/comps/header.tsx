@@ -6,11 +6,12 @@ import styled from "styled-components";
 import { colors } from "../utils/colors";
 
 const MainContainer = styled.div`
+	box-sizing: border-box;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 10px 0;
-	width: 80%;
+	padding: 10px 15%;
+	width: 100%;
 `;
 
 const Logo = styled.img`
