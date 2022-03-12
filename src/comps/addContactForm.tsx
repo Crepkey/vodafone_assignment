@@ -37,7 +37,7 @@ const Input = styled.input`
 `;
 
 /* REFACTOR: Standalone normal button component */
-const AddContactButton = styled.div`
+const AddContactButton = styled.button`
 	width: 100px;
 	height: 30px;
 	text-align: center;
@@ -55,10 +55,15 @@ const AddContactButton = styled.div`
 `;
 
 export default function AddContactForm() {
+	const handleSubmit = (event: React.SyntheticEvent) => {
+		event.preventDefault();
+		console.log("Submitted");
+	};
+
 	return (
 		<MainContainer>
 			<PageTitle text="Add New Contact" />
-			<Form>
+			<Form onSubmit={handleSubmit}>
 				<Label htmlFor="first_name">First Name</Label>
 				<Input type="text" id="first_name" placeholder="Enter first name" />
 				<Label htmlFor="last_name">Last Name</Label>
