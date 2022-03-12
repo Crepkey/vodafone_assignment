@@ -21,16 +21,18 @@ const MainContainer = styled.div`
 		padding-top: 20px;
 		flex-direction: column;
 		align-items: left;
+	}
+	@media screen and (max-width: ${breakePoints.mobileL}) {
+		width: 80%;
 	} ;
-`;
-
-const LinkWrapper = styled(Link)`
-	width: 200px;
 `;
 
 const Logo = styled.img`
 	width: 20%;
 	min-width: 200px;
+	@media screen and (max-width: ${breakePoints.mobileL}) {
+		width: 100%;
+	} ;
 `;
 
 const SearchField = styled.input`
@@ -42,15 +44,16 @@ const SearchField = styled.input`
 	padding: 5px 10px;
 	@media screen and (max-width: ${breakePoints.largeCompactView}) {
 		margin-top: 25px;
+	}
+	@media screen and (max-width: ${breakePoints.mobileL}) {
+		display: none;
 	} ;
 `;
 
 export default function Header() {
 	return (
 		<MainContainer>
-			<LinkWrapper to="/">
-				<Logo src={vodafoneLogoPath} alt="This is the official logo of Vodafone company" />
-			</LinkWrapper>
+			<Logo src={vodafoneLogoPath} alt="This is the official logo of Vodafone company" />
 			<SearchField type="search" placeholder="Search for contact" />
 		</MainContainer>
 	);
