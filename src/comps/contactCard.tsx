@@ -25,9 +25,8 @@ const MainContainer = styled.div`
 		border-left: 3px solid ${colors.red};
 	}
 	@media screen and (max-width: ${breakePoints.smallCompactView}) {
-		width: 100%;
-		min-width: 300px;
-	} ;
+		width: 90%;
+	}
 `;
 
 const PictureContainer = styled.div`

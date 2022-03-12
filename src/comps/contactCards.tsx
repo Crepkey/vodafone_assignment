@@ -21,8 +21,15 @@ const MainContainer = styled.div`
 	overflow: auto;
 	padding-bottom: 20px;
 	@media screen and (max-width: ${breakePoints.smallCompactView}) {
-		grid-template-columns: repeat(auto-fill, 80%);
-	} ;
+		display: flex;
+		flex-direction: column;
+		gap: 30px;
+		align-items: center;
+		justify-content: flex-start;
+	}
+	@media screen and (max-width: ${breakePoints.smallCompactView}) {
+		width: 100%;
+	}
 `;
 
 interface ContactCardProps {
