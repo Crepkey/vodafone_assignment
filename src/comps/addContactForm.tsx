@@ -7,6 +7,7 @@ import set from "lodash/set";
 
 /* Components */
 import PageTitle from "./pageTitle";
+import Input from "./common/input";
 
 /* Interfaces */
 import { NewContact } from "../utils/interfaces";
@@ -29,21 +30,6 @@ const Form = styled.form`
 	flex-direction: column;
 	width: 70%;
 	padding: 20px 0;
-`;
-
-const Label = styled.label`
-	color: ${colors.fieldLabel};
-	font-size: 0.9rem;
-	margin-top: 5px;
-`;
-/* REFACTOR: Standalone input component */
-const Input = styled.input`
-	margin: 10px 0;
-	border: 1px ${colors.fieldBorder} solid;
-	border-radius: 5px;
-	height: 25px;
-	font-size: 0.9rem;
-	padding: 5px 10px;
 `;
 
 /* REFACTOR: Standalone normal button component */
@@ -72,9 +58,7 @@ export default function AddContactForm() {
 		console.log("Submitted");
 	};
 
-	/* TODO: Typescript type for event */
-	const handleChange = (event: any) => {
-		console.log(event);
+	const handleChange = (event: React.BaseSyntheticEvent) => {
 		const newContact: NewContact = { ...contact };
 		set(newContact, event.currentTarget.name, event.currentTarget.value);
 		setContact(newContact);
@@ -84,16 +68,11 @@ export default function AddContactForm() {
 		<MainContainer>
 			<PageTitle text="Add New Contact" />
 			<Form onSubmit={handleSubmit}>
-				<Label htmlFor="first_name">First Name</Label>
-				<Input type="text" id="first_name" placeholder="Enter first name" name="name.first" onChange={handleChange} />
-				<Label htmlFor="last_name">Last Name</Label>
-				<Input type="text" id="last_name" placeholder="Enter last name" name="name.last" onChange={handleChange} />
-				<Label htmlFor="email">Email</Label>
-				<Input type="text" id="email" placeholder="Enter Email" name="email" onChange={handleChange} />
-				<Label htmlFor="phone">Phone</Label>
-				<Input type="text" id="phone" placeholder="Enter Phone" name="phone" onChange={handleChange} />
-				<Label htmlFor="address">Address</Label>
-				<Input type="text" id="address" placeholder="Enter Address" name="location.street" onChange={handleChange} />
+				<Input label="First Name" placeHolder="Enter first name" path="name.first" onChange={handleChange} />
+				<Input label="Last Name" placeHolder="Enter last name" path="name.last" onChange={handleChange} />
+				<Input label="Email" placeHolder="Enter Email" path="email" onChange={handleChange} />
+				<Input label="Phone" placeHolder="Enter Phone" path="phone" onChange={handleChange} />
+				<Input label="Address" placeHolder="Enter Address" path="location.street" onChange={handleChange} />
 				<AddContactButton>Add contact</AddContactButton>
 			</Form>
 		</MainContainer>
