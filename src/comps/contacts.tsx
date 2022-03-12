@@ -1,5 +1,6 @@
 /* React */
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 /* Utils */
 import { breakePoints } from "../utils/utils";
@@ -66,7 +67,9 @@ export default function Contacts({ contacts }: ContactsProps) {
 			<PageTitle text="Contacts" />
 			<FilterBar contacts={contacts} />
 			<ContactCards displayedContacts={displayedContacts} />
-			<AddNewContactButton>+</AddNewContactButton>
+			<Link to="/add_new_contact">
+				<AddNewContactButton>+</AddNewContactButton>
+			</Link>
 		</MainContainer>
 	);
 }
