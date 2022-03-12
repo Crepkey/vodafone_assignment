@@ -39,7 +39,6 @@ function App() {
 	}, []);
 
 	/* FIXME: Error handling is important */
-	/* TODO: ID Validation is better here than inside of the contactCards comp */
 	async function getContacts(results: number) {
 		const response: Response = await fetch(
 			`https://randomuser.me/api/?inc=id,name,email,phone,location,picture&results=${results}&nat=us,dk,fr,gb&nat=au,br,ca,ch,de,dk,es,fi,fr,gb,ie,no,nl,nz,us&seed=hire_me`,
