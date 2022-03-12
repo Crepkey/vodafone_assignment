@@ -8,8 +8,9 @@ import { colors } from "../utils/colors";
 
 const MainContainer = styled.div`
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: center;
-	width: 100%;
+	width: 70%;
 	color: ${colors.filterBar};
 	font-size: 1.3rem;
 	font-weight: 500;
