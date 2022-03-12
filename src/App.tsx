@@ -2,6 +2,9 @@
 import { useEffect, useState } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 
+/* Utils */
+import { generateID } from "./utils/utils";
+
 /* Interfaces */
 import { Contact } from "./utils/interfaces";
 
@@ -45,7 +48,28 @@ function App() {
 		if ("error" in parsedResponse) {
 			console.log("ERROR");
 		}
-		setContacts(parsedResponse.results);
+		/* 
+			There is no ID in some cases in the contact object that I get from the server, 
+			therefore I need to validate them and replace the empty IDs with a randomly generated data.
+			DISCLAIMER: Theoritically, it can happen that I can generate the same ID which is already used by a contact.
+			But the chances of this happening are quite slim.
+		*/
+		const validatedContacts: Contact[] = validateIDs(parsedResponse.results);
+		setContacts(validatedContacts);
+	}
+
+	function validateIDs(contacts: Contact[]) {
+		if (contacts.length === 0) return contacts;
+
+		for (const contact of contacts) {
+			if (["", null, undefined].includes(contact.id.name)) {
+				contact.id.name = generateID("name");
+			}
+			if (["", null, undefined].includes(contact.id.value)) {
+				contact.id.value = generateID("value");
+			}
+		}
+		return contacts;
 	}
 
 	/* This exit point is necessary to avoid a useless rendering until all the necessary data has arrived */
