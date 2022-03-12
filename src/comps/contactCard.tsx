@@ -44,24 +44,36 @@ const DetailsContainer = styled.div`
 	flex-direction: column;
 	justify-content: space-between;
 	padding-left: 10px;
-	width: 100%;
+	width: calc(100% - 90px);
 `;
 
 const ContactName = styled.div`
+	width: 100%;
 	color: ${colors.contactName};
 	font-weight: 500;
 	font-size: 1rem;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 `;
 
 const ContactEmail = styled.div`
+	width: 100%;
 	color: ${colors.contactDetails};
 	font-size: 0.75rem;
 	font-weight: 500;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 `;
 const ContactPhone = styled.div`
+	width: 100%;
 	color: ${colors.contactDetails};
 	font-size: 0.8rem;
 	margin-bottom: 10px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 `;
 
 interface ContactCardProps {
@@ -69,24 +81,15 @@ interface ContactCardProps {
 }
 
 export default function ContactCard({ contact }: ContactCardProps) {
-	function trimText(text: string, length: number) {
-		if (text.length < length) return text;
-
-		return text.slice(0, length) + "...";
-	}
-
 	return (
 		<MainContainer>
 			<PictureContainer>
 				<ContactPicture src={contact.picture.large} alt="This is the profile picture of the given contact" />
 			</PictureContainer>
 			<DetailsContainer>
-				{/* I applied the trim on the names separately because the div container can breake the line at the comma 
-                    but it cannot handle long (first or last) name which is longer ~25 characters 
-                    because there is no space in it where the div can breake the text*/}
-				<ContactName>{`${trimText(contact.name.first, 22)}, ${trimText(contact.name.last, 22)}`}</ContactName>
-				<ContactEmail>{trimText(contact.email, 27)}</ContactEmail>
-				<ContactPhone>{trimText(contact.phone, 27)}</ContactPhone>
+				<ContactName>{`${contact.name.first}, ${contact.name.last}`}</ContactName>
+				<ContactEmail>{contact.email}</ContactEmail>
+				<ContactPhone>{contact.phone}</ContactPhone>
 			</DetailsContainer>
 		</MainContainer>
 	);
