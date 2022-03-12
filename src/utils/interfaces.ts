@@ -33,3 +33,10 @@ export interface Contact {
 	location: ContactLocation;
 	picture: ContactPicture;
 }
+export interface NewContact {
+	id: ContactID;
+	name: ContactName;
+	phone: string;
+	email: string;
+	location: ContactLocation;
+}

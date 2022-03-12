@@ -1,5 +1,14 @@
+/* React */
+import { useState } from "react";
+
+/* Utils */
+import { emptyContact } from "../utils/utils";
+
 /* Components */
 import PageTitle from "./pageTitle";
+
+/* Interfaces */
+import { NewContact } from "../utils/interfaces";
 
 /* Styles */
 import styled from "styled-components";
@@ -55,6 +64,7 @@ const AddContactButton = styled.button`
 `;
 
 export default function AddContactForm() {
+	const [newContact, setNewContact] = useState<NewContact>(emptyContact);
 	const handleSubmit = (event: React.SyntheticEvent) => {
 		event.preventDefault();
 		console.log("Submitted");
