@@ -1,12 +1,14 @@
 /* React */
 import { useState } from "react";
 
+/* Utils */
+import { breakePoints } from "../utils/utils";
+
 /* Interfaces */
 import { Contact } from "../utils/interfaces";
 
 /* Components */
 import PageTitle from "./pageTitle";
-/* Components */
 import FilterBar from "./filterBar";
 import ContactCards from "./contactCards";
 
@@ -23,6 +25,9 @@ const MainContainer = styled.div`
 	min-height: 0;
 	min-width: 0;
 	padding: 10px 0;
+	@media screen and (max-width: ${breakePoints.mobileL}) {
+		padding-top: 0;
+	} ;
 `;
 
 const AddNewContactButton = styled.button`

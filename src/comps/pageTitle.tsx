@@ -1,3 +1,7 @@
+/* Utils */
+import { breakePoints } from "../utils/utils";
+
+/* Styles */
 import styled from "styled-components";
 import { colors } from "../utils/colors";
 
@@ -7,6 +11,9 @@ const MainContainer = styled.div`
 	align-items: center;
 	width: 100%;
 	padding: 10px 0;
+	@media screen and (max-width: ${breakePoints.mobileL}) {
+		padding-top: 0;
+	} ;
 `;
 
 const Title = styled.div`

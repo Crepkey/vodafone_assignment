@@ -23,6 +23,7 @@ const MainContainer = styled.div`
 		align-items: left;
 	}
 	@media screen and (max-width: ${breakePoints.mobileL}) {
+		padding-bottom: 0;
 		width: 80%;
 	} ;
 `;
