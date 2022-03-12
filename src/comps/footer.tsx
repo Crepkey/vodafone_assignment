@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { colors } from "../utils/colors";
+import { breakePoints } from "../utils/utils";
 
 const MainContainer = styled.div`
 	color: ${colors.title};
@@ -8,6 +9,9 @@ const MainContainer = styled.div`
 	padding: 10px 0;
 	font-size: 0.9rem;
 	margin-bottom: 20px;
+	@media screen and (max-width: ${breakePoints.tablet}) {
+		display: none;
+	}
 `;
 
 const BoldText = styled.div`

@@ -32,7 +32,7 @@ function App() {
 	const [contacts, setContacts] = useState<Contact[]>([]);
 
 	useEffect(() => {
-		getContacts(500);
+		getContacts(50);
 	}, []);
 
 	/* FIXME: Error handling is important */
