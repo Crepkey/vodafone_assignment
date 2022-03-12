@@ -1,3 +1,6 @@
+/* Utils */
+import { breakePoints } from "../utils/utils";
+
 /* Interfaces */
 import { Contact } from "../utils/interfaces";
 
@@ -17,6 +20,9 @@ const MainContainer = styled.div`
 	min-width: 0;
 	overflow: auto;
 	padding-bottom: 20px;
+	@media screen and (max-width: ${breakePoints.smallCompactView}) {
+		grid-template-columns: repeat(auto-fill, 80%);
+	} ;
 `;
 
 interface ContactCardProps {

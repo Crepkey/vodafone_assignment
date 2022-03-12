@@ -17,7 +17,7 @@ const MainContainer = styled.div`
 	justify-content: space-between;
 	padding: 10px;
 	width: 70%;
-	@media screen and (max-width: ${breakePoints.compact}) {
+	@media screen and (max-width: ${breakePoints.largeCompactView}) {
 		padding-top: 20px;
 		flex-direction: column;
 		align-items: left;
@@ -40,7 +40,7 @@ const SearchField = styled.input`
 	width: 350px;
 	font-size: 1rem;
 	padding: 5px 10px;
-	@media screen and (max-width: ${breakePoints.compact}) {
+	@media screen and (max-width: ${breakePoints.largeCompactView}) {
 		margin-top: 25px;
 	} ;
 `;

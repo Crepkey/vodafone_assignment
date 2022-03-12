@@ -1,3 +1,6 @@
+/* Utils */
+import { breakePoints } from "../utils/utils";
+
 /* Intefaces */
 import { Contact } from "../utils/interfaces";
 
@@ -21,6 +24,10 @@ const MainContainer = styled.div`
 		cursor: pointer;
 		border-left: 3px solid ${colors.red};
 	}
+	@media screen and (max-width: ${breakePoints.smallCompactView}) {
+		width: 100%;
+		min-width: 300px;
+	} ;
 `;
 
 const PictureContainer = styled.div`
