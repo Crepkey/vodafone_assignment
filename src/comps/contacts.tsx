@@ -15,14 +15,14 @@ import styled from "styled-components";
 import { colors } from "../utils/colors";
 
 const MainContainer = styled.div`
-	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	flex: 1;
+	width: 100%;
 	min-height: 0;
 	min-width: 0;
-	padding: 10px 10%;
+	padding: 10px 0;
 `;
 
 const AddNewContactButton = styled.button`

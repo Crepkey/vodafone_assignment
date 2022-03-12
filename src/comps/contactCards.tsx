@@ -8,12 +8,11 @@ import ContactCard from "./contactCard";
 import styled from "styled-components";
 
 const MainContainer = styled.div`
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
+	display: grid;
 	justify-content: center;
-	gap: 30px;
-	width: 100%;
+	grid-gap: 30px;
+	grid-template-columns: repeat(auto-fill, 316px);
+	width: 80%;
 	min-height: 0;
 	min-width: 0;
 	overflow: auto;
