@@ -18,4 +18,8 @@ export const colors: Colors = {
 	contactName: "rgba(0, 0, 0, 1)",
 	contactDetails: "rgba(143, 143, 143, 1)",
 	addContactButtonFont: "rgba(255, 255, 255, 1)",
+	fieldLabel: "rgba(132, 132, 132, 1)",
+
+	//BUTTONS
+	normalButton: "rgba(25, 25, 25, 1)",
 };

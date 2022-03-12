@@ -41,7 +41,7 @@ const SearchField = styled.input`
 	border-radius: 5px;
 	height: 35px;
 	width: 350px;
-	font-size: 1rem;
+	font-size: 0.9rem;
 	padding: 5px 10px;
 	@media screen and (max-width: ${breakePoints.largeCompactView}) {
 		margin-top: 25px;
