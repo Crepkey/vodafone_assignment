@@ -1,3 +1,9 @@
+/* React */
+import { Link } from "react-router-dom";
+
+/* Utils */
+import { breakePoints } from "../utils/utils";
+
 /* Images */
 import vodafoneLogoPath from "../img/vodafone_logo.svg";
 
@@ -11,6 +17,15 @@ const MainContainer = styled.div`
 	justify-content: space-between;
 	padding: 10px;
 	width: 70%;
+	@media screen and (max-width: ${breakePoints.compact}) {
+		padding-top: 20px;
+		flex-direction: column;
+		align-items: left;
+	} ;
+`;
+
+const LinkWrapper = styled(Link)`
+	width: 200px;
 `;
 
 const Logo = styled.img`
@@ -25,14 +40,17 @@ const SearchField = styled.input`
 	width: 350px;
 	font-size: 1rem;
 	padding: 5px 10px;
+	@media screen and (max-width: ${breakePoints.compact}) {
+		margin-top: 25px;
+	} ;
 `;
 
 export default function Header() {
 	return (
 		<MainContainer>
-			<a href="/">
+			<LinkWrapper to="/">
 				<Logo src={vodafoneLogoPath} alt="This is the official logo of Vodafone company" />
-			</a>
+			</LinkWrapper>
 			<SearchField type="search" placeholder="Search for contact" />
 		</MainContainer>
 	);
