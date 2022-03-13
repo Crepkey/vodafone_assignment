@@ -13,6 +13,7 @@ import Header from "./comps/header";
 import Contacts from "./comps/contacts";
 import Footer from "./comps/footer";
 import AddContactForm from "./comps/addContactForm";
+import contactPage from "./comps/contactPage";
 
 /* Styles */
 import styled from "styled-components";
@@ -85,6 +86,7 @@ function App() {
 			<Header />
 			<Switch>
 				{/* FIXME: Routing doesn't work in the deployed and published app on Netlify */}
+				<Route path="/contact/:id" component={contactPage} />
 				<Route path="/add_new_contact" render={() => <AddContactForm saveNewContact={saveNewContact} />} />
 				<Route path="/" exact render={() => <Contacts contacts={contacts} />} />
 				<Redirect to="/" />
