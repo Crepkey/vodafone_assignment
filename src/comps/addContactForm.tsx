@@ -4,6 +4,8 @@ import React, { useState } from "react";
 /* Utils */
 import { emptyContact } from "../utils/utils";
 import set from "lodash/set";
+import get from "lodash/get";
+import Joi from "joi";
 
 /* Components */
 import PageTitle from "./pageTitle";
@@ -52,9 +54,36 @@ const AddContactButton = styled.button`
 
 export default function AddContactForm() {
 	const [contact, setContact] = useState<NewContact>(emptyContact);
+	const [errors, setErrors] = useState<NewContact | {}>({});
+
+	/* TODO: Type is necessary */
+	const validationSchema = Joi.object({
+		name: { first: Joi.string().required().label("First name"), last: Joi.string().required().label("Last name") },
+		phone: Joi.string().required().label("Phone"),
+		email: Joi.string()
+			.email({ minDomainSegments: 2, tlds: { allow: false } })
+			.required()
+			.label("E-mail"),
+		location: { street: Joi.string().min(4).max(60).required().label("Location") },
+	});
+
+	function validateForm() {
+		const options: Joi.ValidationOptions = { abortEarly: false };
+		const { error }: Joi.ValidationResult<any> = validationSchema.validate(contact, options);
+		if (error) {
+			const newErrors = {};
+			const formErrors: Joi.ValidationErrorItem[] = error.details;
+			for (const error of formErrors) {
+				set(newErrors, error.path, error.message);
+			}
+			return setErrors(newErrors);
+		}
+		setErrors({});
+	}
 
 	const handleSubmit = (event: React.SyntheticEvent) => {
 		event.preventDefault();
+		validateForm();
 		console.log("Submitted");
 	};
 
@@ -68,11 +97,23 @@ export default function AddContactForm() {
 		<MainContainer>
 			<PageTitle text="Add New Contact" />
 			<Form onSubmit={handleSubmit}>
-				<Input label="First Name" placeHolder="Enter first name" path="name.first" onChange={handleChange} />
-				<Input label="Last Name" placeHolder="Enter last name" path="name.last" onChange={handleChange} />
-				<Input label="Email" placeHolder="Enter Email" path="email" onChange={handleChange} />
-				<Input label="Phone" placeHolder="Enter Phone" path="phone" onChange={handleChange} />
-				<Input label="Address" placeHolder="Enter Address" path="location.street" onChange={handleChange} />
+				<Input
+					label="First Name"
+					placeHolder="Enter first name"
+					path="name.first"
+					error={get(errors, "name.first")}
+					onChange={handleChange}
+				/>
+				<Input label="Last Name" placeHolder="Enter last name" path="name.last" error={get(errors, "name.last")} onChange={handleChange} />
+				<Input label="Email" placeHolder="Enter Email" path="email" error={get(errors, "email")} onChange={handleChange} />
+				<Input label="Phone" placeHolder="Enter Phone" path="phone" error={get(errors, "phone")} onChange={handleChange} />
+				<Input
+					label="Address"
+					placeHolder="Enter Address"
+					path="location.street"
+					error={get(errors, "location.street")}
+					onChange={handleChange}
+				/>
 				<AddContactButton>Add contact</AddContactButton>
 			</Form>
 		</MainContainer>

@@ -55,10 +55,8 @@ function generateIDClosure() {
 			} while (generatedValues.includes(ID));
 			generatedNames.push(ID);
 		}
-
 		return ID;
 	}
-
 	return createID;
 }
 
