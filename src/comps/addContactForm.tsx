@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { emptyContact } from "../utils/utils";
 import set from "lodash/set";
 import get from "lodash/get";
+import omit from "lodash/omit";
 import Joi from "joi";
 
 /* Components */
@@ -56,8 +57,7 @@ export default function AddContactForm() {
 	const [contact, setContact] = useState<NewContact>(emptyContact);
 	const [errors, setErrors] = useState<NewContact | {}>({});
 
-	/* TODO: Type is necessary */
-	const validationSchema = Joi.object({
+	const validationSchema = {
 		name: { first: Joi.string().required().label("First name"), last: Joi.string().required().label("Last name") },
 		phone: Joi.string().required().label("Phone"),
 		email: Joi.string()
@@ -65,11 +65,11 @@ export default function AddContactForm() {
 			.required()
 			.label("E-mail"),
 		location: { street: Joi.string().min(4).max(60).required().label("Location") },
-	});
+	};
 
 	function validateForm() {
 		const options: Joi.ValidationOptions = { abortEarly: false };
-		const { error }: Joi.ValidationResult<any> = validationSchema.validate(contact, options);
+		const { error }: Joi.ValidationResult<any> = Joi.object(validationSchema).validate(contact, options);
 		if (error) {
 			const newErrors = {};
 			const formErrors: Joi.ValidationErrorItem[] = error.details;
@@ -81,6 +81,21 @@ export default function AddContactForm() {
 		setErrors({});
 	}
 
+	function validateField(path: string, value: string) {
+		const subSchema = get(validationSchema, path);
+		const { error } = subSchema.validate(value);
+		if (error) {
+			const errorMessage = error.details[0].message;
+			const newError = { ...errors };
+			set(newError, path, errorMessage);
+			setErrors(newError);
+			return;
+		}
+		const newErrors = { ...errors };
+		const filteredErrors = omit(newErrors, path);
+		setErrors(filteredErrors);
+	}
+
 	const handleSubmit = (event: React.SyntheticEvent) => {
 		event.preventDefault();
 		validateForm();
@@ -88,6 +103,7 @@ export default function AddContactForm() {
 	};
 
 	const handleChange = (event: React.BaseSyntheticEvent) => {
+		validateField(event.currentTarget.name, event.currentTarget.value);
 		const newContact: NewContact = { ...contact };
 		set(newContact, event.currentTarget.name, event.currentTarget.value);
 		setContact(newContact);
