@@ -42,6 +42,7 @@ function App() {
 	/* FIXME: Error handling is important */
 	async function getContacts(results: number) {
 		const response: Response = await fetch(
+			/* TODO: DOT ENV FILE */
 			`https://randomuser.me/api/?inc=id,name,email,phone,location,picture&results=${results}&nat=us,dk,fr,gb&nat=au,br,ca,ch,de,dk,es,fi,fr,gb,ie,no,nl,nz,us&seed=hire_me`,
 		);
 		const parsedResponse: ParsedResponse = await response.json();
@@ -80,6 +81,7 @@ function App() {
 
 	/* This exit point is necessary to avoid a useless rendering until all the necessary data has arrived */
 	if (contacts.length === 0) return null;
+	console.log(contacts);
 
 	return (
 		<MainContainer>
