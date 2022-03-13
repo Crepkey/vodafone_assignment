@@ -72,8 +72,8 @@ export default function AddContactForm() {
 		const { error }: Joi.ValidationResult<any> = Joi.object(validationSchema).validate(contact, options);
 		if (error) {
 			const newErrors = {};
-			const formErrors: Joi.ValidationErrorItem[] = error.details;
-			for (const error of formErrors) {
+			const foundErrors: Joi.ValidationErrorItem[] = error.details;
+			for (const error of foundErrors) {
 				set(newErrors, error.path, error.message);
 			}
 			return setErrors(newErrors);
@@ -82,15 +82,16 @@ export default function AddContactForm() {
 	}
 
 	function validateField(path: string, value: string) {
-		const subSchema = get(validationSchema, path);
-		const { error } = subSchema.validate(value);
+		const subSchema: Joi.StringSchema = get(validationSchema, path);
+		const { error }: Joi.ValidationResult<any> = subSchema.validate(value);
+
 		if (error) {
-			const errorMessage = error.details[0].message;
-			const newError = { ...errors };
-			set(newError, path, errorMessage);
-			setErrors(newError);
-			return;
+			const newErrors = { ...errors };
+			const errorMessage: string = error.details[0].message;
+			set(newErrors, path, errorMessage);
+			return setErrors(newErrors);
 		}
+
 		const newErrors = { ...errors };
 		const filteredErrors = omit(newErrors, path);
 		setErrors(filteredErrors);
@@ -103,9 +104,12 @@ export default function AddContactForm() {
 	};
 
 	const handleChange = (event: React.BaseSyntheticEvent) => {
-		validateField(event.currentTarget.name, event.currentTarget.value);
+		const path: string = event.currentTarget.name;
+		const value: string = event.currentTarget.value;
+		validateField(path, value);
+
 		const newContact: NewContact = { ...contact };
-		set(newContact, event.currentTarget.name, event.currentTarget.value);
+		set(newContact, path, value);
 		setContact(newContact);
 	};
 
