@@ -2,10 +2,11 @@
 import React, { useState } from "react";
 
 /* Utils */
-import { emptyContact } from "../utils/utils";
+import { emptyContact, generateID } from "../utils/utils";
 import set from "lodash/set";
 import get from "lodash/get";
 import omit from "lodash/omit";
+import isEmpty from "lodash/isEmpty";
 import Joi from "joi";
 
 /* Components */
@@ -13,7 +14,10 @@ import PageTitle from "./pageTitle";
 import Input from "./common/input";
 
 /* Interfaces */
-import { NewContact } from "../utils/interfaces";
+import { Contact, ContactErrors } from "../utils/interfaces";
+
+/* Images */
+import contactProfilePic from "../img/new_contact_pic.jpg";
 
 /* Styles */
 import styled from "styled-components";
@@ -53,9 +57,13 @@ const AddContactButton = styled.button`
 	margin: 25px auto 0 auto;
 `;
 
-export default function AddContactForm() {
-	const [contact, setContact] = useState<NewContact>(emptyContact);
-	const [errors, setErrors] = useState<NewContact | {}>({});
+interface AddContactFormProps {
+	saveNewContact: (newContact: Contact) => void;
+}
+
+export default function AddContactForm({ saveNewContact }: AddContactFormProps) {
+	const [contact, setContact] = useState<Contact>(emptyContact);
+	const [errors, setErrors] = useState<ContactErrors>({});
 
 	const validationSchema = {
 		name: { first: Joi.string().required().label("First name"), last: Joi.string().required().label("Last name") },
@@ -76,10 +84,22 @@ export default function AddContactForm() {
 			for (const error of foundErrors) {
 				set(newErrors, error.path, error.message);
 			}
-			return setErrors(newErrors);
+			setErrors(newErrors);
 		}
 		setErrors({});
 	}
+
+	const handleSubmit = (event: React.SyntheticEvent) => {
+		event.preventDefault();
+		validateForm();
+
+		if (!isEmpty(errors)) return;
+
+		contact.picture.large = contactProfilePic;
+		contact.id.name = generateID("name");
+		contact.id.value = generateID("value");
+		saveNewContact(contact);
+	};
 
 	function validateField(path: string, value: string) {
 		const subSchema: Joi.StringSchema = get(validationSchema, path);
@@ -97,18 +117,12 @@ export default function AddContactForm() {
 		setErrors(filteredErrors);
 	}
 
-	const handleSubmit = (event: React.SyntheticEvent) => {
-		event.preventDefault();
-		validateForm();
-		console.log("Submitted");
-	};
-
 	const handleChange = (event: React.BaseSyntheticEvent) => {
 		const path: string = event.currentTarget.name;
 		const value: string = event.currentTarget.value;
 		validateField(path, value);
 
-		const newContact: NewContact = { ...contact };
+		const newContact: Contact = { ...contact };
 		set(newContact, path, value);
 		setContact(newContact);
 	};

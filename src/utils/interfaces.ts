@@ -33,10 +33,9 @@ export interface Contact {
 	location: ContactLocation;
 	picture: ContactPicture;
 }
-export interface NewContact {
-	id: ContactID;
-	name: ContactName;
-	phone: string;
-	email: string;
-	location: ContactLocation;
+export interface ContactErrors {
+	name?: ContactName;
+	phone?: string;
+	email?: string;
+	location?: string;
 }

@@ -71,6 +71,12 @@ function App() {
 		return contacts;
 	}
 
+	function saveNewContact(newContact: Contact) {
+		/* DISCLAIMER: There is no existed contact checking so it is possible to save the same contact twice */
+		const newContacts = [...contacts, newContact];
+		setContacts(newContacts);
+	}
+
 	/* This exit point is necessary to avoid a useless rendering until all the necessary data has arrived */
 	if (contacts.length === 0) return null;
 
@@ -79,7 +85,7 @@ function App() {
 			<Header />
 			<Switch>
 				{/* FIXME: Routing doesn't work in the deployed and published app on Netlify */}
-				<Route path="/add_new_contact" component={AddContactForm} />
+				<Route path="/add_new_contact" render={() => <AddContactForm saveNewContact={saveNewContact} />} />
 				<Route path="/" exact render={() => <Contacts contacts={contacts} />} />
 				<Redirect to="/" />
 			</Switch>
