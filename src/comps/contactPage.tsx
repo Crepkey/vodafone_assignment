@@ -46,6 +46,33 @@ const Email = styled.div`
 	display: inline;
 	color: ${colors.red};
 `;
+
+const Buttons = styled.div`
+	padding-top: 20px;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+`;
+
+const EditButton = styled.button`
+	padding: 6px 10px;
+	color: ${colors.normalButton};
+	background-color: rgba(0, 0, 0, 0);
+	border: 1px solid ${colors.normalButtons};
+	border-radius: 5px;
+	font-size: 0.9rem;
+	margin: 15px;
+`;
+
+const DeleteButton = styled.button`
+	padding: 6px 10px;
+	color: ${colors.red};
+	background-color: rgba(0, 0, 0, 0);
+	border: 1px solid ${colors.red};
+	border-radius: 5px;
+	font-size: 0.9rem;
+	margin: 15px;
+`;
 interface MatchParams {
 	id: string;
 }
@@ -69,6 +96,10 @@ export default function ContactPage({ contacts, match }: ContactPageProps) {
 					<div>Address: Budapest, 1181 Csontváry Kosztka Tivadar utca 11. VII. emelet 42. ajtó.</div>
 				</ContactDetails>
 			</ContactInformations>
+			<Buttons>
+				<DeleteButton>Delete</DeleteButton>
+				<EditButton>Edit</EditButton>
+			</Buttons>
 		</MainContainer>
 	);
 }
