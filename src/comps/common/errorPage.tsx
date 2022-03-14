@@ -1,6 +1,11 @@
+/* Icons */
+import { FaBeer } from "react-icons/fa";
+
+/* Components */
+import PageTitle from "../pageTitle";
+
 /* Styles */
 import styled from "styled-components";
-import PageTitle from "../pageTitle";
 
 const MainContainer = styled.div`
 	display: flex;
@@ -28,6 +33,7 @@ export default function ErrorPage({ title, details, button, buttonText, URLForRe
 	return (
 		<MainContainer>
 			<PageTitle text={title} />
+			<FaBeer size={200} />
 			<Details>{details}</Details>
 		</MainContainer>
 	);
