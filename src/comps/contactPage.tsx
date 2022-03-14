@@ -2,6 +2,9 @@
 import { RouteComponentProps } from "react-router-dom";
 import { Contact } from "../utils/interfaces";
 
+/* Utils */
+import { breakePoints } from "../utils/utils";
+
 /* Components */
 import PageTitle from "./pageTitle";
 
@@ -22,10 +25,15 @@ const MainContainer = styled.div`
 
 const ContactInformations = styled.div`
 	display: flex;
-	flex-wrap: wrap;
-	height: 110px;
-	width: 400px;
 	margin-top: 20px;
+	padding: 0 10px;
+	@media screen and (max-width: ${breakePoints.mobileL}) {
+		flex-direction: column;
+		align-items: center;
+		height: auto;
+		width: auto;
+		padding: 0 10px;
+	} ;
 `;
 
 const ContactPicture = styled.img`
@@ -37,9 +45,17 @@ const ContactDetails = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
-	width: 270px;
 	padding-left: 20px;
 	font-size: 0.9rem;
+	@media screen and (max-width: ${breakePoints.mobileL}) {
+		padding: 20px 0 0 0;
+		width: 100%;
+	} ;
+`;
+
+const ContactDetail = styled.div`
+	max-width: 400px;
+	margin-bottom: 5px;
 `;
 
 const Email = styled.div`
@@ -89,11 +105,17 @@ export default function ContactPage({ contacts, match }: ContactPageProps) {
 			<ContactInformations>
 				<ContactPicture src={contacts[0].picture.large} alt="This is the profile picture of the given contact" />
 				<ContactDetails>
-					<div>
-						E-mail: <Email>marion.jordan@gexample.com</Email>
-					</div>
-					<div>Phone: +3670-351-36-51</div>
-					<div>Address: Budapest, 1181 Csontváry Kosztka Tivadar utca 11. VII. emelet 42. ajtó.</div>
+					<ContactDetail>
+						<b>E-mail:</b> <Email>marion.jordan@gexample.com</Email>
+					</ContactDetail>
+					<ContactDetail>
+						<b>Phone:</b> +3670-351-36-51
+					</ContactDetail>
+					<ContactDetail>
+						<b>Address:</b> Budapest, 1181 Csontváry Kosztka Tivadar utca 11. VII. emelet 42. ajtó. Lorem ipsum dolor sit amet consectetur
+						adipisicing elit. Dolorum nulla aspernatur, reiciendis, possimus autem iure architecto corrupti porro saepe debitis quasi
+						dolore ratione exercitationem vitae officia laudantium veniam odit ipsam?
+					</ContactDetail>
 				</ContactDetails>
 			</ContactInformations>
 			<Buttons>
