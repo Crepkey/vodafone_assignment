@@ -103,8 +103,9 @@ export default function ContactPage({ contacts, match }: ContactPageProps) {
 	const contact: Contact = (() => {
 		return contacts.filter((contact: Contact) => contactID === contact.id.name + "-" + contact.id.value)[0];
 	})();
-
-	if (!contact) return <ErrorPage />;
+	/* TODO: Messages and texts for user notification have to go in a standalone file */
+	if (!contact)
+		return <ErrorPage title="Something went wrong" details={`The requested contact could not be found with the following ID: ${contactID}`} />;
 
 	return (
 		<MainContainer>
