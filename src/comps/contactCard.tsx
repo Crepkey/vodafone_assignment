@@ -1,3 +1,6 @@
+/* React */
+import { Link } from "react-router-dom";
+
 /* Utils */
 import { breakePoints } from "../utils/utils";
 
@@ -8,7 +11,12 @@ import { Contact } from "../utils/interfaces";
 import styled from "styled-components";
 import { colors } from "../utils/colors";
 
+const UndecoratedLink = styled(Link)`
+	text-decoration: none;
+`;
+
 const MainContainer = styled.div`
+	text-decoration: none;
 	display: flex;
 	width: 300px;
 	height: 80px;
@@ -82,15 +90,17 @@ interface ContactCardProps {
 
 export default function ContactCard({ contact }: ContactCardProps) {
 	return (
-		<MainContainer>
-			<PictureContainer>
-				<ContactPicture src={contact.picture.large} alt="This is the profile picture of the given contact" />
-			</PictureContainer>
-			<DetailsContainer>
-				<ContactName>{`${contact.name.first}, ${contact.name.last}`}</ContactName>
-				<ContactEmail>{contact.email}</ContactEmail>
-				<ContactPhone>{contact.phone}</ContactPhone>
-			</DetailsContainer>
-		</MainContainer>
+		<UndecoratedLink to={`/contact/${contact.id.name}-${contact.id.value}`}>
+			<MainContainer>
+				<PictureContainer>
+					<ContactPicture src={contact.picture.large} alt="This is the profile picture of the given contact" />
+				</PictureContainer>
+				<DetailsContainer>
+					<ContactName>{`${contact.name.first}, ${contact.name.last}`}</ContactName>
+					<ContactEmail>{contact.email}</ContactEmail>
+					<ContactPhone>{contact.phone}</ContactPhone>
+				</DetailsContainer>
+			</MainContainer>
+		</UndecoratedLink>
 	);
 }
