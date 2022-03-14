@@ -13,10 +13,11 @@ import Header from "./comps/header";
 import Contacts from "./comps/contacts";
 import Footer from "./comps/footer";
 import AddContactForm from "./comps/addContactForm";
-
 import ContactPage from "./comps/contactPage";
+
 /* Styles */
 import styled from "styled-components";
+import DeletedContactPage from "./comps/deletedContactPage";
 
 const MainContainer = styled.div`
 	display: flex;
@@ -79,6 +80,17 @@ function App() {
 		setContacts(newContacts);
 	}
 
+	function deleteContact(contactToDelete: Contact) {
+		const newContacts = contacts.filter(
+			(contact: Contact) => contactToDelete.id.name !== contact.id.name && contactToDelete.id.value !== contact.id.value,
+		);
+		setContacts(newContacts);
+		/* 
+			The order of server API call and set state function depends on the deletion logic. We have two ways: The first one is the optimistic and second one is the pesimistic way. 
+			I would prefer the pesimistic way when I don't modify state until the server response about the success of deletion. 
+		*/
+	}
+
 	/* This exit point is necessary to avoid a useless rendering until all the necessary data has arrived */
 	if (contacts.length === 0) return null;
 
@@ -87,6 +99,10 @@ function App() {
 			<Header />
 			<Switch>
 				{/* FIXME: Routing doesn't work in the deployed and published app on Netlify */}
+				<Route
+					path="/deleted_contact/:id"
+					render={(props) => <DeletedContactPage contacts={contacts} deleteContact={deleteContact} {...props} />}
+				/>
 				<Route path="/contact/:id" render={(props) => <ContactPage contacts={contacts} {...props} />} />
 				<Route path="/add_new_contact" render={() => <AddContactForm saveNewContact={saveNewContact} />} />
 				<Route path="/" exact render={() => <Contacts contacts={contacts} />} />

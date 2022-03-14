@@ -30,6 +30,7 @@ const Details = styled.div`
 	font-size: 1rem;
 	text-align: center;
 	padding: 20px;
+	max-width: 800px;
 `;
 
 const Button = styled.button`

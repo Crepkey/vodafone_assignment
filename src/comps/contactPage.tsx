@@ -1,5 +1,5 @@
 /* Interfaces */
-import { RouteComponentProps } from "react-router-dom";
+import { Link, RouteComponentProps } from "react-router-dom";
 import { Contact } from "../utils/interfaces";
 
 /* Utils */
@@ -134,7 +134,9 @@ export default function ContactPage({ contacts, match }: ContactPageProps) {
 				</ContactDetails>
 			</ContactInformations>
 			<Buttons>
-				<DeleteButton>Delete</DeleteButton>
+				<Link to={`/deleted_contact/${contactID}`}>
+					<DeleteButton>Delete</DeleteButton>
+				</Link>
 				<EditButton>Edit</EditButton>
 			</Buttons>
 		</MainContainer>
