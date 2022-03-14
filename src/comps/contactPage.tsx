@@ -11,6 +11,7 @@ import PageTitle from "./pageTitle";
 /* Styles */
 import styled from "styled-components";
 import { colors } from "../utils/colors";
+import ErrorPage from "./common/errorPage";
 
 const MainContainer = styled.div`
 	display: flex;
@@ -103,7 +104,7 @@ export default function ContactPage({ contacts, match }: ContactPageProps) {
 		return contacts.filter((contact: Contact) => contactID === contact.id.name + "-" + contact.id.value)[0];
 	})();
 
-	console.log(contactID);
+	if (!contact) return <ErrorPage />;
 
 	return (
 		<MainContainer>
