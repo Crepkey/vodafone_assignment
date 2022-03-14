@@ -35,6 +35,10 @@ const Details = styled.div`
 	padding: 20px;
 `;
 
+const ButtonContainer = styled.div`
+	text-align: center;
+`;
+
 const GoBackButton = styled.button`
 	padding: 6px 10px;
 	color: ${colors.red};
@@ -108,14 +112,14 @@ export default function DeletedContactPage({ contacts, match, deleteContact }: D
 			<Details>
 				{`Your contact`} <b>{`${contact.name.first} ${contact.name.last}`}</b> {`has been removed from your contacts successfully`}
 			</Details>
-			<div>
+			<ButtonContainer>
 				<Link to="/">
 					<GoBackButton onClick={() => deleteContact(contact)}>Go back to the contacts</GoBackButton>
 				</Link>
 				<Link to="/">
 					<UndoButton>Undo</UndoButton>
 				</Link>
-			</div>
+			</ButtonContainer>
 		</MainContainer>
 	);
 }
