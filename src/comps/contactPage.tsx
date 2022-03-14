@@ -105,7 +105,15 @@ export default function ContactPage({ contacts, match }: ContactPageProps) {
 	})();
 	/* TODO: Messages and texts for user notification have to go in a standalone file */
 	if (!contact)
-		return <ErrorPage title="Something went wrong" details={`The requested contact could not be found with the following ID: ${contactID}`} />;
+		return (
+			<ErrorPage
+				title="Something went wrong"
+				details={`The requested contact could not be found with the following ID: ${contactID}`}
+				button={true}
+				buttonText="Go back to the contacts"
+				URLForRedirection="/"
+			/>
+		);
 
 	return (
 		<MainContainer>
