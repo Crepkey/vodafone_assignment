@@ -18,6 +18,7 @@ const MainContainer = styled.div`
 
 const Title = styled.div`
 	display: flex;
+	text-align: center;
 	justify-content: center;
 	font-size: 1.7rem;
 	font-weight: 500;
