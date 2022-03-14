@@ -98,23 +98,27 @@ interface ContactPageProps extends RouteComponentProps<MatchParams> {
 }
 
 export default function ContactPage({ contacts, match }: ContactPageProps) {
-	/* {match.params.id} */
+	const contactID: string = match.params.id;
+	const contact: Contact = (() => {
+		const [name, value] = contactID.split("-");
+		return contacts.filter((contact: Contact) => name === contact.id.name && value === contact.id.value)[0];
+	})();
+
 	return (
 		<MainContainer>
-			<PageTitle text={`${contacts[0].name.first}, ${contacts[0].name.last}'s Profile`} />
+			<PageTitle text={`${contact.name.first}, ${contact.name.last}'s Profile`} />
 			<ContactInformations>
-				<ContactPicture src={contacts[0].picture.large} alt="This is the profile picture of the given contact" />
+				<ContactPicture src={contact.picture.large} alt="This is the profile picture of the given contact" />
 				<ContactDetails>
 					<ContactDetail>
-						<b>E-mail:</b> <Email>marion.jordan@gexample.com</Email>
+						<b>E-mail:</b> <Email>{contact.email}</Email>
 					</ContactDetail>
 					<ContactDetail>
-						<b>Phone:</b> +3670-351-36-51
+						<b>Phone:</b> {contact.phone}
 					</ContactDetail>
 					<ContactDetail>
-						<b>Address:</b> Budapest, 1181 Csontváry Kosztka Tivadar utca 11. VII. emelet 42. ajtó. Lorem ipsum dolor sit amet consectetur
-						adipisicing elit. Dolorum nulla aspernatur, reiciendis, possimus autem iure architecto corrupti porro saepe debitis quasi
-						dolore ratione exercitationem vitae officia laudantium veniam odit ipsam?
+						<b>Address:</b>{" "}
+						{`${contact.location.street.number} ${contact.location.street.name} ${contact.location.city} ${contact.location.state} ${contact.location.postcode} ${contact.location.country}`}
 					</ContactDetail>
 				</ContactDetails>
 			</ContactInformations>
