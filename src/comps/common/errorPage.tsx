@@ -3,7 +3,6 @@ import styled from "styled-components";
 import PageTitle from "../pageTitle";
 
 const MainContainer = styled.div`
-	border: 1px solid red;
 	display: flex;
 	flex-direction: column;
 	flex: 1;
