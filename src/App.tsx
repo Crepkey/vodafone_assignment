@@ -81,7 +81,6 @@ function App() {
 
 	/* This exit point is necessary to avoid a useless rendering until all the necessary data has arrived */
 	if (contacts.length === 0) return null;
-	console.log(contacts);
 
 	return (
 		<MainContainer>

@@ -100,9 +100,10 @@ interface ContactPageProps extends RouteComponentProps<MatchParams> {
 export default function ContactPage({ contacts, match }: ContactPageProps) {
 	const contactID: string = match.params.id;
 	const contact: Contact = (() => {
-		const [name, value] = contactID.split("-");
-		return contacts.filter((contact: Contact) => name === contact.id.name && value === contact.id.value)[0];
+		return contacts.filter((contact: Contact) => contactID === contact.id.name + "-" + contact.id.value)[0];
 	})();
+
+	console.log(contactID);
 
 	return (
 		<MainContainer>
