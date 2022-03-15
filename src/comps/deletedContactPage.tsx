@@ -9,7 +9,7 @@ import { Contact } from "../utils/interfaces";
 
 /* Components */
 import PageTitle from "./pageTitle";
-import ErrorPage from "./common/errorPage";
+import ErrorPage from "./common/InfoPage";
 
 /* Styles */
 import styled from "styled-components";

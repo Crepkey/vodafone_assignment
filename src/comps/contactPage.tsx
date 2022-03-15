@@ -11,7 +11,7 @@ import PageTitle from "./pageTitle";
 /* Styles */
 import styled from "styled-components";
 import { colors } from "../utils/colors";
-import ErrorPage from "./common/errorPage";
+import ErrorPage from "./common/InfoPage";
 
 const MainContainer = styled.div`
 	display: flex;
