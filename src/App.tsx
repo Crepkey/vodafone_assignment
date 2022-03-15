@@ -35,6 +35,7 @@ interface ParsedResponse {
 
 function App() {
 	const [contacts, setContacts] = useState<Contact[]>([]);
+	const [filteredContacts, setFilteredContacts] = useState<Contact[]>([]);
 	const [deletedContact, setDeletedContacts] = useState<Contact>();
 
 	useEffect(() => {
@@ -98,6 +99,11 @@ function App() {
 		setContacts(newContacts);
 	}
 
+	function filterContacts(searchLetter: string) {
+		const filteredContacts = contacts.filter((contact: Contact) => contact.name.first.charAt(0) === searchLetter);
+		setFilteredContacts(filteredContacts);
+	}
+
 	/* This exit point is necessary to avoid a useless rendering until all the necessary data has arrived */
 	if (contacts.length === 0) return null;
 
@@ -112,7 +118,11 @@ function App() {
 				/>
 				<Route path="/contact/:id" render={(props) => <ContactPage contacts={contacts} deleteContact={deleteContact} {...props} />} />
 				<Route path="/add_new_contact" render={() => <AddContactForm saveNewContact={saveNewContact} />} />
-				<Route path="/" exact render={() => <Contacts contacts={contacts} />} />
+				<Route
+					path="/"
+					exact
+					render={() => <Contacts contacts={contacts} filteredContacts={filteredContacts} filterContacts={filterContacts} />}
+				/>
 				<Redirect to="/" />
 			</Switch>
 			<Footer />

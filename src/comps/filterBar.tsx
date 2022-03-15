@@ -5,6 +5,7 @@ import uniq from "lodash/uniq";
 /* Styles */
 import styled from "styled-components";
 import { colors } from "../utils/colors";
+import { useEffect } from "react";
 
 const MainContainer = styled.div`
 	display: flex;
@@ -29,19 +30,26 @@ const Letter = styled.div`
 
 interface FilterBarProps {
 	contacts: Contact[];
+	filterContacts(searchLetter: string): void;
 }
 
-export default function FilterBar({ contacts }: FilterBarProps) {
+export default function FilterBar({ contacts, filterContacts }: FilterBarProps) {
 	const letters: string[] = (() => {
 		const AllFirstLetter: string[] = contacts.map((contact: Contact) => contact.name.first.charAt(0));
 		const uniqLetters: string[] = uniq(AllFirstLetter);
 		return uniqLetters.sort();
 	})();
 
+	useEffect(() => {
+		filterContacts(letters[0]);
+	}, []);
+
 	return (
 		<MainContainer>
 			{letters.map((letter: string) => (
-				<Letter key={letter}>{letter}</Letter>
+				<Letter key={letter} onClick={() => filterContacts(letter)}>
+					{letter}
+				</Letter>
 			))}
 		</MainContainer>
 	);

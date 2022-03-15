@@ -57,16 +57,16 @@ const AddNewContactButton = styled.button`
 
 interface ContactsProps {
 	contacts: Contact[];
+	filteredContacts: Contact[];
+	filterContacts(searchLetter: string): void;
 }
 
-export default function Contacts({ contacts }: ContactsProps) {
-	const [displayedContacts, setDisplayedContacts] = useState<Contact[]>(contacts);
-
+export default function Contacts({ contacts, filteredContacts, filterContacts }: ContactsProps) {
 	return (
 		<MainContainer>
 			<PageTitle text="Contacts" />
-			<FilterBar contacts={contacts} />
-			<ContactCards displayedContacts={displayedContacts} />
+			<FilterBar contacts={contacts} filterContacts={filterContacts} />
+			<ContactCards contacts={filteredContacts} />
 			<Link to="/add_new_contact">
 				<AddNewContactButton>+</AddNewContactButton>
 			</Link>

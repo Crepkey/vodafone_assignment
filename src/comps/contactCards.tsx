@@ -33,9 +33,9 @@ const MainContainer = styled.div`
 `;
 
 interface ContactCardProps {
-	displayedContacts: Contact[];
+	contacts: Contact[];
 }
-export default function ContactCards({ displayedContacts }: ContactCardProps) {
+export default function ContactCards({ contacts: displayedContacts }: ContactCardProps) {
 	return (
 		<MainContainer>
 			{displayedContacts.map((contact: Contact, index: number) => (

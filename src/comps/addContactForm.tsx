@@ -64,6 +64,7 @@ interface AddContactFormProps {
 }
 
 export default function AddContactForm({ saveNewContact }: AddContactFormProps) {
+	/* REFACTOR: BIG REFACTOR HERE BECAUSE THIS CODE IS REALLY UGLY */
 	const [contact, setContact] = useState<ContactFormFields>(emptyContactFormObj);
 	const [errors, setErrors] = useState<ContactErrors>({});
 	const history = useHistory();
