@@ -24,17 +24,18 @@ const ErrorMessage = styled.div`
 `;
 interface InputProps {
 	label: string;
-	path: string;
+	name: string;
 	placeHolder: string;
+	value: string;
 	error?: string;
 	onChange: (event: React.BaseSyntheticEvent) => void;
 }
 
-export default function Input({ label, path, placeHolder, error, onChange }: InputProps) {
+export default function Input({ label, name, placeHolder, value, error, onChange }: InputProps) {
 	return (
 		<>
-			<Label htmlFor={path}>{label}</Label>
-			<InputField type="text" id={path} placeholder={placeHolder} name={path} onChange={onChange} />
+			<Label htmlFor={name}>{label}</Label>
+			<InputField type="text" id={name} placeholder={placeHolder} name={name} onChange={onChange} value={value} />
 			<ErrorMessage>{error}</ErrorMessage>
 		</>
 	);
