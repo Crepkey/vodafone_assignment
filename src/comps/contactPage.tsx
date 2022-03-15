@@ -108,8 +108,13 @@ const Form = styled.form`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 45%;
+	width: 30%;
+	min-width: 300px;
 	padding: 20px 0;
+	@media screen and (max-width: ${breakePoints.mobileL}) {
+		width: 70%;
+		min-width: 0;
+	}
 `;
 
 const InputContainer = styled.div`
@@ -117,11 +122,18 @@ const InputContainer = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	width: 100%;
+	@media screen and (max-width: ${breakePoints.mobileL}) {
+		flex-direction: column;
+	}
 `;
 
 const Label = styled.label`
 	color: ${colors.fieldLabel};
 	font-size: 0.9rem;
+	margin-right: 10px;
+	@media screen and (max-width: ${breakePoints.mobileL}) {
+		margin: 0;
+	}
 `;
 
 const InputField = styled.input`
@@ -132,6 +144,9 @@ const InputField = styled.input`
 	width: 300px;
 	font-size: 0.9rem;
 	padding: 5px 10px;
+	@media screen and (max-width: ${breakePoints.mobileL}) {
+		width: calc(100% - 20px);
+	}
 `;
 
 const ErrorMessage = styled.div`
@@ -185,7 +200,42 @@ export default function ContactPage({ contacts, match, deleteContact }: ContactP
 							value={"ndsjcnsdjbcvsjkd"}
 						/>
 					</InputContainer>
-
+					<ErrorMessage>{"bwhbhsdbchsdjc"}</ErrorMessage>
+					<InputContainer>
+						<Label>{"First name"}</Label>
+						<InputField
+							type="text"
+							id={"first"}
+							placeholder={"Place holder"}
+							name={"first"}
+							onChange={() => {}}
+							value={"ndsjcnsdjbcvsjkd"}
+						/>
+					</InputContainer>
+					<ErrorMessage>{"bwhbhsdbchsdjc"}</ErrorMessage>
+					<InputContainer>
+						<Label>{"First name"}</Label>
+						<InputField
+							type="text"
+							id={"first"}
+							placeholder={"Place holder"}
+							name={"first"}
+							onChange={() => {}}
+							value={"ndsjcnsdjbcvsjkd"}
+						/>
+					</InputContainer>
+					<ErrorMessage>{"bwhbhsdbchsdjc"}</ErrorMessage>
+					<InputContainer>
+						<Label>{"First name"}</Label>
+						<InputField
+							type="text"
+							id={"first"}
+							placeholder={"Place holder"}
+							name={"first"}
+							onChange={() => {}}
+							value={"ndsjcnsdjbcvsjkd"}
+						/>
+					</InputContainer>
 					<ErrorMessage>{"bwhbhsdbchsdjc"}</ErrorMessage>
 				</Form>
 			) : (
