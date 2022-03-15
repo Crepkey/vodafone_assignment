@@ -103,6 +103,34 @@ const DeleteButton = styled.button`
 	font-size: 0.9rem;
 	margin: 15px;
 `;
+
+const Form = styled.form`
+	display: flex;
+	flex-direction: column;
+	width: 70%;
+	padding: 20px 0;
+`;
+
+const Label = styled.label`
+	color: ${colors.fieldLabel};
+	font-size: 0.9rem;
+`;
+
+const InputField = styled.input`
+	margin: 10px 0 0 0;
+	border: 1px ${colors.fieldBorder} solid;
+	border-radius: 5px;
+	height: 25px;
+	font-size: 0.9rem;
+	padding: 5px 10px;
+`;
+
+const ErrorMessage = styled.div`
+	color: ${colors.red};
+	font-size: 0.8rem;
+	text-align: right;
+	height: 0.8rem;
+`;
 interface MatchParams {
 	id: string;
 }
@@ -134,7 +162,11 @@ export default function ContactPage({ contacts, match, deleteContact }: ContactP
 	return (
 		<>
 			{isEditActive ? (
-				<div>valami</div>
+				<Form>
+					<Label htmlFor={"first"}>{"label"}</Label>
+					<InputField type="text" id={"first"} placeholder={"Place holder"} name={"first"} onChange={() => {}} value={"value"} />
+					<ErrorMessage>{"error"}</ErrorMessage>
+				</Form>
 			) : (
 				<MainContainer>
 					<PageTitle text={`${contact.name.first}, ${contact.name.last}'s Profile`} />
