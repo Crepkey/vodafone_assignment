@@ -100,8 +100,22 @@ function App() {
 	}
 
 	function filterContacts(searchLetter: string) {
-		const filteredContacts = contacts.filter((contact: Contact) => contact.name.first.charAt(0) === searchLetter);
+		const filteredContacts: Contact[] = contacts.filter((contact: Contact) => contact.name.first.charAt(0) === searchLetter);
 		setFilteredContacts(filteredContacts);
+	}
+
+	function searchInContacts(searchExpression: string) {
+		/* 
+			This is a very dumb search feature but it can be extended very easily with some more complex code.
+		*/
+		const foundContacts: Contact[] = contacts.filter((contact: Contact) => {
+			const firstChar: number = 0;
+			const lastChar: number = searchExpression.length;
+			const contactName: string = contact.name.first.substring(firstChar, lastChar).toLocaleLowerCase();
+			const expression: string = searchExpression.toLocaleLowerCase();
+			return contactName === expression;
+		});
+		setFilteredContacts(foundContacts);
 	}
 
 	/* This exit point is necessary to avoid a useless rendering until all the necessary data has arrived */
@@ -109,7 +123,7 @@ function App() {
 
 	return (
 		<MainContainer>
-			<Header />
+			<Header searchInContacts={searchInContacts} />
 			<Switch>
 				{/* FIXME: Routing doesn't work in the deployed and published app on Netlify */}
 				<Route

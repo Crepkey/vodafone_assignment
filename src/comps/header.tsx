@@ -10,6 +10,7 @@ import vodafoneLogoPath from "../img/vodafone_logo.svg";
 /* Styles */
 import styled from "styled-components";
 import { colors } from "../utils/colors";
+import { useState } from "react";
 
 const MainContainer = styled.div`
 	display: flex;
@@ -51,11 +52,22 @@ const SearchField = styled.input`
 	} ;
 `;
 
-export default function Header() {
+interface HeaderProps {
+	searchInContacts(searchExpression: string): void;
+}
+
+export default function Header({ searchInContacts }: HeaderProps) {
+	const [searchExpression, setSearchExpression] = useState<string>("");
+
+	const onChange = (event: React.BaseSyntheticEvent) => {
+		setSearchExpression(event.currentTarget.value);
+		searchInContacts(event.currentTarget.value);
+	};
+
 	return (
 		<MainContainer>
 			<Logo src={vodafoneLogoPath} alt="This is the official logo of Vodafone company" />
-			<SearchField type="search" placeholder="Search for contact" />
+			<SearchField type="search" placeholder="Search for contact" value={searchExpression} onChange={onChange} />
 		</MainContainer>
 	);
 }
