@@ -72,7 +72,12 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 		firstName: Joi.string().required().label("First name"),
 
 		lastName: Joi.string().required().label("Last name"),
-		phone: Joi.string().required().label("Phone") /* TODO: Only number with dashes */,
+		phone: Joi.string()
+			.trim()
+			.regex(/^[0-9]{7,20}$/)
+			.required()
+			.messages({ "string.pattern.base": "The phone number format is: 0123456789" })
+			.label("Phone number"),
 		email: Joi.string()
 			.email({ minDomainSegments: 2, tlds: { allow: false } })
 			.required()
