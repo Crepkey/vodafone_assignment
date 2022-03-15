@@ -1,4 +1,4 @@
-import { ContactFormFields } from "./interfaces";
+import { Contact, ContactFormFields } from "./interfaces";
 
 export const breakePoints = {
 	mobileS: "320px",
@@ -12,12 +12,29 @@ export const breakePoints = {
 	desktop: "2560px",
 };
 
-export const emptyContact: ContactFormFields = {
+export const emptyContactFormObj: ContactFormFields = {
 	firstName: "",
 	lastName: "",
 	phone: "",
 	email: "",
 	address: "",
+};
+
+export const emptyContactObj: Contact = {
+	id: { name: "", value: "" },
+	name: { first: "", last: "", title: "" },
+	phone: "",
+	email: "",
+	location: {
+		city: "",
+		coordinates: { latitude: "", longitude: "" },
+		country: "",
+		postcode: 0,
+		state: "",
+		street: { number: 0, name: "" },
+		timezone: { offset: "", description: "" },
+	},
+	picture: { large: "", medium: "", thumbnail: "" },
 };
 
 /* 

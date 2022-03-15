@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 /* Utils */
-import { emptyContact, generateID } from "../utils/utils";
+import { emptyContactFormObj, emptyContactObj, generateID } from "../utils/utils";
 import set from "lodash/set";
 import get from "lodash/get";
 import omit from "lodash/omit";
@@ -23,6 +23,7 @@ import contactProfilePic from "../img/new_contact_pic.jpg";
 import styled from "styled-components";
 import { colors } from "../utils/colors";
 import { useHistory } from "react-router-dom";
+import { cloneDeep } from "lodash";
 
 const MainContainer = styled.div`
 	display: flex;
@@ -63,7 +64,7 @@ interface AddContactFormProps {
 }
 
 export default function AddContactForm({ saveNewContact }: AddContactFormProps) {
-	const [contact, setContact] = useState<ContactFormFields>(emptyContact);
+	const [contact, setContact] = useState<ContactFormFields>(emptyContactFormObj);
 	const [errors, setErrors] = useState<ContactErrors>({});
 	const history = useHistory();
 
@@ -93,20 +94,25 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 		setErrors({});
 	} */
 
-	/* const handleSubmit = (event: React.SyntheticEvent) => {
+	const handleSubmit = (event: React.SyntheticEvent) => {
 		event.preventDefault();
-		validateForm();
+		/* validateForm(); */
 
-		if (!isEmpty(errors)) return;
+		/* if (!isEmpty(errors)) return; */
 
-		const newContact: Contact = { ...contact };
+		const newContact: Contact = cloneDeep(emptyContactObj);
+		set(newContact, "name.first", contact.firstName);
+		set(newContact, "name.last", contact.lastName);
+		set(newContact, "email", contact.email);
+		set(newContact, "phone", contact.phone);
+		set(newContact, "location.street.name", contact.address);
 		set(newContact, "id.name", generateID("name"));
 		set(newContact, "id.value", generateID("value"));
 		set(newContact, "picture.large", contactProfilePic);
 
-		saveNewContact(contact);
+		saveNewContact(newContact);
 		history.push("/");
-	}; */
+	};
 
 	function validateField(name: string, value: string) {
 		const subSchema: Joi.StringSchema = get(validationSchema, name);
@@ -137,7 +143,7 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 	return (
 		<MainContainer>
 			<PageTitle text="Add New Contact" />
-			<Form>
+			<Form onSubmit={handleSubmit}>
 				<Input
 					label="First Name"
 					placeHolder="Enter first name"
