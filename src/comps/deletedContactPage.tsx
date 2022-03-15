@@ -79,26 +79,15 @@ const UndoButton = styled.button`
 	}
 `;
 
-interface MatchParams {
-	id: string;
+interface DeletedContactPageProps {
+	deletedContact: Contact | undefined;
 }
-
-interface DeletedContactPageProps extends RouteComponentProps<MatchParams> {
-	contacts: Contact[];
-	deleteContact: (deleteToContact: Contact) => void;
-}
-
-export default function DeletedContactPage({ contacts, match, deleteContact }: DeletedContactPageProps) {
-	const contactID: string = match.params.id;
-	const contact: Contact = (() => {
-		return contacts.filter((contact: Contact) => contactID === contact.id.name + "-" + contact.id.value)[0];
-	})();
-
-	if (!contact)
+export default function DeletedContactPage({ deletedContact }: DeletedContactPageProps) {
+	if (!deletedContact)
 		return (
 			<ErrorPage
 				title="Something went wrong"
-				details={`The requested page is not valid. The contact could not be found with the following ID: ${contactID}. Please check the contact on the Contact Page.`}
+				details={`The requested page is not valid. Please go back to the Contact Page.`}
 				button={true}
 				buttonText="Go back to the contacts"
 				URLForRedirection="/"
@@ -108,13 +97,14 @@ export default function DeletedContactPage({ contacts, match, deleteContact }: D
 	return (
 		<MainContainer>
 			<PageTitle text="Successfully deleted" />
-			<ProfilePic src={contact.picture.large} alt="This is the picture of the deleted contact" />
+			<ProfilePic src={deletedContact.picture.large} alt="This is the picture of the deleted contact" />
 			<Details>
-				{`Your contact`} <b>{`${contact.name.first} ${contact.name.last}`}</b> {`has been removed from your contacts successfully`}
+				{`Your contact`} <b>{`${deletedContact.name.first} ${deletedContact.name.last}`}</b>{" "}
+				{`has been removed from your contacts successfully`}
 			</Details>
 			<ButtonContainer>
 				<Link to="/">
-					<GoBackButton onClick={() => deleteContact(contact)}>Go back to the contacts</GoBackButton>
+					<GoBackButton>Go back to the contacts</GoBackButton>
 				</Link>
 				<Link to="/">
 					<UndoButton>Undo</UndoButton>

@@ -35,6 +35,7 @@ interface ParsedResponse {
 
 function App() {
 	const [contacts, setContacts] = useState<Contact[]>([]);
+	const [deletedContact, setDeletedContacts] = useState<Contact>();
 
 	useEffect(() => {
 		getContacts(50);
@@ -84,6 +85,7 @@ function App() {
 		const newContacts = contacts.filter(
 			(contact: Contact) => contactToDelete.id.name !== contact.id.name && contactToDelete.id.value !== contact.id.value,
 		);
+		setDeletedContacts(contactToDelete);
 		setContacts(newContacts);
 		/* 
 			The order of server API call and set state function depends on the deletion logic. We have two ways: The first one is the optimistic and second one is the pesimistic way. 
@@ -99,11 +101,8 @@ function App() {
 			<Header />
 			<Switch>
 				{/* FIXME: Routing doesn't work in the deployed and published app on Netlify */}
-				<Route
-					path="/deleted_contact/:id"
-					render={(props) => <DeletedContactPage contacts={contacts} deleteContact={deleteContact} {...props} />}
-				/>
-				<Route path="/contact/:id" render={(props) => <ContactPage contacts={contacts} {...props} />} />
+				<Route path="/contact_deleted_successfully" render={() => <DeletedContactPage deletedContact={deletedContact} />} />
+				<Route path="/contact/:id" render={(props) => <ContactPage contacts={contacts} deleteContact={deleteContact} {...props} />} />
 				<Route path="/add_new_contact" render={() => <AddContactForm saveNewContact={saveNewContact} />} />
 				<Route path="/" exact render={() => <Contacts contacts={contacts} />} />
 				<Redirect to="/" />

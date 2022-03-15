@@ -96,9 +96,10 @@ interface MatchParams {
 
 interface ContactPageProps extends RouteComponentProps<MatchParams> {
 	contacts: Contact[];
+	deleteContact: (contactToDelete: Contact) => void;
 }
 
-export default function ContactPage({ contacts, match }: ContactPageProps) {
+export default function ContactPage({ contacts, match, deleteContact }: ContactPageProps) {
 	const contactID: string = match.params.id;
 	const contact: Contact = (() => {
 		return contacts.filter((contact: Contact) => contactID === contact.id.name + "-" + contact.id.value)[0];
@@ -134,8 +135,8 @@ export default function ContactPage({ contacts, match }: ContactPageProps) {
 				</ContactDetails>
 			</ContactInformations>
 			<Buttons>
-				<Link to={`/deleted_contact/${contactID}`}>
-					<DeleteButton>Delete</DeleteButton>
+				<Link to={`/contact_deleted_successfully`}>
+					<DeleteButton onClick={() => deleteContact(contact)}>Delete</DeleteButton>
 				</Link>
 				<EditButton>Edit</EditButton>
 			</Buttons>
