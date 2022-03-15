@@ -81,13 +81,14 @@ const UndoButton = styled.button`
 
 interface DeletedContactPageProps {
 	deletedContact: Contact | undefined;
+	undoContactDeletion: (contactToRestore: Contact) => void;
 }
-export default function DeletedContactPage({ deletedContact }: DeletedContactPageProps) {
+export default function DeletedContactPage({ deletedContact, undoContactDeletion }: DeletedContactPageProps) {
 	if (!deletedContact)
 		return (
 			<ErrorPage
 				title="Something went wrong"
-				details={`The requested page is not valid. Please go back to the Contact Page.`}
+				details={`The requested page is not valid. Please go back to the Contacts Page.`}
 				button={true}
 				buttonText="Go back to the contacts"
 				URLForRedirection="/"
@@ -99,7 +100,7 @@ export default function DeletedContactPage({ deletedContact }: DeletedContactPag
 			<PageTitle text="Successfully deleted" />
 			<ProfilePic src={deletedContact.picture.large} alt="This is the picture of the deleted contact" />
 			<Details>
-				{`Your contact`} <b>{`${deletedContact.name.first} ${deletedContact.name.last}`}</b>{" "}
+				{`Your contact`} <b>{`${deletedContact.name.first} ${deletedContact.name.last} `}</b>
 				{`has been removed from your contacts successfully`}
 			</Details>
 			<ButtonContainer>
@@ -107,7 +108,7 @@ export default function DeletedContactPage({ deletedContact }: DeletedContactPag
 					<GoBackButton>Go back to the contacts</GoBackButton>
 				</Link>
 				<Link to="/">
-					<UndoButton>Undo</UndoButton>
+					<UndoButton onClick={() => undoContactDeletion(deletedContact)}>Undo</UndoButton>
 				</Link>
 			</ButtonContainer>
 		</MainContainer>

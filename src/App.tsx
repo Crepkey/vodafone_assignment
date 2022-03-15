@@ -82,15 +82,20 @@ function App() {
 	}
 
 	function deleteContact(contactToDelete: Contact) {
-		const newContacts = contacts.filter(
+		const newContacts: Contact[] = contacts.filter(
 			(contact: Contact) => contactToDelete.id.name !== contact.id.name && contactToDelete.id.value !== contact.id.value,
 		);
 		setDeletedContacts(contactToDelete);
 		setContacts(newContacts);
 		/* 
 			The order of server API call and set state function depends on the deletion logic. We have two ways: The first one is the optimistic and second one is the pesimistic way. 
-			I would prefer the pesimistic way when I don't modify state until the server response about the success of deletion. 
+			I would prefer the pesimistic way when I don't modify state until I got the server response about the success of deletion. 
 		*/
+	}
+
+	function undoContactDeletion(contactToRestore: Contact) {
+		const newContacts: Contact[] = [...contacts, contactToRestore];
+		setContacts(newContacts);
 	}
 
 	/* This exit point is necessary to avoid a useless rendering until all the necessary data has arrived */
@@ -101,7 +106,10 @@ function App() {
 			<Header />
 			<Switch>
 				{/* FIXME: Routing doesn't work in the deployed and published app on Netlify */}
-				<Route path="/contact_deleted_successfully" render={() => <DeletedContactPage deletedContact={deletedContact} />} />
+				<Route
+					path="/contact_deleted_successfully"
+					render={() => <DeletedContactPage deletedContact={deletedContact} undoContactDeletion={undoContactDeletion} />}
+				/>
 				<Route path="/contact/:id" render={(props) => <ContactPage contacts={contacts} deleteContact={deleteContact} {...props} />} />
 				<Route path="/add_new_contact" render={() => <AddContactForm saveNewContact={saveNewContact} />} />
 				<Route path="/" exact render={() => <Contacts contacts={contacts} />} />
