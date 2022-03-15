@@ -1,4 +1,4 @@
-import { Contact } from "./interfaces";
+import { EmptyContact } from "./interfaces";
 
 export const breakePoints = {
 	mobileS: "320px",
@@ -12,21 +12,12 @@ export const breakePoints = {
 	desktop: "2560px",
 };
 
-export const emptyContact: Contact = {
-	id: { name: "", value: "" },
-	name: { first: "", last: "", title: "" },
+export const emptyContact: EmptyContact = {
+	firstName: "",
+	lastName: "",
 	phone: "",
 	email: "",
-	location: {
-		city: "",
-		coordinates: { latitude: "", longitude: "" },
-		country: "",
-		postcode: 0,
-		state: "",
-		street: { number: 0, name: "" },
-		timezone: { offset: "", description: "" },
-	},
-	picture: { large: "", medium: "", thumbnail: "" },
+	address: "",
 };
 
 /* 

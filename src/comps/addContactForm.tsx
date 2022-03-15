@@ -22,6 +22,7 @@ import contactProfilePic from "../img/new_contact_pic.jpg";
 /* Styles */
 import styled from "styled-components";
 import { colors } from "../utils/colors";
+import { useHistory } from "react-router-dom";
 
 const MainContainer = styled.div`
 	display: flex;
@@ -64,8 +65,11 @@ interface AddContactFormProps {
 export default function AddContactForm({ saveNewContact }: AddContactFormProps) {
 	const [contact, setContact] = useState<Contact>(emptyContact);
 	const [errors, setErrors] = useState<ContactErrors>({});
+	const history = useHistory();
 
-	const validationSchema = {
+	console.log(emptyContact);
+
+	/* 	const validationSchema = {
 		name: { first: Joi.string().required().label("First name"), last: Joi.string().required().label("Last name") },
 		phone: Joi.string().required().label("Phone"),
 		email: Joi.string()
@@ -73,9 +77,9 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 			.required()
 			.label("E-mail"),
 		location: { street: Joi.string().min(4).max(60).required().label("Location") },
-	};
+	}; */
 
-	function validateForm() {
+	/* 	function validateForm() {
 		const options: Joi.ValidationOptions = { abortEarly: false };
 		const { error }: Joi.ValidationResult<any> = Joi.object(validationSchema).validate(contact, options);
 		if (error) {
@@ -87,11 +91,11 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 			setErrors(newErrors);
 		}
 		setErrors({});
-	}
+	} */
 
 	const handleSubmit = (event: React.SyntheticEvent) => {
 		event.preventDefault();
-		validateForm();
+		/* validateForm(); */
 
 		if (!isEmpty(errors)) return;
 
@@ -101,9 +105,10 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 		set(newContact, "picture.large", contactProfilePic);
 
 		saveNewContact(contact);
+		history.push("/");
 	};
 
-	function validateField(path: string, value: string) {
+	/* 	function validateField(path: string, value: string) {
 		const subSchema: Joi.StringSchema = get(validationSchema, path);
 		const { error }: Joi.ValidationResult<any> = subSchema.validate(value);
 
@@ -117,15 +122,15 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 		const newErrors = { ...errors };
 		const filteredErrors = omit(newErrors, path);
 		setErrors(filteredErrors);
-	}
+	} */
 
 	const handleChange = (event: React.BaseSyntheticEvent) => {
 		const path: string = event.currentTarget.name;
 		const value: string = event.currentTarget.value;
-		validateField(path, value);
+		/* validateField(path, value); */
 
 		const newContact: Contact = { ...contact };
-		set(newContact, path, value);
+		set(newContact, path.split("."), value);
 		setContact(newContact);
 	};
 
@@ -147,7 +152,7 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 					label="Address"
 					placeHolder="Enter Address"
 					path="location.street"
-					error={get(errors, "location.street")}
+					error={get(errors, "location.street.name")}
 					onChange={handleChange}
 				/>
 				<AddContactButton>Add contact</AddContactButton>

@@ -39,3 +39,11 @@ export interface ContactErrors {
 	email?: string;
 	location?: string;
 }
+
+export interface EmptyContact {
+	firstName: string;
+	lastName: string;
+	phone: string;
+	email: string;
+	address: string;
+}
