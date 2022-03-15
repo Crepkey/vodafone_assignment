@@ -18,6 +18,7 @@ import ContactPage from "./comps/contactPage";
 /* Styles */
 import styled from "styled-components";
 import DeletedContactPage from "./comps/deletedContactPage";
+import InfoPage from "./comps/common/InfoPage";
 
 const MainContainer = styled.div`
 	display: flex;
@@ -34,6 +35,7 @@ interface ParsedResponse {
 }
 
 function App() {
+	const [errors, setErrors] = useState<Error>();
 	const [contacts, setContacts] = useState<Contact[]>([]);
 	const [filteredContacts, setFilteredContacts] = useState<Contact[]>([]);
 	const [deletedContact, setDeletedContacts] = useState<Contact>();
@@ -42,24 +44,27 @@ function App() {
 		getContacts(50);
 	}, []);
 
-	/* FIXME: Error handling is important */
 	async function getContacts(results: number) {
-		const response: Response = await fetch(
-			/* TODO: DOT ENV FILE */
-			`https://randomuser.me/api/?inc=id,name,email,phone,location,picture&results=${results}&nat=us,dk,fr,gb&nat=au,br,ca,ch,de,dk,es,fi,fr,gb,ie,no,nl,nz,us&seed=hire_me`,
-		);
-		const parsedResponse: ParsedResponse = await response.json();
-		if ("error" in parsedResponse) {
-			console.log("ERROR");
+		try {
+			const response: Response = await fetch(
+				`https://randomuser.me/api/?inc=id,name,email,phone,location,picture&results=${results}&nat=us,dk,fr,gb&nat=au,br,ca,ch,de,dk,es,fi,fr,gb,ie,no,nl,nz,us&seed=hire_me`,
+			);
+
+			if (!response.ok) {
+				throw new Error(`${response.status} - ${response.statusText}`);
+			}
+
+			const parsedResponse: ParsedResponse = await response.json();
+
+			if ("error" in parsedResponse) {
+				throw new Error(parsedResponse.error);
+			}
+
+			const validatedContacts: Contact[] = validateIDs(parsedResponse.results);
+			setContacts(validatedContacts);
+		} catch (error) {
+			setErrors(error as Error);
 		}
-		/* 
-			There is no ID in some cases in the contact object that I get from the server, 
-			therefore I need to validate them and replace the empty IDs with a randomly generated data.
-			DISCLAIMER: Theoritically, it can happen that I can generate the same ID which is already used by a contact.
-			But the chances of this happening are quite slim.
-		*/
-		const validatedContacts: Contact[] = validateIDs(parsedResponse.results);
-		setContacts(validatedContacts);
 	}
 
 	function validateIDs(contacts: Contact[]) {
@@ -117,6 +122,13 @@ function App() {
 		});
 		setFilteredContacts(foundContacts);
 	}
+
+	if (errors)
+		return (
+			<MainContainer>
+				<InfoPage icon="error" title="Oops... Something went wrong" details={errors.message} />;
+			</MainContainer>
+		);
 
 	/* This exit point is necessary to avoid a useless rendering until all the necessary data has arrived */
 	if (contacts.length === 0) return null;
