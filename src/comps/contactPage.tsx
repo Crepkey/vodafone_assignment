@@ -1,3 +1,6 @@
+/* React */
+import { useState } from "react";
+
 /* Interfaces */
 import { Link, RouteComponentProps } from "react-router-dom";
 import { Contact } from "../utils/interfaces";
@@ -79,6 +82,16 @@ const EditButton = styled.button`
 	border-radius: 5px;
 	font-size: 0.9rem;
 	margin: 15px;
+	transition: all 0.3s ease;
+	:hover {
+		cursor: pointer;
+		color: white;
+		background-color: ${colors.normalButton};
+	}
+	:active {
+		color: ${colors.normalButton};
+		background-color: rgba(0, 0, 0, 0);
+	}
 `;
 
 const DeleteButton = styled.button`
@@ -100,6 +113,7 @@ interface ContactPageProps extends RouteComponentProps<MatchParams> {
 }
 
 export default function ContactPage({ contacts, match, deleteContact }: ContactPageProps) {
+	const [isEditActive, setEditActive] = useState<boolean>(false);
 	const contactID: string = match.params.id;
 	const contact: Contact = (() => {
 		return contacts.filter((contact: Contact) => contactID === contact.id.name + "-" + contact.id.value)[0];
@@ -118,29 +132,35 @@ export default function ContactPage({ contacts, match, deleteContact }: ContactP
 		);
 
 	return (
-		<MainContainer>
-			<PageTitle text={`${contact.name.first}, ${contact.name.last}'s Profile`} />
-			<ContactInformations>
-				<ContactPicture src={contact.picture.large} alt="This is the profile picture of the given contact" />
-				<ContactDetails>
-					<ContactDetail>
-						<b>E-mail:</b> <Email>{contact.email}</Email>
-					</ContactDetail>
-					<ContactDetail>
-						<b>Phone:</b> {contact.phone}
-					</ContactDetail>
-					<ContactDetail>
-						<b>Address:</b>{" "}
-						{`${contact.location.street.number} ${contact.location.street.name} ${contact.location.city} ${contact.location.state} ${contact.location.postcode} ${contact.location.country}`}
-					</ContactDetail>
-				</ContactDetails>
-			</ContactInformations>
-			<Buttons>
-				<Link to={`/contact_deleted_successfully`}>
-					<DeleteButton onClick={() => deleteContact(contact)}>Delete</DeleteButton>
-				</Link>
-				<EditButton>Edit</EditButton>
-			</Buttons>
-		</MainContainer>
+		<>
+			{isEditActive ? (
+				<div>valami</div>
+			) : (
+				<MainContainer>
+					<PageTitle text={`${contact.name.first}, ${contact.name.last}'s Profile`} />
+					<ContactInformations>
+						<ContactPicture src={contact.picture.large} alt="This is the profile picture of the given contact" />
+						<ContactDetails>
+							<ContactDetail>
+								<b>E-mail:</b> <Email>{contact.email}</Email>
+							</ContactDetail>
+							<ContactDetail>
+								<b>Phone:</b> {contact.phone}
+							</ContactDetail>
+							<ContactDetail>
+								<b>Address:</b>{" "}
+								{`${contact.location.street.number} ${contact.location.street.name} ${contact.location.city} ${contact.location.state} ${contact.location.postcode} ${contact.location.country}`}
+							</ContactDetail>
+						</ContactDetails>
+					</ContactInformations>
+					<Buttons>
+						<Link to={`/contact_deleted_successfully`}>
+							<DeleteButton onClick={() => deleteContact(contact)}>Delete</DeleteButton>
+						</Link>
+						<EditButton onClick={() => setEditActive(true)}>Edit</EditButton>
+					</Buttons>
+				</MainContainer>
+			)}
+		</>
 	);
 }
