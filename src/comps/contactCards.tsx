@@ -35,12 +35,12 @@ const MainContainer = styled.div`
 interface ContactCardProps {
 	contacts: Contact[];
 }
-export default function ContactCards({ contacts: displayedContacts }: ContactCardProps) {
+export default function ContactCards({ contacts }: ContactCardProps) {
 	return (
 		<MainContainer>
-			{displayedContacts.map((contact: Contact, index: number) => (
-				<ContactCard key={contact.id.value} contact={contact} />
-			))}
+			{contacts.length !== 0
+				? contacts.map((contact: Contact, index: number) => <ContactCard key={contact.id.value} contact={contact} />)
+				: "NINCS ITT SEMMI"}
 		</MainContainer>
 	);
 }
