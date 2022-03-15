@@ -69,15 +69,17 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 
 	console.log(emptyContact);
 
-	/* 	const validationSchema = {
-		name: { first: Joi.string().required().label("First name"), last: Joi.string().required().label("Last name") },
+	const validationSchema = {
+		firstName: Joi.string().required().label("First name"),
+
+		lastName: Joi.string().required().label("Last name"),
 		phone: Joi.string().required().label("Phone"),
 		email: Joi.string()
 			.email({ minDomainSegments: 2, tlds: { allow: false } })
 			.required()
 			.label("E-mail"),
-		location: { street: Joi.string().min(4).max(60).required().label("Location") },
-	}; */
+		address: Joi.string().min(4).max(60).required().label("Location"),
+	};
 
 	/* 	function validateForm() {
 		const options: Joi.ValidationOptions = { abortEarly: false };
@@ -108,26 +110,26 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 		history.push("/");
 	}; */
 
-	/* 	function validateField(path: string, value: string) {
-		const subSchema: Joi.StringSchema = get(validationSchema, path);
+	function validateField(name: string, value: string) {
+		const subSchema: Joi.StringSchema = get(validationSchema, name);
 		const { error }: Joi.ValidationResult<any> = subSchema.validate(value);
 
 		if (error) {
 			const newErrors = { ...errors };
 			const errorMessage: string = error.details[0].message;
-			set(newErrors, path, errorMessage);
+			set(newErrors, name, errorMessage);
 			return setErrors(newErrors);
 		}
 
 		const newErrors = { ...errors };
-		const filteredErrors = omit(newErrors, path);
+		const filteredErrors = omit(newErrors, name);
 		setErrors(filteredErrors);
-	} */
+	}
 
 	const handleChange = (event: React.BaseSyntheticEvent) => {
 		const name: string = event.currentTarget.name;
 		const value: string = event.currentTarget.value;
-		/* validateField(path, value); */
+		validateField(name, value);
 
 		const newContact: any = { ...contact };
 		newContact[name] = value;
