@@ -1,5 +1,5 @@
 /* React */
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 /* Interfaces */
 import { Link, RouteComponentProps } from "react-router-dom";
@@ -107,8 +107,17 @@ const DeleteButton = styled.button`
 const Form = styled.form`
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	width: 70%;
 	padding: 20px 0;
+	border: 1px solid green;
+`;
+
+const InputContainer = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 60%;
 `;
 
 const Label = styled.label`
@@ -121,8 +130,13 @@ const InputField = styled.input`
 	border: 1px ${colors.fieldBorder} solid;
 	border-radius: 5px;
 	height: 25px;
+	width: 300px;
 	font-size: 0.9rem;
 	padding: 5px 10px;
+`;
+const ErrorContainer = styled.div`
+	width: 60%;
+	text-align: right;
 `;
 
 const ErrorMessage = styled.div`
@@ -160,16 +174,27 @@ export default function ContactPage({ contacts, match, deleteContact }: ContactP
 		);
 
 	return (
-		<>
+		<MainContainer>
+			<PageTitle text={`${contact.name.first}, ${contact.name.last}'s Profile`} />
 			{isEditActive ? (
 				<Form>
-					<Label htmlFor={"first"}>{"label"}</Label>
-					<InputField type="text" id={"first"} placeholder={"Place holder"} name={"first"} onChange={() => {}} value={"value"} />
-					<ErrorMessage>{"error"}</ErrorMessage>
+					<InputContainer>
+						<Label>{"First name"}</Label>
+						<InputField
+							type="text"
+							id={"first"}
+							placeholder={"Place holder"}
+							name={"first"}
+							onChange={() => {}}
+							value={"ndsjcnsdjbcvsjkd"}
+						/>
+					</InputContainer>
+					<ErrorContainer>
+						<ErrorMessage>{"bwhbhsdbchsdjc"}</ErrorMessage>
+					</ErrorContainer>
 				</Form>
 			) : (
-				<MainContainer>
-					<PageTitle text={`${contact.name.first}, ${contact.name.last}'s Profile`} />
+				<>
 					<ContactInformations>
 						<ContactPicture src={contact.picture.large} alt="This is the profile picture of the given contact" />
 						<ContactDetails>
@@ -191,8 +216,8 @@ export default function ContactPage({ contacts, match, deleteContact }: ContactP
 						</Link>
 						<EditButton onClick={() => setEditActive(true)}>Edit</EditButton>
 					</Buttons>
-				</MainContainer>
+				</>
 			)}
-		</>
+		</MainContainer>
 	);
 }
