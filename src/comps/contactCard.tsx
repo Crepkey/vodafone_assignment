@@ -12,11 +12,13 @@ import styled from "styled-components";
 import { colors } from "../utils/colors";
 
 const UndecoratedLink = styled(Link)`
+	display: flex;
+	justify-content: center;
+	width: 100%;
 	text-decoration: none;
 `;
 
 const MainContainer = styled.div`
-	text-decoration: none;
 	display: flex;
 	width: 300px;
 	height: 80px;
