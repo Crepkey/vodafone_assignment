@@ -41,7 +41,7 @@ export interface ContactErrors {
 	address?: string;
 }
 
-export interface EmptyContact {
+export interface ContactFormFields {
 	firstName: string;
 	lastName: string;
 	phone: string;

@@ -1,4 +1,4 @@
-import { EmptyContact } from "./interfaces";
+import { ContactFormFields } from "./interfaces";
 
 export const breakePoints = {
 	mobileS: "320px",
@@ -12,7 +12,7 @@ export const breakePoints = {
 	desktop: "2560px",
 };
 
-export const emptyContact: EmptyContact = {
+export const emptyContact: ContactFormFields = {
 	firstName: "",
 	lastName: "",
 	phone: "",

@@ -14,7 +14,7 @@ import PageTitle from "./pageTitle";
 import Input from "./common/input";
 
 /* Interfaces */
-import { Contact, ContactErrors, EmptyContact } from "../utils/interfaces";
+import { Contact, ContactErrors, ContactFormFields } from "../utils/interfaces";
 
 /* Images */
 import contactProfilePic from "../img/new_contact_pic.jpg";
@@ -63,7 +63,7 @@ interface AddContactFormProps {
 }
 
 export default function AddContactForm({ saveNewContact }: AddContactFormProps) {
-	const [contact, setContact] = useState<EmptyContact>(emptyContact);
+	const [contact, setContact] = useState<ContactFormFields>(emptyContact);
 	const [errors, setErrors] = useState<ContactErrors>({});
 	const history = useHistory();
 
@@ -71,7 +71,7 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 		firstName: Joi.string().required().label("First name"),
 
 		lastName: Joi.string().required().label("Last name"),
-		phone: Joi.string().required().label("Phone"),
+		phone: Joi.string().required().label("Phone") /* TODO: Only number with dashes */,
 		email: Joi.string()
 			.email({ minDomainSegments: 2, tlds: { allow: false } })
 			.required()
@@ -113,13 +113,13 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 		const { error }: Joi.ValidationResult<any> = subSchema.validate(value);
 
 		if (error) {
-			const newErrors = { ...errors };
+			const newErrors: ContactErrors = { ...errors };
 			const errorMessage: string = error.details[0].message;
 			set(newErrors, name, errorMessage);
 			return setErrors(newErrors);
 		}
 
-		const newErrors = { ...errors };
+		const newErrors: ContactErrors = { ...errors };
 		const filteredErrors = omit(newErrors, name);
 		setErrors(filteredErrors);
 	}
@@ -129,8 +129,8 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 		const value: string = event.currentTarget.value;
 		validateField(name, value);
 
-		const newContact: any = { ...contact };
-		newContact[name] = value;
+		const newContact: ContactFormFields = { ...contact };
+		set(newContact, name, value);
 		setContact(newContact);
 	};
 
@@ -138,11 +138,32 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 		<MainContainer>
 			<PageTitle text="Add New Contact" />
 			<Form>
-				<Input label="First Name" placeHolder="Enter first name" name="firstName" value={contact.firstName} onChange={handleChange} />
-				<Input label="Last Name" placeHolder="Enter last name" name="lastName" value={contact.lastName} onChange={handleChange} />
-				<Input label="Email" placeHolder="Enter Email" name="email" value={contact.email} onChange={handleChange} />
-				<Input label="Phone" placeHolder="Enter Phone" name="phone" value={contact.phone} onChange={handleChange} />
-				<Input label="Address" placeHolder="Enter Address" name="address" value={contact.address} onChange={handleChange} />
+				<Input
+					label="First Name"
+					placeHolder="Enter first name"
+					name="firstName"
+					value={contact.firstName}
+					error={errors.firstName}
+					onChange={handleChange}
+				/>
+				<Input
+					label="Last Name"
+					placeHolder="Enter last name"
+					name="lastName"
+					value={contact.lastName}
+					error={errors.lastName}
+					onChange={handleChange}
+				/>
+				<Input label="Email" placeHolder="Enter Email" name="email" value={contact.email} error={errors.email} onChange={handleChange} />
+				<Input label="Phone" placeHolder="Enter Phone" name="phone" value={contact.phone} error={errors.phone} onChange={handleChange} />
+				<Input
+					label="Address"
+					placeHolder="Enter Address"
+					name="address"
+					value={contact.address}
+					error={errors.address}
+					onChange={handleChange}
+				/>
 				<AddContactButton>Add contact</AddContactButton>
 			</Form>
 		</MainContainer>
