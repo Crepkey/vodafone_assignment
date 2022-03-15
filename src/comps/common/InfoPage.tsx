@@ -67,7 +67,11 @@ export default function InfoPage({ icon, title, details, button, buttonText, URL
 			case false:
 				return null;
 			case "error":
-				return <VscError size={"100%"} color={colors.red} />;
+				return (
+					<IconContainer>
+						<VscError size={"100%"} color={colors.red} />
+					</IconContainer>
+				);
 			default:
 				return null;
 		}
@@ -75,7 +79,7 @@ export default function InfoPage({ icon, title, details, button, buttonText, URL
 
 	return (
 		<MainContainer>
-			<IconContainer>{generateIcon()}</IconContainer>
+			{generateIcon()}
 			<PageTitle text={title} />
 			<Details>{details}</Details>
 			{button && (

@@ -9,6 +9,7 @@ import ContactCard from "./contactCard";
 
 /* Styles */
 import styled from "styled-components";
+import InfoPage from "./common/InfoPage";
 
 const MainContainer = styled.div`
 	display: grid;
@@ -36,11 +37,13 @@ interface ContactCardProps {
 	contacts: Contact[];
 }
 export default function ContactCards({ contacts }: ContactCardProps) {
-	return (
+	return contacts.length !== 0 ? (
 		<MainContainer>
-			{contacts.length !== 0
-				? contacts.map((contact: Contact, index: number) => <ContactCard key={contact.id.value} contact={contact} />)
-				: "NINCS ITT SEMMI"}
+			{contacts.map((contact: Contact, index: number) => (
+				<ContactCard key={contact.id.value} contact={contact} />
+			))}
 		</MainContainer>
+	) : (
+		<InfoPage icon={false} title={"There is no result"} details={"There is nothing to show for your search."} />
 	);
 }
