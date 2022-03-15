@@ -108,16 +108,15 @@ const Form = styled.form`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 70%;
+	width: 45%;
 	padding: 20px 0;
-	border: 1px solid green;
 `;
 
 const InputContainer = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	width: 60%;
+	width: 100%;
 `;
 
 const Label = styled.label`
@@ -134,16 +133,13 @@ const InputField = styled.input`
 	font-size: 0.9rem;
 	padding: 5px 10px;
 `;
-const ErrorContainer = styled.div`
-	width: 60%;
-	text-align: right;
-`;
 
 const ErrorMessage = styled.div`
 	color: ${colors.red};
 	font-size: 0.8rem;
 	text-align: right;
 	height: 0.8rem;
+	width: 100%;
 `;
 interface MatchParams {
 	id: string;
@@ -189,9 +185,8 @@ export default function ContactPage({ contacts, match, deleteContact }: ContactP
 							value={"ndsjcnsdjbcvsjkd"}
 						/>
 					</InputContainer>
-					<ErrorContainer>
-						<ErrorMessage>{"bwhbhsdbchsdjc"}</ErrorMessage>
-					</ErrorContainer>
+
+					<ErrorMessage>{"bwhbhsdbchsdjc"}</ErrorMessage>
 				</Form>
 			) : (
 				<>
