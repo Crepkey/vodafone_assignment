@@ -95,9 +95,11 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 
 		if (!isEmpty(errors)) return;
 
-		contact.picture.large = contactProfilePic;
-		contact.id.name = generateID("name");
-		contact.id.value = generateID("value");
+		const newContact: Contact = { ...contact };
+		set(newContact, "id.name", generateID("name"));
+		set(newContact, "id.value", generateID("value"));
+		set(newContact, "picture.large", contactProfilePic);
+
 		saveNewContact(contact);
 	};
 
