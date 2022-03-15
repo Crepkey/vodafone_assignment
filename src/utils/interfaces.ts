@@ -34,10 +34,11 @@ export interface Contact {
 	picture: ContactPicture;
 }
 export interface ContactErrors {
-	name?: ContactName;
+	firstName?: string;
+	lastName?: string;
 	phone?: string;
 	email?: string;
-	location?: string;
+	address?: string;
 }
 
 export interface EmptyContact {
