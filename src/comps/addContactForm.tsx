@@ -67,8 +67,6 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 	const [errors, setErrors] = useState<ContactErrors>({});
 	const history = useHistory();
 
-	console.log(emptyContact);
-
 	const validationSchema = {
 		firstName: Joi.string().required().label("First name"),
 
@@ -141,10 +139,10 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 			<PageTitle text="Add New Contact" />
 			<Form>
 				<Input label="First Name" placeHolder="Enter first name" name="firstName" value={contact.firstName} onChange={handleChange} />
-				<Input label="Last Name" placeHolder="Enter last name" name="name.last" value={contact.lastName} onChange={handleChange} />
+				<Input label="Last Name" placeHolder="Enter last name" name="lastName" value={contact.lastName} onChange={handleChange} />
 				<Input label="Email" placeHolder="Enter Email" name="email" value={contact.email} onChange={handleChange} />
 				<Input label="Phone" placeHolder="Enter Phone" name="phone" value={contact.phone} onChange={handleChange} />
-				<Input label="Address" placeHolder="Enter Address" name="location.street" value={contact.address} onChange={handleChange} />
+				<Input label="Address" placeHolder="Enter Address" name="address" value={contact.address} onChange={handleChange} />
 				<AddContactButton>Add contact</AddContactButton>
 			</Form>
 		</MainContainer>
