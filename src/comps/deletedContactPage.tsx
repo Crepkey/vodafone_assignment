@@ -9,7 +9,7 @@ import { Contact } from "../utils/interfaces";
 
 /* Components */
 import PageTitle from "./pageTitle";
-import ErrorPage from "./common/InfoPage";
+import InfoPage from "./common/InfoPage";
 
 /* Styles */
 import styled from "styled-components";
@@ -86,7 +86,8 @@ interface DeletedContactPageProps {
 export default function DeletedContactPage({ deletedContact, undoContactDeletion }: DeletedContactPageProps) {
 	if (!deletedContact)
 		return (
-			<ErrorPage
+			<InfoPage
+				icon="error"
 				title="Something went wrong"
 				details={`The requested page is not valid. Please go back to the Contacts Page.`}
 				button={true}

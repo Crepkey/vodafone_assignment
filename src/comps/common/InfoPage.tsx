@@ -53,6 +53,7 @@ const Button = styled.button`
 	}
 `;
 interface ErrorPageProps {
+	icon: false | "error";
 	title: string;
 	details: string;
 	button?: boolean;
@@ -60,12 +61,21 @@ interface ErrorPageProps {
 	URLForRedirection?: string;
 }
 
-export default function ErrorPage({ title, details, button, buttonText, URLForRedirection = "" }: ErrorPageProps) {
+export default function InfoPage({ icon, title, details, button, buttonText, URLForRedirection = "" }: ErrorPageProps) {
+	function generateIcon() {
+		switch (icon) {
+			case false:
+				return null;
+			case "error":
+				return <VscError size={"100%"} color={colors.red} />;
+			default:
+				return null;
+		}
+	}
+
 	return (
 		<MainContainer>
-			<IconContainer>
-				<VscError size={"100%"} color={colors.red} />
-			</IconContainer>
+			<IconContainer>{generateIcon()}</IconContainer>
 			<PageTitle text={title} />
 			<Details>{details}</Details>
 			{button && (

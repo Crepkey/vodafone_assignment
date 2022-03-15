@@ -11,7 +11,7 @@ import PageTitle from "./pageTitle";
 /* Styles */
 import styled from "styled-components";
 import { colors } from "../utils/colors";
-import ErrorPage from "./common/InfoPage";
+import InfoPage from "./common/InfoPage";
 
 const MainContainer = styled.div`
 	display: flex;
@@ -107,7 +107,8 @@ export default function ContactPage({ contacts, match, deleteContact }: ContactP
 	/* TODO: Messages and texts for user notification have to go in a standalone file */
 	if (!contact)
 		return (
-			<ErrorPage
+			<InfoPage
+				icon="error"
 				title="Something went wrong"
 				details={`The requested contact could not be found with the following ID: ${contactID}`}
 				button={true}
