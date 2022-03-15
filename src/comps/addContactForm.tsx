@@ -80,7 +80,7 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 		address: Joi.string().min(4).max(60).required().label("Location"),
 	};
 
-	/* 	function validateForm() {
+	function validateForm() {
 		const options: Joi.ValidationOptions = { abortEarly: false };
 		const { error }: Joi.ValidationResult<any> = Joi.object(validationSchema).validate(contact, options);
 		if (error) {
@@ -90,15 +90,17 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 				set(newErrors, error.path, error.message);
 			}
 			setErrors(newErrors);
+			return true;
 		}
 		setErrors({});
-	} */
+		return false;
+	}
 
 	const handleSubmit = (event: React.SyntheticEvent) => {
 		event.preventDefault();
-		/* validateForm(); */
+		const error = validateForm();
 
-		/* if (!isEmpty(errors)) return; */
+		if (error) return;
 
 		const newContact: Contact = cloneDeep(emptyContactObj);
 		set(newContact, "name.first", contact.firstName);
