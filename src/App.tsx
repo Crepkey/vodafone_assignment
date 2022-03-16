@@ -41,7 +41,7 @@ function App() {
 	const [deletedContact, setDeletedContacts] = useState<Contact>();
 
 	useEffect(() => {
-		getContacts(50);
+		getContacts(5);
 	}, []);
 
 	async function getContacts(results: number) {
@@ -101,8 +101,6 @@ function App() {
 	}
 
 	function deleteContact(contactToDelete: Contact) {
-		console.log(contactToDelete);
-
 		const newContacts: Contact[] = contacts.filter(
 			(contact: Contact) => contactToDelete.id.name !== contact.id.name && contactToDelete.id.value !== contact.id.value,
 		);
@@ -118,6 +116,7 @@ function App() {
 	function undoContactDeletion(contactToRestore: Contact) {
 		const newContacts: Contact[] = [...contacts, contactToRestore];
 		setContacts(newContacts);
+		setFilteredContacts(newContacts);
 	}
 
 	function filterContacts(searchLetter: string) {
