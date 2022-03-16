@@ -2,15 +2,15 @@
 import { Link } from "react-router-dom";
 
 /* Intefaces */
-import { Contact } from "../utils/interfaces";
+import { Contact } from "../../utils/interfaces";
 
 /* Components */
-import PageTitle from "./common/PageTitle";
-import InfoPage from "./common/InfoPage";
+import PageTitle from "./PageTitle";
+import InfoPage from "./InfoPage";
 
 /* Styles */
 import styled from "styled-components";
-import Button from "./common/Button";
+import Button from "./Button";
 
 const MainContainer = styled.div`
 	display: flex;
