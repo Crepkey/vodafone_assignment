@@ -9,10 +9,12 @@ import { breakePoints, validateField, validateForm } from "../utils/utils";
 import cloneDeep from "lodash/cloneDeep";
 import set from "lodash/set";
 
+/* Components */
+import Button from "./common/Button";
+
 /* Styles */
 import styled from "styled-components";
 import { colors } from "../utils/colors";
-import Button from "./common/Button";
 
 const Form = styled.form`
 	display: flex;
