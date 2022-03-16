@@ -9,12 +9,13 @@ import { breakePoints } from "../utils/utils";
 import cloneDeep from "lodash/cloneDeep";
 import set from "lodash/set";
 import get from "lodash/get";
+import omit from "lodash/omit";
+import isEmpty from "lodash/isEmpty";
 import Joi from "joi";
 
 /* Styles */
 import styled from "styled-components";
 import { colors } from "../utils/colors";
-import omit from "lodash/omit";
 
 const Form = styled.form`
 	display: flex;
@@ -128,6 +129,21 @@ export default function EditContactForm({ contactToEdit, updateContact, setEditA
 		location: { street: { name: Joi.string().min(4).max(60).required().label("Location") } },
 	};
 
+	function validateForm() {
+		const options: Joi.ValidationOptions = { abortEarly: false };
+		const { error }: Joi.ValidationResult<any> = Joi.object(validationSchema).validate(contact, options);
+		if (error) {
+			const newErrors = {};
+			const foundErrors: Joi.ValidationErrorItem[] = error.details;
+			for (const error of foundErrors) {
+				if (error.type === "object.unknown") continue;
+				set(newErrors, error.path, error.message);
+			}
+			return setErrors(newErrors);
+		}
+		setErrors({});
+	}
+
 	function validateField(name: string, value: string) {
 		const subSchema: Joi.StringSchema = get(validationSchema, name);
 		const { error }: Joi.ValidationResult<any> = subSchema.validate(value);
@@ -155,6 +171,10 @@ export default function EditContactForm({ contactToEdit, updateContact, setEditA
 
 	const handleSubmit = (event: React.BaseSyntheticEvent) => {
 		event.preventDefault();
+		validateForm();
+
+		if (!isEmpty(errors)) return;
+
 		updateContact(contact);
 		setEditActive(false);
 	};
