@@ -17,7 +17,7 @@ import ContactPage from "./comps/ContactPage";
 
 /* Styles */
 import styled from "styled-components";
-import DeletedContactPage from "./comps/deletedContact";
+import DeletedContactPage from "./comps/DeletedContactPage";
 import InfoPage from "./comps/common/InfoPage";
 
 const MainContainer = styled.div`
