@@ -88,7 +88,7 @@ export const validationSchema = {
 	},
 	phone: Joi.string()
 		.trim()
-		.regex(/^[-0-9()+]{7,20}$/)
+		.regex(/^[-0-9()+ ]{7,20}$/)
 		.required()
 		.messages({ "string.pattern.base": "The phone number format is: +(3670)1234567" })
 		.label("Phone number"),
