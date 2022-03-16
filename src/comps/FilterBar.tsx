@@ -39,7 +39,7 @@ interface FilterBarProps {
 
 export default function FilterBar({ contacts, filterContacts }: FilterBarProps) {
 	const letters: string[] = (() => {
-		const AllFirstLetter: string[] = contacts.map((contact: Contact) => contact.name.first.charAt(0));
+		const AllFirstLetter: string[] = contacts.map((contact: Contact) => contact.name.first.charAt(0).toLocaleUpperCase());
 		const uniqLetters: string[] = uniq(AllFirstLetter);
 		return uniqLetters.sort();
 	})();

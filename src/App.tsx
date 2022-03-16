@@ -115,7 +115,7 @@ function App() {
 	}
 
 	function filterContacts(searchLetter: string) {
-		const filteredContacts: Contact[] = contacts.filter((contact: Contact) => contact.name.first.charAt(0) === searchLetter);
+		const filteredContacts: Contact[] = contacts.filter((contact: Contact) => contact.name.first.charAt(0).toLocaleUpperCase() === searchLetter);
 		setFilteredContacts(filteredContacts);
 	}
 
