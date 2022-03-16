@@ -195,7 +195,7 @@ export default function EditContactForm({ contactToEdit, updateContact, setEditA
 				<InputField
 					type="text"
 					id={"location.street.name"}
-					placeholder={"Place address"}
+					placeholder={"Enter location"}
 					name={"location.street.name"}
 					onChange={handleChange}
 					value={contact.location.street.name}
