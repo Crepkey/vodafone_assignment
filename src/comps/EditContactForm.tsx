@@ -91,9 +91,11 @@ const SaveButton = styled.button`
 
 interface EditContactFormProps {
 	contactToEdit: Contact;
+	updateContact(contactToUpdate: Contact): void;
+	setEditActive(value: React.SetStateAction<boolean>): void;
 }
 
-export default function EditContactForm({ contactToEdit }: EditContactFormProps) {
+export default function EditContactForm({ contactToEdit, updateContact, setEditActive }: EditContactFormProps) {
 	const [contact, setContact] = useState<Contact>(contactToEdit);
 
 	const handleChange = (event: React.BaseSyntheticEvent) => {
@@ -104,8 +106,14 @@ export default function EditContactForm({ contactToEdit }: EditContactFormProps)
 		setContact(newContact);
 	};
 
+	const handleSubmit = (event: React.BaseSyntheticEvent) => {
+		event.preventDefault();
+		updateContact(contact);
+		setEditActive(false);
+	};
+
 	return (
-		<Form>
+		<Form onSubmit={handleSubmit}>
 			<InputContainer>
 				<Label>{"First name"}</Label>
 				<InputField

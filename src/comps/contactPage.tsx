@@ -110,10 +110,11 @@ interface MatchParams {
 
 interface ContactPageProps extends RouteComponentProps<MatchParams> {
 	contacts: Contact[];
-	deleteContact: (contactToDelete: Contact) => void;
+	deleteContact(contactToDelete: Contact): void;
+	updateContact(contactToUpdate: Contact): void;
 }
 
-export default function ContactPage({ contacts, match, deleteContact }: ContactPageProps) {
+export default function ContactPage({ contacts, match, deleteContact, updateContact }: ContactPageProps) {
 	const [isEditActive, setEditActive] = useState<boolean>(false);
 	const contactID: string = match.params.id;
 	const contact: Contact = (() => {
@@ -136,7 +137,7 @@ export default function ContactPage({ contacts, match, deleteContact }: ContactP
 		<MainContainer>
 			<PageTitle text={`${contact.name.first}, ${contact.name.last}'s Profile`} />
 			{isEditActive ? (
-				<EditContactForm contactToEdit={contact} />
+				<EditContactForm contactToEdit={contact} updateContact={updateContact} setEditActive={setEditActive} />
 			) : (
 				<>
 					<ContactInformations>

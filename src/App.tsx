@@ -87,6 +87,16 @@ function App() {
 		setContacts(newContacts);
 	}
 
+	function updateContact(contactToUpdate: Contact) {
+		const newContacts: Contact[] = contacts.map((contact: Contact) => {
+			if (contact.id.name === contactToUpdate.id.name && contact.id.value === contactToUpdate.id.value) {
+				return contactToUpdate;
+			}
+			return contact;
+		});
+		setContacts(newContacts);
+	}
+
 	function deleteContact(contactToDelete: Contact) {
 		const newContacts: Contact[] = contacts.filter(
 			(contact: Contact) => contactToDelete.id.name !== contact.id.name && contactToDelete.id.value !== contact.id.value,
@@ -137,12 +147,14 @@ function App() {
 		<MainContainer>
 			<Header searchInContacts={searchInContacts} />
 			<Switch>
-				{/* FIXME: Routing doesn't work in the deployed and published app on Netlify */}
 				<Route
 					path="/contact_deleted_successfully"
 					render={() => <DeletedContactPage deletedContact={deletedContact} undoContactDeletion={undoContactDeletion} />}
 				/>
-				<Route path="/contact/:id" render={(props) => <ContactPage contacts={contacts} deleteContact={deleteContact} {...props} />} />
+				<Route
+					path="/contact/:id"
+					render={(props) => <ContactPage contacts={contacts} deleteContact={deleteContact} updateContact={updateContact} {...props} />}
+				/>
 				<Route path="/add_new_contact" render={() => <AddContactForm saveNewContact={saveNewContact} />} />
 				<Route
 					path="/"
