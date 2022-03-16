@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { colors } from "../../utils/colors";
 
-const StyledButton = styled.button<{ buttonColors: any }>`
+const StyledButton = styled.button<{ buttonColors: any; style: any }>`
 	padding: 6px 10px;
 	color: ${({ buttonColors }) => buttonColors.color};
 	background-color: ${({ buttonColors }) => buttonColors.background};
 	border: 1px solid ${({ buttonColors }) => buttonColors.border};
 	border-radius: 5px;
 	font-size: 0.9rem;
-	margin: 20px auto;
+	margin: ${({ style }) => (style?.margin ? style?.margin : "20px auto")};
 	transition: all 0.3s ease;
 	:hover {
 		cursor: pointer;
@@ -22,13 +22,15 @@ const StyledButton = styled.button<{ buttonColors: any }>`
 `;
 
 interface ButtonProps {
-	style: "common" | "red";
+	style?: { [key: string]: string };
+	colorStyle: "common" | "red";
 	text: string;
+	onClick?: (any: any) => any;
 }
 
-export default function Button({ style, text }: ButtonProps) {
+export default function Button({ style, colorStyle, text, onClick }: ButtonProps) {
 	const buttonColors = (() => {
-		switch (style) {
+		switch (colorStyle) {
 			case "red":
 				return {
 					color: colors.red,
@@ -52,5 +54,9 @@ export default function Button({ style, text }: ButtonProps) {
 		}
 	})();
 
-	return <StyledButton buttonColors={buttonColors}>{text}</StyledButton>;
+	return (
+		<StyledButton style={style} buttonColors={buttonColors} onClick={onClick}>
+			{text}
+		</StyledButton>
+	);
 }

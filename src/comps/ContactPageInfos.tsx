@@ -10,6 +10,7 @@ import { breakePoints } from "../utils/utils";
 /* Styles */
 import styled from "styled-components";
 import { colors } from "../utils/colors";
+import Button from "./common/Button";
 
 const ContactInformations = styled.div`
 	display: flex;
@@ -58,36 +59,6 @@ const Buttons = styled.div`
 	width: 100%;
 `;
 
-const EditButton = styled.button`
-	padding: 6px 10px;
-	color: ${colors.normalButton};
-	background-color: rgba(0, 0, 0, 0);
-	border: 1px solid ${colors.normalButtons};
-	border-radius: 5px;
-	font-size: 0.9rem;
-	margin: 15px;
-	transition: all 0.3s ease;
-	:hover {
-		cursor: pointer;
-		color: white;
-		background-color: ${colors.normalButton};
-	}
-	:active {
-		color: ${colors.normalButton};
-		background-color: rgba(0, 0, 0, 0);
-	}
-`;
-
-const DeleteButton = styled.button`
-	padding: 6px 10px;
-	color: ${colors.red};
-	background-color: rgba(0, 0, 0, 0);
-	border: 1px solid ${colors.red};
-	border-radius: 5px;
-	font-size: 0.9rem;
-	margin: 15px;
-`;
-
 interface ContactPageInfosProps {
 	contact: Contact;
 	setEditActive(value: React.SetStateAction<boolean>): void;
@@ -114,9 +85,9 @@ export default function ContactPageInfos({ contact, setEditActive, deleteContact
 			</ContactInformations>
 			<Buttons>
 				<Link to={`/contact_deleted_successfully`}>
-					<DeleteButton onClick={() => deleteContact(contact)}>Delete</DeleteButton>
+					<Button style={{ margin: "15px" }} colorStyle="red" text="Delete" onClick={() => deleteContact(contact)} />
 				</Link>
-				<EditButton onClick={() => setEditActive(true)}>Edit</EditButton>
+				<Button style={{ margin: "15px" }} colorStyle="common" text="Edit" onClick={() => setEditActive(true)} />
 			</Buttons>
 		</>
 	);
