@@ -1,3 +1,15 @@
+/* 
+	DISCLAIMER: I've applied a different solution than I would usually do in a real production environment
+	because I didn't want to avoid those challenges that you've created by this assignment.
+	Therefore THIS SOLUTION LACKS the following technologies / approaches:
+		- CONTEXT API for easier state handling
+		- Input fields sanitization
+		- Standalone file for every displayed text in the application
+		- Third-party libraries for the UI building (Bootstrap, Material UI, ANT Design, and so on…)
+
+	If you have any questions don't hesitate to call me: +3670-351-36-21
+*/
+
 /* React */
 import { useEffect, useState } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
@@ -42,7 +54,7 @@ function App() {
 	const [createdContact, setCreatedContacts] = useState<Contact>();
 
 	useEffect(() => {
-		getContacts(5);
+		getContacts(500);
 	}, []);
 
 	async function getContacts(results: number) {
@@ -150,6 +162,11 @@ function App() {
 				<InfoPage icon="error" title="Oops... Something went wrong" details={errors.message} />;
 			</MainContainer>
 		);
+
+	/* 
+		It would be great if a loading screen would be here for those cases when users have to wait for the data from the server. 
+		But ain't no body get time for that :)
+	*/
 
 	return (
 		<MainContainer>
