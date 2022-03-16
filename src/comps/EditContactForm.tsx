@@ -1,3 +1,9 @@
+/* React */
+import { useState } from "react";
+
+/* Interfaces */
+import { Contact } from "../utils/interfaces";
+
 /* Utils */
 import { breakePoints } from "../utils/utils";
 
@@ -79,27 +85,58 @@ const SaveButton = styled.button`
 	}
 `;
 
-export default function EditContactForm() {
+interface EditContactFormProps {
+	contactToEdit: Contact;
+}
+
+export default function EditContactForm({ contactToEdit }: EditContactFormProps) {
+	const [contact, setContact] = useState<Contact>(contactToEdit);
 	return (
 		<Form>
 			<InputContainer>
 				<Label>{"First name"}</Label>
-				<InputField type="text" id={"first"} placeholder={"Place holder"} name={"first"} onChange={() => {}} value={"ndsjcnsdjbcvsjkd"} />
+				<InputField
+					type="text"
+					id={"name.first"}
+					placeholder={"Enter first name"}
+					name={"name.first"}
+					onChange={() => {}}
+					value={contact.name.first}
+				/>
 			</InputContainer>
 			<ErrorMessage>{"bwhbhsdbchsdjc"}</ErrorMessage>
 			<InputContainer>
-				<Label>{"First name"}</Label>
-				<InputField type="text" id={"first"} placeholder={"Place holder"} name={"first"} onChange={() => {}} value={"ndsjcnsdjbcvsjkd"} />
+				<Label>{"Last name"}</Label>
+				<InputField
+					type="text"
+					id={"name.last"}
+					placeholder={"Enter last name"}
+					name={"name.last"}
+					onChange={() => {}}
+					value={contact.name.last}
+				/>
+			</InputContainer>
+			<ErrorMessage>{"Email"}</ErrorMessage>
+			<InputContainer>
+				<Label>{"Email"}</Label>
+				<InputField type="text" id={"email"} placeholder={"Enter email"} name={"email"} onChange={() => {}} value={contact.email} />
 			</InputContainer>
 			<ErrorMessage>{"bwhbhsdbchsdjc"}</ErrorMessage>
 			<InputContainer>
-				<Label>{"First name"}</Label>
-				<InputField type="text" id={"first"} placeholder={"Place holder"} name={"first"} onChange={() => {}} value={"ndsjcnsdjbcvsjkd"} />
+				<Label>{"Phone"}</Label>
+				<InputField type="text" id={"phone"} placeholder={"Enter phone"} name={"phone"} onChange={() => {}} value={contact.phone} />
 			</InputContainer>
 			<ErrorMessage>{"bwhbhsdbchsdjc"}</ErrorMessage>
 			<InputContainer>
-				<Label>{"First name"}</Label>
-				<InputField type="text" id={"first"} placeholder={"Place holder"} name={"first"} onChange={() => {}} value={"ndsjcnsdjbcvsjkd"} />
+				<Label>{"Address"}</Label>
+				<InputField
+					type="text"
+					id={"location.street.name"}
+					placeholder={"Place address"}
+					name={"first"}
+					onChange={() => {}}
+					value={contact.location.street.name}
+				/>
 			</InputContainer>
 			<ErrorMessage>{"bwhbhsdbchsdjc"}</ErrorMessage>
 			<SaveButton>Save contact</SaveButton>

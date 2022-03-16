@@ -136,7 +136,7 @@ export default function ContactPage({ contacts, match, deleteContact }: ContactP
 		<MainContainer>
 			<PageTitle text={`${contact.name.first}, ${contact.name.last}'s Profile`} />
 			{isEditActive ? (
-				<EditContactForm />
+				<EditContactForm contactToEdit={contact} />
 			) : (
 				<>
 					<ContactInformations>
