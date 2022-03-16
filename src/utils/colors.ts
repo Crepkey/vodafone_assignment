@@ -7,6 +7,7 @@ interface Colors {
 export const colors: Colors = {
 	//BASIC COLORS
 	red: "rgba(212, 44, 31, 1)",
+	transparent: "rgba(0, 0, 0, 0)",
 
 	//BORDERS & LINES
 	fieldBorder: "rgba(207, 212, 217, 1)",
@@ -22,4 +23,5 @@ export const colors: Colors = {
 
 	//BUTTONS
 	normalButton: "rgba(25, 25, 25, 1)",
+	buttonTextHover: "rgba(255, 255, 255, 1)",
 };
