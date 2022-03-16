@@ -9,7 +9,7 @@ import { Contact } from "../utils/interfaces";
 
 /* Components */
 import PageTitle from "./pageTitle";
-import FilterBar from "./filter";
+import FilterBar from "./FilterBar";
 import ContactCards from "./ContactCards";
 
 /* Styles */
