@@ -2,12 +2,12 @@
 import React, { useState } from "react";
 
 /* Utils */
-import { emptyContactFormObj, emptyContactObj, generateID } from "../utils/utils";
+import { emptyContactFormObj, emptyContactObj, generateID, validationSchema } from "../utils/utils";
 import set from "lodash/set";
 import get from "lodash/get";
 import omit from "lodash/omit";
-import isEmpty from "lodash/isEmpty";
 import Joi from "joi";
+import { cloneDeep } from "lodash";
 
 /* Components */
 import PageTitle from "./pageTitle";
@@ -23,7 +23,6 @@ import contactProfilePic from "../img/new_contact_pic.jpg";
 import styled from "styled-components";
 import { colors } from "../utils/colors";
 import { useHistory } from "react-router-dom";
-import { cloneDeep } from "lodash";
 
 const MainContainer = styled.div`
 	display: flex;
@@ -68,23 +67,6 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 	const [contact, setContact] = useState<ContactFormFields>(emptyContactFormObj);
 	const [errors, setErrors] = useState<ContactErrors>({});
 	const history = useHistory();
-
-	const validationSchema = {
-		firstName: Joi.string().required().label("First name"),
-
-		lastName: Joi.string().required().label("Last name"),
-		phone: Joi.string()
-			.trim()
-			.regex(/^[0-9]{7,20}$/)
-			.required()
-			.messages({ "string.pattern.base": "The phone number format is: 0123456789" })
-			.label("Phone number"),
-		email: Joi.string()
-			.email({ minDomainSegments: 2, tlds: { allow: false } })
-			.required()
-			.label("E-mail"),
-		address: Joi.string().min(4).max(60).required().label("Location"),
-	};
 
 	function validateForm() {
 		const options: Joi.ValidationOptions = { abortEarly: false };

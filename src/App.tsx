@@ -41,7 +41,7 @@ function App() {
 	const [deletedContact, setDeletedContacts] = useState<Contact>();
 
 	useEffect(() => {
-		getContacts(500);
+		getContacts(5);
 	}, []);
 
 	async function getContacts(results: number) {

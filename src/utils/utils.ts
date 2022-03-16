@@ -1,3 +1,7 @@
+/* Libraries */
+import Joi from "joi";
+
+/* Interfaces */
 import { Contact, ContactFormFields } from "./interfaces";
 
 export const breakePoints = {
@@ -72,3 +76,20 @@ function generateIDClosure() {
 }
 
 export const generateID = generateIDClosure();
+
+export const validationSchema = {
+	firstName: Joi.string().required().label("First name"),
+
+	lastName: Joi.string().required().label("Last name"),
+	phone: Joi.string()
+		.trim()
+		.regex(/^[0-9]{7,20}$/)
+		.required()
+		.messages({ "string.pattern.base": "The phone number format is: 06701234567" })
+		.label("Phone number"),
+	email: Joi.string()
+		.email({ minDomainSegments: 2, tlds: { allow: false } })
+		.required()
+		.label("E-mail"),
+	address: Joi.string().min(4).max(60).required().label("Location"),
+};
