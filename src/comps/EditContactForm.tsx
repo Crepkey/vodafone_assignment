@@ -5,13 +5,9 @@ import React, { useState } from "react";
 import { Contact, ContactErrors } from "../utils/interfaces";
 
 /* Utils */
-import { breakePoints, validateForm, validationSchema } from "../utils/utils";
+import { breakePoints, validateField, validateForm } from "../utils/utils";
 import cloneDeep from "lodash/cloneDeep";
 import set from "lodash/set";
-import get from "lodash/get";
-import omit from "lodash/omit";
-import isEmpty from "lodash/isEmpty";
-import Joi from "joi";
 
 /* Styles */
 import styled from "styled-components";
@@ -103,26 +99,10 @@ export default function EditContactForm({ contactToEdit, updateContact, setEditA
 	const [contact, setContact] = useState<Contact>(contactToEdit);
 	const [errors, setErrors] = useState<ContactErrors>({});
 
-	function validateField(name: string, value: string) {
-		const subSchema: Joi.StringSchema = get(validationSchema, name);
-		const { error }: Joi.ValidationResult<any> = subSchema.validate(value);
-
-		if (error) {
-			const newErrors: ContactErrors = cloneDeep(errors);
-			const errorMessage: string = error.details[0].message;
-			set(newErrors, name, errorMessage);
-			return setErrors(newErrors);
-		}
-
-		const newErrors: ContactErrors = cloneDeep(errors);
-		const filteredErrors: ContactErrors = omit(newErrors, name);
-		setErrors(filteredErrors);
-	}
-
 	const handleChange = (event: React.BaseSyntheticEvent) => {
 		const name: string = event.currentTarget.name;
 		const value: string = event.currentTarget.value;
-		validateField(name, value);
+		validateField(name, value, errors, setErrors);
 		const newContact: Contact = cloneDeep(contact);
 		set(newContact, name, value);
 		setContact(newContact);
