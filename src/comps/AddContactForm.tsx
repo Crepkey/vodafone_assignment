@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 /* Utils */
-import { emptyContact, generateID, validateField, validateForm, validationSchema } from "../utils/utils";
+import { breakePoints, emptyContact, generateID, validateField, validateForm } from "../utils/utils";
 import set from "lodash/set";
 import cloneDeep from "lodash/cloneDeep";
 
@@ -20,7 +20,6 @@ import contactProfilePic from "../img/new_contact_pic.jpg";
 
 /* Styles */
 import styled from "styled-components";
-import { colors } from "../utils/colors";
 
 const MainContainer = styled.div`
 	display: flex;
@@ -36,6 +35,9 @@ const Form = styled.form`
 	flex-direction: column;
 	width: 70%;
 	padding: 20px 0;
+	@media screen and (max-width: ${breakePoints.mobileL}) {
+		width: 90%;
+	}
 `;
 
 interface AddContactFormProps {
