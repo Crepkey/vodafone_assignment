@@ -15,8 +15,8 @@ const Form = styled.form`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 30%;
-	min-width: 300px;
+	width: 40%;
+	min-width: 400px;
 	padding: 20px 0;
 	@media screen and (max-width: ${breakePoints.mobileL}) {
 		width: 70%;
@@ -49,11 +49,13 @@ const InputField = styled.input`
 	border: 1px ${colors.fieldBorder} solid;
 	border-radius: 5px;
 	height: 25px;
-	width: 300px;
+	min-width: 300px;
+	max-width: 500px;
 	font-size: 0.9rem;
 	padding: 5px 10px;
 	@media screen and (max-width: ${breakePoints.mobileL}) {
 		width: calc(100% - 20px);
+		min-width: 0;
 	}
 `;
 
