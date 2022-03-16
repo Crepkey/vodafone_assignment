@@ -30,11 +30,7 @@ const InputField = styled.input`
 	height: 25px;
 	font-size: 0.9rem;
 	padding: 5px 10px;
-	width: 100%;
-	@media screen and (max-width: ${breakePoints.mobileL}) {
-		width: calc(100% - 20px);
-		min-width: 0;
-	}
+	width: calc(100% - 20px);
 `;
 
 const ErrorMessage = styled.div`
