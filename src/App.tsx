@@ -13,7 +13,7 @@ import Header from "./comps/header";
 import Contacts from "./comps/contacts";
 import Footer from "./comps/footer";
 import AddContactForm from "./comps/AddContactForm";
-import ContactPage from "./comps/contactPage";
+import ContactPage from "./comps/ProfilePage";
 
 /* Styles */
 import styled from "styled-components";
