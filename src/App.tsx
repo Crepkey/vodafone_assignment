@@ -12,7 +12,7 @@ import { Contact } from "./utils/interfaces";
 import Header from "./comps/header";
 import Contacts from "./comps/contacts";
 import Footer from "./comps/footer";
-import AddContactForm from "./comps/addNewContactForm";
+import AddContactForm from "./comps/AddContactForm";
 import ContactPage from "./comps/contactPage";
 
 /* Styles */
