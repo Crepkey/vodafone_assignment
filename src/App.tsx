@@ -9,7 +9,7 @@ import { generateID } from "./utils/utils";
 import { Contact } from "./utils/interfaces";
 
 /* Components */
-import Header from "./comps/headerComp";
+import Header from "./comps/Header";
 import Contacts from "./comps/Contacts";
 import Footer from "./comps/Footer";
 import AddContactForm from "./comps/AddContactForm";
