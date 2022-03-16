@@ -44,6 +44,6 @@ export default function ContactCards({ contacts }: ContactCardProps) {
 			))}
 		</MainContainer>
 	) : (
-		<InfoPage icon={false} title={"There is no result"} details={"There is nothing to show for your search."} />
+		<InfoPage icon={false} title={"There is no result"} details={"There is nothing to show for you :("} />
 	);
 }

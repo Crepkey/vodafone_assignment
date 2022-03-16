@@ -1,5 +1,3 @@
-/* FIXME: If I deleted all the contacts I got a white screen. */
-
 /* React */
 import { useEffect, useState } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
@@ -62,7 +60,11 @@ function App() {
 			if ("error" in parsedResponse) {
 				throw new Error(parsedResponse.error);
 			}
-
+			/* 
+				There is no ID in some cases in the contact object that I get from the server, 
+				therefore I need to validate them and replace the empty IDs with a randomly generated data.
+				DISCLAIMER: If you use a link which uses a generated ID by me. It may be unavailable if a render ran in the background before.
+        	*/
 			const validatedContacts: Contact[] = validateIDs(parsedResponse.results);
 			setContacts(validatedContacts);
 			setFilteredContacts(validatedContacts);
@@ -148,9 +150,6 @@ function App() {
 				<InfoPage icon="error" title="Oops... Something went wrong" details={errors.message} />;
 			</MainContainer>
 		);
-
-	/* This exit point is necessary to avoid a useless rendering until all the necessary data has arrived */
-	if (contacts.length === 0) return null;
 
 	return (
 		<MainContainer>
