@@ -10,7 +10,7 @@ import { Contact } from "./utils/interfaces";
 
 /* Components */
 import Header from "./comps/header";
-import Contacts from "./comps/contacts";
+import Contacts from "./comps/Something";
 import Footer from "./comps/footer";
 import AddContactForm from "./comps/AddContactForm";
 import ContactPage from "./comps/ContactPage";
