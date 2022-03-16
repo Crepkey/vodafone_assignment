@@ -2,19 +2,20 @@
 import React, { useState } from "react";
 
 /* Utils */
-import { emptyContactFormObj, emptyContactObj, generateID, validationSchema } from "../utils/utils";
+import { emptyContact, generateID, validationSchema } from "../utils/utils";
 import set from "lodash/set";
 import get from "lodash/get";
 import omit from "lodash/omit";
+import cloneDeep from "lodash/cloneDeep";
+import isEmpty from "lodash/isEmpty";
 import Joi from "joi";
-import { cloneDeep } from "lodash";
 
 /* Components */
 import PageTitle from "./pageTitle";
 import Input from "./common/input";
 
 /* Interfaces */
-import { Contact, ContactErrors, ContactFormFields } from "../utils/interfaces";
+import { Contact, ContactErrors } from "../utils/interfaces";
 
 /* Images */
 import contactProfilePic from "../img/new_contact_pic.jpg";
@@ -40,7 +41,6 @@ const Form = styled.form`
 	padding: 20px 0;
 `;
 
-/* REFACTOR: Standalone normal button component */
 const AddContactButton = styled.button`
 	width: 100px;
 	height: 30px;
@@ -63,18 +63,19 @@ interface AddContactFormProps {
 }
 
 export default function AddContactForm({ saveNewContact }: AddContactFormProps) {
-	/* REFACTOR: BIG REFACTOR HERE BECAUSE THIS CODE IS REALLY UGLY */
-	const [contact, setContact] = useState<ContactFormFields>(emptyContactFormObj);
+	const [contact, setContact] = useState<Contact>(emptyContact);
 	const [errors, setErrors] = useState<ContactErrors>({});
 	const history = useHistory();
 
 	function validateForm() {
 		const options: Joi.ValidationOptions = { abortEarly: false };
 		const { error }: Joi.ValidationResult<any> = Joi.object(validationSchema).validate(contact, options);
+
 		if (error) {
 			const newErrors = {};
 			const foundErrors: Joi.ValidationErrorItem[] = error.details;
 			for (const error of foundErrors) {
+				if (error.type === "object.unknown") continue;
 				set(newErrors, error.path, error.message);
 			}
 			setErrors(newErrors);
@@ -84,18 +85,30 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 		return false;
 	}
 
+	function validateField(name: string, value: string) {
+		const subSchema: Joi.StringSchema = get(validationSchema, name);
+		const { error }: Joi.ValidationResult<any> = subSchema.validate(value);
+
+		if (error) {
+			const newErrors: ContactErrors = cloneDeep(errors);
+			const errorMessage: string = error.details[0].message;
+			set(newErrors, name, errorMessage);
+			return setErrors(newErrors);
+		}
+
+		const newErrors: ContactErrors = cloneDeep(errors);
+		const filteredErrors: ContactErrors = omit(newErrors, name);
+		setErrors(filteredErrors);
+	}
+
 	const handleSubmit = (event: React.SyntheticEvent) => {
 		event.preventDefault();
-		const error = validateForm();
+		const errors = validateForm();
 
-		if (error) return;
+		if (errors) return;
 
-		const newContact: Contact = cloneDeep(emptyContactObj);
-		set(newContact, "name.first", contact.firstName);
-		set(newContact, "name.last", contact.lastName);
-		set(newContact, "email", contact.email);
-		set(newContact, "phone", contact.phone);
-		set(newContact, "location.street.name", contact.address);
+		const newContact: Contact = cloneDeep(contact);
+
 		set(newContact, "id.name", generateID("name"));
 		set(newContact, "id.value", generateID("value"));
 		set(newContact, "picture.large", contactProfilePic);
@@ -104,28 +117,11 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 		history.push("/");
 	};
 
-	function validateField(name: string, value: string) {
-		const subSchema: Joi.StringSchema = get(validationSchema, name);
-		const { error }: Joi.ValidationResult<any> = subSchema.validate(value);
-
-		if (error) {
-			const newErrors: ContactErrors = { ...errors };
-			const errorMessage: string = error.details[0].message;
-			set(newErrors, name, errorMessage);
-			return setErrors(newErrors);
-		}
-
-		const newErrors: ContactErrors = { ...errors };
-		const filteredErrors = omit(newErrors, name);
-		setErrors(filteredErrors);
-	}
-
 	const handleChange = (event: React.BaseSyntheticEvent) => {
 		const name: string = event.currentTarget.name;
 		const value: string = event.currentTarget.value;
 		validateField(name, value);
-
-		const newContact: ContactFormFields = { ...contact };
+		const newContact: Contact = cloneDeep(contact);
 		set(newContact, name, value);
 		setContact(newContact);
 	};
@@ -137,17 +133,17 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 				<Input
 					label="First Name"
 					placeHolder="Enter first name"
-					name="firstName"
-					value={contact.firstName}
-					error={errors.firstName}
+					name="name.first"
+					value={contact.name.first}
+					error={errors.name?.first}
 					onChange={handleChange}
 				/>
 				<Input
 					label="Last Name"
 					placeHolder="Enter last name"
-					name="lastName"
-					value={contact.lastName}
-					error={errors.lastName}
+					name="name.last"
+					value={contact.name.last}
+					error={errors.name?.last}
 					onChange={handleChange}
 				/>
 				<Input label="Email" placeHolder="Enter Email" name="email" value={contact.email} error={errors.email} onChange={handleChange} />
@@ -155,9 +151,9 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 				<Input
 					label="Address"
 					placeHolder="Enter Address"
-					name="address"
-					value={contact.address}
-					error={errors.address}
+					name="location.street.name"
+					value={contact.location.street.name}
+					error={errors.location?.street.name}
 					onChange={handleChange}
 				/>
 				<AddContactButton>Add contact</AddContactButton>

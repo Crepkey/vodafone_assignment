@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 
 /* Interfaces */
-import { Contact } from "../utils/interfaces";
+import { Contact, ContactErrors } from "../utils/interfaces";
 
 /* Utils */
-import { breakePoints } from "../utils/utils";
+import { breakePoints, validationSchema } from "../utils/utils";
 import cloneDeep from "lodash/cloneDeep";
 import set from "lodash/set";
 import get from "lodash/get";
@@ -99,35 +99,9 @@ interface EditContactFormProps {
 	setEditActive(value: React.SetStateAction<boolean>): void;
 }
 
-interface ContactErrors {
-	name?: { first: string; last: string };
-	phone?: string;
-	email?: string;
-	location?: { street: { name: string } };
-}
-
 export default function EditContactForm({ contactToEdit, updateContact, setEditActive }: EditContactFormProps) {
 	const [contact, setContact] = useState<Contact>(contactToEdit);
 	const [errors, setErrors] = useState<ContactErrors>({});
-
-	const validationSchema = {
-		name: {
-			first: Joi.string().required().label("First name"),
-
-			last: Joi.string().required().label("Last name"),
-		},
-		phone: Joi.string()
-			.trim()
-			.regex(/^[0-9]{7,20}$/)
-			.required()
-			.messages({ "string.pattern.base": "The phone number format is: 06701234567" })
-			.label("Phone number"),
-		email: Joi.string()
-			.email({ minDomainSegments: 2, tlds: { allow: false } })
-			.required()
-			.label("E-mail"),
-		location: { street: { name: Joi.string().min(4).max(60).required().label("Location") } },
-	};
 
 	function validateForm() {
 		const options: Joi.ValidationOptions = { abortEarly: false };

@@ -2,7 +2,7 @@
 import Joi from "joi";
 
 /* Interfaces */
-import { Contact, ContactFormFields } from "./interfaces";
+import { Contact } from "./interfaces";
 
 export const breakePoints = {
 	mobileS: "320px",
@@ -16,15 +16,7 @@ export const breakePoints = {
 	desktop: "2560px",
 };
 
-export const emptyContactFormObj: ContactFormFields = {
-	firstName: "",
-	lastName: "",
-	phone: "",
-	email: "",
-	address: "",
-};
-
-export const emptyContactObj: Contact = {
+export const emptyContact: Contact = {
 	id: { name: "", value: "" },
 	name: { first: "", last: "", title: "" },
 	phone: "",
@@ -78,9 +70,11 @@ function generateIDClosure() {
 export const generateID = generateIDClosure();
 
 export const validationSchema = {
-	firstName: Joi.string().required().label("First name"),
+	name: {
+		first: Joi.string().required().label("First name"),
 
-	lastName: Joi.string().required().label("Last name"),
+		last: Joi.string().required().label("Last name"),
+	},
 	phone: Joi.string()
 		.trim()
 		.regex(/^[0-9]{7,20}$/)
@@ -91,5 +85,5 @@ export const validationSchema = {
 		.email({ minDomainSegments: 2, tlds: { allow: false } })
 		.required()
 		.label("E-mail"),
-	address: Joi.string().min(4).max(60).required().label("Location"),
+	location: { street: { name: Joi.string().min(4).max(60).required().label("Location") } },
 };

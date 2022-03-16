@@ -34,17 +34,8 @@ export interface Contact {
 	picture: ContactPicture;
 }
 export interface ContactErrors {
-	firstName?: string;
-	lastName?: string;
+	name?: { first: string; last: string };
 	phone?: string;
 	email?: string;
-	address?: string;
-}
-
-export interface ContactFormFields {
-	firstName: string;
-	lastName: string;
-	phone: string;
-	email: string;
-	address: string;
+	location?: { street: { name: string } };
 }
