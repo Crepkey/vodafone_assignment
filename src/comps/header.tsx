@@ -1,5 +1,6 @@
 /* React */
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 /* Utils */
 import { breakePoints } from "../utils/utils";
@@ -10,7 +11,6 @@ import vodafoneLogoPath from "../img/vodafone_logo.svg";
 /* Styles */
 import styled from "styled-components";
 import { colors } from "../utils/colors";
-import { useState } from "react";
 
 const MainContainer = styled.div`
 	display: flex;
