@@ -11,10 +11,10 @@ import set from "lodash/set";
 
 /* Components */
 import Button from "./common/Button";
+import Input from "./common/Input";
 
 /* Styles */
 import styled from "styled-components";
-import { colors } from "../utils/colors";
 
 const Form = styled.form`
 	display: flex;
@@ -27,49 +27,6 @@ const Form = styled.form`
 		width: 90%;
 		min-width: 0;
 	}
-`;
-
-const InputContainer = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
-	@media screen and (max-width: ${breakePoints.mobileL}) {
-		flex-direction: column;
-	}
-`;
-
-const Label = styled.label`
-	color: ${colors.fieldLabel};
-	font-size: 0.9rem;
-	margin-right: 10px;
-	@media screen and (max-width: ${breakePoints.mobileL}) {
-		width: 100%;
-		margin: 0;
-	}
-`;
-
-const InputField = styled.input`
-	margin: 10px 0 0 0;
-	border: 1px ${colors.fieldBorder} solid;
-	border-radius: 5px;
-	height: 25px;
-	min-width: 300px;
-	max-width: 500px;
-	font-size: 0.9rem;
-	padding: 5px 10px;
-	@media screen and (max-width: ${breakePoints.mobileL}) {
-		width: calc(100% - 20px);
-		min-width: 0;
-	}
-`;
-
-const ErrorMessage = styled.div`
-	color: ${colors.red};
-	font-size: 0.8rem;
-	text-align: right;
-	height: 0.8rem;
-	width: 100%;
 `;
 
 interface EditContactFormProps {
@@ -103,53 +60,52 @@ export default function EditContactForm({ contactToEdit, updateContact, setEditA
 
 	return (
 		<Form onSubmit={handleSubmit}>
-			<InputContainer>
-				<Label>{"First name"}</Label>
-				<InputField
-					type="text"
-					id={"name.first"}
-					placeholder={"Enter first name"}
-					name={"name.first"}
-					onChange={handleChange}
-					value={contact.name.first}
-				/>
-			</InputContainer>
-			<ErrorMessage>{errors.name?.first}</ErrorMessage>
-			<InputContainer>
-				<Label>{"Last name"}</Label>
-				<InputField
-					type="text"
-					id={"name.last"}
-					placeholder={"Enter last name"}
-					name={"name.last"}
-					onChange={handleChange}
-					value={contact.name.last}
-				/>
-			</InputContainer>
-			<ErrorMessage>{errors.name?.last}</ErrorMessage>
-			<InputContainer>
-				<Label>{"Email"}</Label>
-				<InputField type="text" id={"email"} placeholder={"Enter email"} name={"email"} onChange={handleChange} value={contact.email} />
-			</InputContainer>
-			<ErrorMessage>{errors.email}</ErrorMessage>
-			<InputContainer>
-				<Label>{"Phone"}</Label>
-				<InputField type="text" id={"phone"} placeholder={"Enter phone"} name={"phone"} onChange={handleChange} value={contact.phone} />
-			</InputContainer>
-			<ErrorMessage>{errors.phone}</ErrorMessage>
-			<InputContainer>
-				<Label>{"Address"}</Label>
-				<InputField
-					type="text"
-					id={"location.street.name"}
-					placeholder={"Enter location"}
-					name={"location.street.name"}
-					onChange={handleChange}
-					value={contact.location.street.name}
-				/>
-			</InputContainer>
-			<ErrorMessage>{errors.location?.street.name}</ErrorMessage>
-			<Button style={{ margin: "25px 15px 15px 15px" }} colorStyle={"common"} text={"Save contact"} />
+			<Input
+				label="First Name"
+				labelPosition="left"
+				placeHolder="Enter first name"
+				name="name.first"
+				value={contact.name.first}
+				error={errors.name?.first}
+				onChange={handleChange}
+			/>
+			<Input
+				label="Last Name"
+				labelPosition="left"
+				placeHolder="Enter last name"
+				name="name.last"
+				value={contact.name.last}
+				error={errors.name?.last}
+				onChange={handleChange}
+			/>
+			<Input
+				label="Email"
+				labelPosition="left"
+				placeHolder="Enter email"
+				name="email"
+				value={contact.email}
+				error={errors.email}
+				onChange={handleChange}
+			/>
+			<Input
+				label="Phone"
+				labelPosition="left"
+				placeHolder="Enter phone"
+				name="phone"
+				value={contact.phone}
+				error={errors.phone}
+				onChange={handleChange}
+			/>
+			<Input
+				label="Address"
+				labelPosition="left"
+				placeHolder="Enter address"
+				name="location.street.name"
+				value={contact.location.street.name}
+				error={errors.location?.street.name}
+				onChange={handleChange}
+			/>
+			<Button style={{ margin: "20px auto" }} colorStyle={"common"} text={"Save contact"} />
 		</Form>
 	);
 }
