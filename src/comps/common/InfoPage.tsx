@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { VscError } from "react-icons/vsc";
 
 /* Components */
-import PageTitle from "./Title";
+import PageTitle from "./PageTitle";
 import Button from "./Button";
 
 /* Styles */

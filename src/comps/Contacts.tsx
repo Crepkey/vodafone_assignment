@@ -8,7 +8,7 @@ import { breakePoints } from "../utils/utils";
 import { Contact } from "../utils/interfaces";
 
 /* Components */
-import PageTitle from "./common/Title";
+import PageTitle from "./common/PageTitle";
 import FilterBar from "./FilterBar";
 import ContactCards from "./ContactCards";
 
