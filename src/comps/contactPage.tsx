@@ -132,6 +132,7 @@ const Label = styled.label`
 	font-size: 0.9rem;
 	margin-right: 10px;
 	@media screen and (max-width: ${breakePoints.mobileL}) {
+		width: 100%;
 		margin: 0;
 	}
 `;
