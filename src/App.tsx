@@ -41,6 +41,7 @@ function App() {
 	const [contacts, setContacts] = useState<Contact[]>([]);
 	const [filteredContacts, setFilteredContacts] = useState<Contact[]>([]);
 	const [deletedContact, setDeletedContacts] = useState<Contact>();
+	const [createdContact, setCreatedContacts] = useState<Contact>();
 
 	useEffect(() => {
 		getContacts(5);
@@ -87,6 +88,7 @@ function App() {
 	function saveNewContact(newContact: Contact) {
 		/* DISCLAIMER: There is no existed contact checking so it is possible to save the same contact twice */
 		const newContacts = [...contacts, newContact];
+		setCreatedContacts(newContact);
 		setContacts(newContacts);
 		setFilteredContacts(newContacts);
 	}
@@ -154,8 +156,24 @@ function App() {
 		<MainContainer>
 			<Header searchInContacts={searchInContacts} />
 			<Switch>
-				<Route path="/contact_created_successfully" render={() => <SuccessPage contact={deletedContact} onClick={undoContactDeletion} />} />
-				<Route path="/contact_deleted_successfully" render={() => <SuccessPage contact={deletedContact} onClick={undoContactDeletion} />} />
+				<Route
+					path="/contact_created_successfully"
+					render={() => (
+						<SuccessPage title="Successfully created" text="has been added to your contacts successfully" contact={createdContact} />
+					)}
+				/>
+				<Route
+					path="/contact_deleted_successfully"
+					render={() => (
+						<SuccessPage
+							title="Successfully deleted"
+							text="has been removed from your contacts successfully"
+							contact={deletedContact}
+							secondaryButtonText="Undo"
+							secondaryButtonFunction={undoContactDeletion}
+						/>
+					)}
+				/>
 				<Route
 					path="/contact/:id"
 					render={(props) => <ContactPage contacts={contacts} deleteContact={deleteContact} updateContact={updateContact} {...props} />}

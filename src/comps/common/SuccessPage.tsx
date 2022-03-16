@@ -36,10 +36,13 @@ const ButtonContainer = styled.div`
 	text-align: center;
 `;
 interface SuccessPageProps {
+	title: string;
+	text: string;
 	contact: Contact | undefined;
-	onClick: (contactToRestore: Contact) => void;
+	secondaryButtonText?: string;
+	secondaryButtonFunction?: (contactToRestore: Contact) => void;
 }
-export default function SuccessPage({ contact, onClick }: SuccessPageProps) {
+export default function SuccessPage({ title, text, contact, secondaryButtonText, secondaryButtonFunction = () => {} }: SuccessPageProps) {
 	if (!contact)
 		return (
 			<InfoPage
@@ -54,19 +57,26 @@ export default function SuccessPage({ contact, onClick }: SuccessPageProps) {
 
 	return (
 		<MainContainer>
-			<PageTitle text="Successfully deleted" />
-			<ProfilePic src={contact.picture.large} alt="This is the picture of the deleted contact" />
+			<PageTitle text={title} />
+			<ProfilePic src={contact.picture.large} alt="This is the picture of the contact" />
 			<Details>
 				{`Your contact`} <b>{`${contact.name.first} ${contact.name.last} `}</b>
-				{`has been removed from your contacts successfully`}
+				{text}
 			</Details>
 			<ButtonContainer>
 				<Link to="/">
 					<Button style={{ margin: "15px" }} colorStyle={"red"} text={"Go back to the contacts"} />
 				</Link>
-				<Link to="/">
-					<Button style={{ margin: "15px" }} colorStyle={"common"} text={"Undo"} onClick={() => onClick(contact)} />
-				</Link>
+				{secondaryButtonText && (
+					<Link to="/">
+						<Button
+							style={{ margin: "15px" }}
+							colorStyle={"common"}
+							text={secondaryButtonText}
+							onClick={() => secondaryButtonFunction(contact)}
+						/>
+					</Link>
+				)}
 			</ButtonContainer>
 		</MainContainer>
 	);
