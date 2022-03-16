@@ -17,13 +17,11 @@ import { colors } from "../utils/colors";
 const ContactInformations = styled.div`
 	display: flex;
 	margin-top: 20px;
-	padding: 0 10px;
+	padding: 0 15px;
 	@media screen and (max-width: ${breakePoints.mobileL}) {
 		flex-direction: column;
 		align-items: center;
-		height: auto;
-		width: auto;
-		padding: 0 10px;
+		width: 90%;
 	} ;
 `;
 
