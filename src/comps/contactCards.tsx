@@ -5,7 +5,7 @@ import { breakePoints } from "../utils/utils";
 import { Contact } from "../utils/interfaces";
 
 /* Components */
-import ContactCard from "./contactCard";
+import ContactCard from "./Card";
 
 /* Styles */
 import styled from "styled-components";
