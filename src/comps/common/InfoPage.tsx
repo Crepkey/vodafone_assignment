@@ -6,11 +6,11 @@ import { VscError } from "react-icons/vsc";
 
 /* Components */
 import PageTitle from "../pageTitle";
+import Button from "./Button";
 
 /* Styles */
 import styled from "styled-components";
 import { colors } from "../../utils/colors";
-import Button from "./Button";
 
 const MainContainer = styled.div`
 	display: flex;
