@@ -6,10 +6,10 @@ import { Contact } from "../utils/interfaces";
 
 /* Components */
 import ContactCard from "./common/ContactCard";
+import InfoPage from "./common/InfoPage";
 
 /* Styles */
 import styled from "styled-components";
-import InfoPage from "./common/InfoPage";
 
 const MainContainer = styled.div`
 	display: grid;
@@ -39,7 +39,7 @@ interface ContactCardProps {
 export default function ContactCards({ contacts }: ContactCardProps) {
 	return contacts.length !== 0 ? (
 		<MainContainer>
-			{contacts.map((contact: Contact, index: number) => (
+			{contacts.map((contact: Contact) => (
 				<ContactCard key={contact.id.value} contact={contact} />
 			))}
 		</MainContainer>
