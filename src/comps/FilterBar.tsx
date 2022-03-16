@@ -1,5 +1,5 @@
 /* React */
-import { useEffect } from "react";
+import { useState } from "react";
 
 /* Interfaces */
 import { Contact } from "../utils/interfaces";
@@ -22,9 +22,11 @@ const MainContainer = styled.div`
 	padding: 25px 0 40px 0;
 `;
 
-const Letter = styled.div`
+const Letter = styled.div<{ isActive: boolean }>`
+	width: 20px;
+	text-align: center;
 	margin: 0 10px 0 10px;
-	border-bottom: 3px solid rgba(0, 0, 0, 0);
+	border-bottom: 3px solid ${({ isActive }) => (isActive ? colors.red : colors.transparent)};
 	transition: all 0.3s ease;
 	:hover {
 		border-bottom: 3px solid ${colors.red};
@@ -38,16 +40,28 @@ interface FilterBarProps {
 }
 
 export default function FilterBar({ contacts, filterContacts }: FilterBarProps) {
+	const [activeFilterLetter, setActiveFilterLetter] = useState<string>("");
+
 	const letters: string[] = (() => {
 		const AllFirstLetter: string[] = contacts.map((contact: Contact) => contact.name.first.charAt(0).toLocaleUpperCase());
 		const uniqLetters: string[] = uniq(AllFirstLetter);
 		return uniqLetters.sort();
 	})();
 
+	function setActive(letter: string) {
+		return letter === activeFilterLetter ? true : false;
+	}
+
 	return (
 		<MainContainer>
 			{letters.map((letter: string) => (
-				<Letter key={letter} onClick={() => filterContacts(letter)}>
+				<Letter
+					isActive={setActive(letter)}
+					key={letter}
+					onClick={() => {
+						filterContacts(letter);
+						setActiveFilterLetter(letter);
+					}}>
 					{letter}
 				</Letter>
 			))}
