@@ -1,8 +1,5 @@
 /* React */
-import { Link, RouteComponentProps } from "react-router-dom";
-
-/* Icons */
-import { VscCheck } from "react-icons/vsc";
+import { Link } from "react-router-dom";
 
 /* Intefaces */
 import { Contact } from "../utils/interfaces";
@@ -13,7 +10,6 @@ import InfoPage from "./common/InfoPage";
 
 /* Styles */
 import styled from "styled-components";
-import { colors } from "../utils/colors";
 import Button from "./common/Button";
 
 const MainContainer = styled.div`
