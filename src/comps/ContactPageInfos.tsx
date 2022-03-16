@@ -7,10 +7,12 @@ import { Contact } from "../utils/interfaces";
 /* Utils */
 import { breakePoints } from "../utils/utils";
 
+/* Components */
+import Button from "./common/Button";
+
 /* Styles */
 import styled from "styled-components";
 import { colors } from "../utils/colors";
-import Button from "./common/Button";
 
 const ContactInformations = styled.div`
 	display: flex;

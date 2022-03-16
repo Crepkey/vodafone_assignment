@@ -11,7 +11,7 @@ import { Contact } from "../utils/interfaces";
 /* Components */
 import PageTitle from "./pageTitle";
 import FilterBar from "./filterBar";
-import ContactCards from "./contactCardsComp";
+import ContactCards from "./ContactCards";
 
 /* Styles */
 import styled from "styled-components";
