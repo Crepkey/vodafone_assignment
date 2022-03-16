@@ -1,3 +1,5 @@
+/* FIXME: If I deleted all the contacts I got a white screen. */
+
 /* React */
 import { useEffect, useState } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
@@ -14,7 +16,7 @@ import Contacts from "./comps/Contacts";
 import Footer from "./comps/Footer";
 import AddContactForm from "./comps/AddContactForm";
 import ContactPage from "./comps/ContactPage";
-import DeletedContactPage from "./comps/common/SuccessPage";
+import SuccessPage from "./comps/common/SuccessPage";
 import InfoPage from "./comps/common/InfoPage";
 
 /* Styles */
@@ -152,10 +154,8 @@ function App() {
 		<MainContainer>
 			<Header searchInContacts={searchInContacts} />
 			<Switch>
-				<Route
-					path="/contact_deleted_successfully"
-					render={() => <DeletedContactPage deletedContact={deletedContact} undoContactDeletion={undoContactDeletion} />}
-				/>
+				<Route path="/contact_created_successfully" render={() => <SuccessPage contact={deletedContact} onClick={undoContactDeletion} />} />
+				<Route path="/contact_deleted_successfully" render={() => <SuccessPage contact={deletedContact} onClick={undoContactDeletion} />} />
 				<Route
 					path="/contact/:id"
 					render={(props) => <ContactPage contacts={contacts} deleteContact={deleteContact} updateContact={updateContact} {...props} />}

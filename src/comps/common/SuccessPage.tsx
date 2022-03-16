@@ -35,12 +35,12 @@ const Details = styled.div`
 const ButtonContainer = styled.div`
 	text-align: center;
 `;
-interface DeletedContactPageProps {
-	deletedContact: Contact | undefined;
-	undoContactDeletion: (contactToRestore: Contact) => void;
+interface SuccessPageProps {
+	contact: Contact | undefined;
+	onClick: (contactToRestore: Contact) => void;
 }
-export default function DeletedContactPage({ deletedContact, undoContactDeletion }: DeletedContactPageProps) {
-	if (!deletedContact)
+export default function SuccessPage({ contact, onClick }: SuccessPageProps) {
+	if (!contact)
 		return (
 			<InfoPage
 				icon="error"
@@ -55,9 +55,9 @@ export default function DeletedContactPage({ deletedContact, undoContactDeletion
 	return (
 		<MainContainer>
 			<PageTitle text="Successfully deleted" />
-			<ProfilePic src={deletedContact.picture.large} alt="This is the picture of the deleted contact" />
+			<ProfilePic src={contact.picture.large} alt="This is the picture of the deleted contact" />
 			<Details>
-				{`Your contact`} <b>{`${deletedContact.name.first} ${deletedContact.name.last} `}</b>
+				{`Your contact`} <b>{`${contact.name.first} ${contact.name.last} `}</b>
 				{`has been removed from your contacts successfully`}
 			</Details>
 			<ButtonContainer>
@@ -65,7 +65,7 @@ export default function DeletedContactPage({ deletedContact, undoContactDeletion
 					<Button style={{ margin: "15px" }} colorStyle={"red"} text={"Go back to the contacts"} />
 				</Link>
 				<Link to="/">
-					<Button style={{ margin: "15px" }} colorStyle={"common"} text={"Undo"} onClick={() => undoContactDeletion(deletedContact)} />
+					<Button style={{ margin: "15px" }} colorStyle={"common"} text={"Undo"} onClick={() => onClick(contact)} />
 				</Link>
 			</ButtonContainer>
 		</MainContainer>
