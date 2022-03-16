@@ -2,14 +2,14 @@
 import { Link } from "react-router-dom";
 
 /* Utils */
-import { breakePoints } from "../utils/utils";
+import { breakePoints } from "../../utils/utils";
 
 /* Intefaces */
-import { Contact } from "../utils/interfaces";
+import { Contact } from "../../utils/interfaces";
 
 /* Styles */
 import styled from "styled-components";
-import { colors } from "../utils/colors";
+import { colors } from "../../utils/colors";
 
 const UndecoratedLink = styled(Link)`
 	display: flex;
