@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Contact } from "../utils/interfaces";
 
 /* Components */
-import PageTitle from "./Title";
+import PageTitle from "./common/Title";
 import InfoPage from "./common/InfoPage";
 
 /* Styles */

@@ -1,9 +1,9 @@
 /* Utils */
-import { breakePoints } from "../utils/utils";
+import { breakePoints } from "../../utils/utils";
 
 /* Styles */
 import styled from "styled-components";
-import { colors } from "../utils/colors";
+import { colors } from "../../utils/colors";
 
 const MainContainer = styled.div`
 	display: flex;

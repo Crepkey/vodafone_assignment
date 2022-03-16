@@ -8,7 +8,7 @@ import set from "lodash/set";
 import cloneDeep from "lodash/cloneDeep";
 
 /* Components */
-import PageTitle from "./Title";
+import PageTitle from "./common/Title";
 import Input from "./common/Input";
 import Button from "./common/Button";
 
