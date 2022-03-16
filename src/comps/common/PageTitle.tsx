@@ -12,6 +12,7 @@ const MainContainer = styled.div`
 	width: 100%;
 	padding: 10px 0;
 	@media screen and (max-width: ${breakePoints.mobileL}) {
+		width: 90%;
 		padding-top: 0;
 	} ;
 `;
