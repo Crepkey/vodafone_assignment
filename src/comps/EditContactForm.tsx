@@ -21,11 +21,11 @@ const Form = styled.form`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 40%;
+	width: 30%;
 	min-width: 400px;
 	padding: 20px 0;
 	@media screen and (max-width: ${breakePoints.mobileL}) {
-		width: 70%;
+		width: 90%;
 		min-width: 0;
 	}
 `;
