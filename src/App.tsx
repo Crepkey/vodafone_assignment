@@ -14,11 +14,11 @@ import Contacts from "./comps/Contacts";
 import Footer from "./comps/Footer";
 import AddContactForm from "./comps/AddContactForm";
 import ContactPage from "./comps/ContactPage";
+import DeletedContactPage from "./comps/DeletedContactPage";
+import InfoPage from "./comps/common/InfoPage";
 
 /* Styles */
 import styled from "styled-components";
-import DeletedContactPage from "./comps/DeletedContactPage";
-import InfoPage from "./comps/common/InfoPage";
 
 const MainContainer = styled.div`
 	display: flex;
