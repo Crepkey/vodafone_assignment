@@ -86,12 +86,11 @@ export const validationSchema = {
 
 		last: Joi.string().required().label("Last name"),
 	},
-	/* TODO: Accept -, (), + */
 	phone: Joi.string()
 		.trim()
-		.regex(/^[0-9]{7,20}$/)
+		.regex(/^[0-9, (, ), +]{7,20}$/)
 		.required()
-		.messages({ "string.pattern.base": "The phone number format is: 06701234567" })
+		.messages({ "string.pattern.base": "The phone number format is: +(3670)1234567" })
 		.label("Phone number"),
 	email: Joi.string()
 		.email({ minDomainSegments: 2, tlds: { allow: false } })
