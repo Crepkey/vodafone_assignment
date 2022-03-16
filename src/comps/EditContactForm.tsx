@@ -8,10 +8,13 @@ import { Contact } from "../utils/interfaces";
 import { breakePoints } from "../utils/utils";
 import cloneDeep from "lodash/cloneDeep";
 import set from "lodash/set";
+import get from "lodash/get";
+import Joi from "joi";
 
 /* Styles */
 import styled from "styled-components";
 import { colors } from "../utils/colors";
+import omit from "lodash/omit";
 
 const Form = styled.form`
 	display: flex;
@@ -95,12 +98,56 @@ interface EditContactFormProps {
 	setEditActive(value: React.SetStateAction<boolean>): void;
 }
 
+interface ContactErrors {
+	name?: { first: string; last: string };
+	phone?: string;
+	email?: string;
+	location?: { street: { name: string } };
+}
+
 export default function EditContactForm({ contactToEdit, updateContact, setEditActive }: EditContactFormProps) {
 	const [contact, setContact] = useState<Contact>(contactToEdit);
+	const [errors, setErrors] = useState<ContactErrors>({});
+
+	const validationSchema = {
+		name: {
+			first: Joi.string().required().label("First name"),
+
+			last: Joi.string().required().label("Last name"),
+		},
+		phone: Joi.string()
+			.trim()
+			.regex(/^[0-9]{7,20}$/)
+			.required()
+			.messages({ "string.pattern.base": "The phone number format is: 06701234567" })
+			.label("Phone number"),
+		email: Joi.string()
+			.email({ minDomainSegments: 2, tlds: { allow: false } })
+			.required()
+			.label("E-mail"),
+		location: { street: { name: Joi.string().min(4).max(60).required().label("Location") } },
+	};
+
+	function validateField(name: string, value: string) {
+		const subSchema: Joi.StringSchema = get(validationSchema, name);
+		const { error }: Joi.ValidationResult<any> = subSchema.validate(value);
+
+		if (error) {
+			const newErrors: ContactErrors = cloneDeep(errors);
+			const errorMessage: string = error.details[0].message;
+			set(newErrors, name, errorMessage);
+			return setErrors(newErrors);
+		}
+
+		const newErrors: ContactErrors = cloneDeep(errors);
+		const filteredErrors: ContactErrors = omit(newErrors, name);
+		setErrors(filteredErrors);
+	}
 
 	const handleChange = (event: React.BaseSyntheticEvent) => {
 		const name = event.currentTarget.name;
 		const value = event.currentTarget.value;
+		validateField(name, value);
 		const newContact = cloneDeep(contact);
 		set(newContact, name, value);
 		setContact(newContact);
@@ -125,7 +172,7 @@ export default function EditContactForm({ contactToEdit, updateContact, setEditA
 					value={contact.name.first}
 				/>
 			</InputContainer>
-			<ErrorMessage>{"bwhbhsdbchsdjc"}</ErrorMessage>
+			<ErrorMessage>{errors.name?.first}</ErrorMessage>
 			<InputContainer>
 				<Label>{"Last name"}</Label>
 				<InputField
@@ -137,17 +184,17 @@ export default function EditContactForm({ contactToEdit, updateContact, setEditA
 					value={contact.name.last}
 				/>
 			</InputContainer>
-			<ErrorMessage>{"Email"}</ErrorMessage>
+			<ErrorMessage>{errors.name?.last}</ErrorMessage>
 			<InputContainer>
 				<Label>{"Email"}</Label>
 				<InputField type="text" id={"email"} placeholder={"Enter email"} name={"email"} onChange={handleChange} value={contact.email} />
 			</InputContainer>
-			<ErrorMessage>{"bwhbhsdbchsdjc"}</ErrorMessage>
+			<ErrorMessage>{errors.email}</ErrorMessage>
 			<InputContainer>
 				<Label>{"Phone"}</Label>
 				<InputField type="text" id={"phone"} placeholder={"Enter phone"} name={"phone"} onChange={handleChange} value={contact.phone} />
 			</InputContainer>
-			<ErrorMessage>{"bwhbhsdbchsdjc"}</ErrorMessage>
+			<ErrorMessage>{errors.phone}</ErrorMessage>
 			<InputContainer>
 				<Label>{"Address"}</Label>
 				<InputField
@@ -159,7 +206,7 @@ export default function EditContactForm({ contactToEdit, updateContact, setEditA
 					value={contact.location.street.name}
 				/>
 			</InputContainer>
-			<ErrorMessage>{"bwhbhsdbchsdjc"}</ErrorMessage>
+			<ErrorMessage>{errors.location?.street.name}</ErrorMessage>
 			<SaveButton>Save contact</SaveButton>
 		</Form>
 	);
