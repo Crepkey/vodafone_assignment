@@ -7,7 +7,6 @@ import set from "lodash/set";
 import get from "lodash/get";
 import omit from "lodash/omit";
 import cloneDeep from "lodash/cloneDeep";
-import isEmpty from "lodash/isEmpty";
 import Joi from "joi";
 
 /* Components */
@@ -103,12 +102,11 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 
 	const handleSubmit = (event: React.SyntheticEvent) => {
 		event.preventDefault();
-		const errors = validateForm();
 
+		const errors = validateForm();
 		if (errors) return;
 
 		const newContact: Contact = cloneDeep(contact);
-
 		set(newContact, "id.name", generateID("name"));
 		set(newContact, "id.value", generateID("value"));
 		set(newContact, "picture.large", contactProfilePic);

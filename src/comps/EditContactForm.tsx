@@ -10,7 +10,6 @@ import cloneDeep from "lodash/cloneDeep";
 import set from "lodash/set";
 import get from "lodash/get";
 import omit from "lodash/omit";
-import isEmpty from "lodash/isEmpty";
 import Joi from "joi";
 
 /* Styles */
@@ -113,9 +112,11 @@ export default function EditContactForm({ contactToEdit, updateContact, setEditA
 				if (error.type === "object.unknown") continue;
 				set(newErrors, error.path, error.message);
 			}
-			return setErrors(newErrors);
+			setErrors(newErrors);
+			return true;
 		}
 		setErrors({});
+		return false;
 	}
 
 	function validateField(name: string, value: string) {
@@ -145,9 +146,9 @@ export default function EditContactForm({ contactToEdit, updateContact, setEditA
 
 	const handleSubmit = (event: React.BaseSyntheticEvent) => {
 		event.preventDefault();
-		validateForm();
 
-		if (!isEmpty(errors)) return;
+		const errors = validateForm();
+		if (errors) return;
 
 		updateContact(contact);
 		setEditActive(false);
