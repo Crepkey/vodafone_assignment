@@ -9,7 +9,7 @@ import { Contact } from "../utils/interfaces";
 import { breakePoints } from "../utils/utils";
 
 /* Components */
-import PageTitle from "./pageTitle";
+import PageTitle from "./Title";
 import EditContactForm from "./EditContactForm";
 import InfoPage from "./common/InfoPage";
 import ContactPageInfos from "./ContactPageInfos";
