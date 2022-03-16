@@ -5,11 +5,12 @@ import React, { useState } from "react";
 import { Contact, ContactErrors } from "../utils/interfaces";
 
 /* Utils */
-import { breakePoints, validationSchema } from "../utils/utils";
+import { breakePoints, validateForm, validationSchema } from "../utils/utils";
 import cloneDeep from "lodash/cloneDeep";
 import set from "lodash/set";
 import get from "lodash/get";
 import omit from "lodash/omit";
+import isEmpty from "lodash/isEmpty";
 import Joi from "joi";
 
 /* Styles */
@@ -102,23 +103,6 @@ export default function EditContactForm({ contactToEdit, updateContact, setEditA
 	const [contact, setContact] = useState<Contact>(contactToEdit);
 	const [errors, setErrors] = useState<ContactErrors>({});
 
-	function validateForm() {
-		const options: Joi.ValidationOptions = { abortEarly: false };
-		const { error }: Joi.ValidationResult<any> = Joi.object(validationSchema).validate(contact, options);
-		if (error) {
-			const newErrors = {};
-			const foundErrors: Joi.ValidationErrorItem[] = error.details;
-			for (const error of foundErrors) {
-				if (error.type === "object.unknown") continue;
-				set(newErrors, error.path, error.message);
-			}
-			setErrors(newErrors);
-			return true;
-		}
-		setErrors({});
-		return false;
-	}
-
 	function validateField(name: string, value: string) {
 		const subSchema: Joi.StringSchema = get(validationSchema, name);
 		const { error }: Joi.ValidationResult<any> = subSchema.validate(value);
@@ -147,7 +131,7 @@ export default function EditContactForm({ contactToEdit, updateContact, setEditA
 	const handleSubmit = (event: React.BaseSyntheticEvent) => {
 		event.preventDefault();
 
-		const errors = validateForm();
+		const errors = validateForm(contact, setErrors);
 		if (errors) return;
 
 		updateContact(contact);

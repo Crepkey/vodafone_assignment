@@ -1,5 +1,6 @@
 /* Libraries */
 import Joi from "joi";
+import isEmpty from "lodash/isEmpty";
 import set from "lodash/set";
 
 /* Interfaces */
@@ -82,6 +83,7 @@ export const validationSchema = {
 
 		last: Joi.string().required().label("Last name"),
 	},
+	/* TODO: Accept -, () */
 	phone: Joi.string()
 		.trim()
 		.regex(/^[0-9]{7,20}$/)
@@ -96,19 +98,18 @@ export const validationSchema = {
 };
 
 export function validateForm(contact: Contact, setErrors: (value: React.SetStateAction<ContactErrors>) => void) {
+	const newErrors = {};
 	const options: Joi.ValidationOptions = { abortEarly: false };
 	const { error }: Joi.ValidationResult<any> = Joi.object(validationSchema).validate(contact, options);
 
 	if (error) {
-		const newErrors = {};
 		const foundErrors: Joi.ValidationErrorItem[] = error.details;
 		for (const error of foundErrors) {
 			if (error.type === "object.unknown") continue;
 			set(newErrors, error.path, error.message);
 		}
-		setErrors(newErrors);
-		return true;
 	}
-	setErrors({});
-	return false;
+
+	setErrors(newErrors);
+	return isEmpty(newErrors) ? false : true;
 }
