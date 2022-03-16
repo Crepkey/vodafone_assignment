@@ -1,8 +1,8 @@
 /* React */
-import { Fragment, useState } from "react";
+import { useState } from "react";
 
 /* Interfaces */
-import { Link, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import { Contact } from "../utils/interfaces";
 
 /* Utils */
