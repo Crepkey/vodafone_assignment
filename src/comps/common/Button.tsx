@@ -8,7 +8,7 @@ const StyledButton = styled.button<{ buttonColors: any; style: any }>`
 	border: 1px solid ${({ buttonColors }) => buttonColors.border};
 	border-radius: 5px;
 	font-size: 0.9rem;
-	margin: ${({ style }) => (style?.margin ? style?.margin : "20px auto")};
+	margin: ${({ style }) => (style?.margin ? style?.margin : 0)};
 	transition: all 0.3s ease;
 	:hover {
 		cursor: pointer;

@@ -84,8 +84,8 @@ export default function ContactPageInfos({ contact, setEditActive, deleteContact
 				</ContactDetails>
 			</ContactInformations>
 			<Buttons>
-				<Link to={`/contact_deleted_successfully`}>
-					<Button style={{ margin: "15px" }} colorStyle="red" text="Delete" onClick={() => deleteContact(contact)} />
+				<Link style={{ margin: "15px" }} to={`/contact_deleted_successfully`}>
+					<Button colorStyle="red" text="Delete" onClick={() => deleteContact(contact)} />
 				</Link>
 				<Button style={{ margin: "15px" }} colorStyle="common" text="Edit" onClick={() => setEditActive(true)} />
 			</Buttons>

@@ -103,7 +103,7 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 					error={errors.location?.street.name}
 					onChange={handleChange}
 				/>
-				<Button colorStyle="common" text="Add contact" />
+				<Button style={{margin: "20px auto"}}colorStyle="common" text="Add contact" />
 			</Form>
 		</MainContainer>
 	);
