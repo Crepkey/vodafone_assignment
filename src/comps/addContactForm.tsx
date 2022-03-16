@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 /* Utils */
-import { emptyContact, generateID, validationSchema } from "../utils/utils";
+import { emptyContact, generateID, validateForm, validationSchema } from "../utils/utils";
 import set from "lodash/set";
 import get from "lodash/get";
 import omit from "lodash/omit";
@@ -66,24 +66,6 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 	const [errors, setErrors] = useState<ContactErrors>({});
 	const history = useHistory();
 
-	function validateForm() {
-		const options: Joi.ValidationOptions = { abortEarly: false };
-		const { error }: Joi.ValidationResult<any> = Joi.object(validationSchema).validate(contact, options);
-
-		if (error) {
-			const newErrors = {};
-			const foundErrors: Joi.ValidationErrorItem[] = error.details;
-			for (const error of foundErrors) {
-				if (error.type === "object.unknown") continue;
-				set(newErrors, error.path, error.message);
-			}
-			setErrors(newErrors);
-			return true;
-		}
-		setErrors({});
-		return false;
-	}
-
 	function validateField(name: string, value: string) {
 		const subSchema: Joi.StringSchema = get(validationSchema, name);
 		const { error }: Joi.ValidationResult<any> = subSchema.validate(value);
@@ -103,7 +85,7 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 	const handleSubmit = (event: React.SyntheticEvent) => {
 		event.preventDefault();
 
-		const errors = validateForm();
+		const errors = validateForm(contact, setErrors);
 		if (errors) return;
 
 		const newContact: Contact = cloneDeep(contact);

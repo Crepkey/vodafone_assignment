@@ -1,8 +1,11 @@
 /* Libraries */
 import Joi from "joi";
+import set from "lodash/set";
 
 /* Interfaces */
-import { Contact } from "./interfaces";
+import { Contact, ContactErrors } from "./interfaces";
+
+/* ---------- STYLE ---------- */
 
 export const breakePoints = {
 	mobileS: "320px",
@@ -15,6 +18,8 @@ export const breakePoints = {
 	laptopL: "1440px",
 	desktop: "2560px",
 };
+
+/* ---------- GENERATE ---------- */
 
 export const emptyContact: Contact = {
 	id: { name: "", value: "" },
@@ -69,6 +74,8 @@ function generateIDClosure() {
 
 export const generateID = generateIDClosure();
 
+/* ---------- VALIDATION ---------- */
+
 export const validationSchema = {
 	name: {
 		first: Joi.string().required().label("First name"),
@@ -87,3 +94,21 @@ export const validationSchema = {
 		.label("E-mail"),
 	location: { street: { name: Joi.string().min(4).max(60).required().label("Location") } },
 };
+
+export function validateForm(contact: Contact, setErrors: (value: React.SetStateAction<ContactErrors>) => void) {
+	const options: Joi.ValidationOptions = { abortEarly: false };
+	const { error }: Joi.ValidationResult<any> = Joi.object(validationSchema).validate(contact, options);
+
+	if (error) {
+		const newErrors = {};
+		const foundErrors: Joi.ValidationErrorItem[] = error.details;
+		for (const error of foundErrors) {
+			if (error.type === "object.unknown") continue;
+			set(newErrors, error.path, error.message);
+		}
+		setErrors(newErrors);
+		return true;
+	}
+	setErrors({});
+	return false;
+}
