@@ -86,6 +86,7 @@ function App() {
 		/* DISCLAIMER: There is no existed contact checking so it is possible to save the same contact twice */
 		const newContacts = [...contacts, newContact];
 		setContacts(newContacts);
+		setFilteredContacts(newContacts);
 	}
 
 	function updateContact(contactToUpdate: Contact) {
@@ -96,14 +97,18 @@ function App() {
 			return contact;
 		});
 		setContacts(newContacts);
+		setFilteredContacts(newContacts);
 	}
 
 	function deleteContact(contactToDelete: Contact) {
+		console.log(contactToDelete);
+
 		const newContacts: Contact[] = contacts.filter(
 			(contact: Contact) => contactToDelete.id.name !== contact.id.name && contactToDelete.id.value !== contact.id.value,
 		);
 		setDeletedContacts(contactToDelete);
 		setContacts(newContacts);
+		setFilteredContacts(newContacts);
 		/* 
 			The order of server API call and set state function depends on the deletion logic. We have two ways: The first one is the optimistic and second one is the pesimistic way. 
 			I would prefer the pesimistic way when I don't modify state until I got the server response about the success of deletion. 
