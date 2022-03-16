@@ -1,11 +1,13 @@
 /* React */
-import { useState } from "react";
+import React, { useState } from "react";
 
 /* Interfaces */
 import { Contact } from "../utils/interfaces";
 
 /* Utils */
 import { breakePoints } from "../utils/utils";
+import cloneDeep from "lodash/cloneDeep";
+import set from "lodash/set";
 
 /* Styles */
 import styled from "styled-components";
@@ -93,6 +95,15 @@ interface EditContactFormProps {
 
 export default function EditContactForm({ contactToEdit }: EditContactFormProps) {
 	const [contact, setContact] = useState<Contact>(contactToEdit);
+
+	const handleChange = (event: React.BaseSyntheticEvent) => {
+		const name = event.currentTarget.name;
+		const value = event.currentTarget.value;
+		const newContact = cloneDeep(contact);
+		set(newContact, name, value);
+		setContact(newContact);
+	};
+
 	return (
 		<Form>
 			<InputContainer>
@@ -102,7 +113,7 @@ export default function EditContactForm({ contactToEdit }: EditContactFormProps)
 					id={"name.first"}
 					placeholder={"Enter first name"}
 					name={"name.first"}
-					onChange={() => {}}
+					onChange={handleChange}
 					value={contact.name.first}
 				/>
 			</InputContainer>
@@ -114,19 +125,19 @@ export default function EditContactForm({ contactToEdit }: EditContactFormProps)
 					id={"name.last"}
 					placeholder={"Enter last name"}
 					name={"name.last"}
-					onChange={() => {}}
+					onChange={handleChange}
 					value={contact.name.last}
 				/>
 			</InputContainer>
 			<ErrorMessage>{"Email"}</ErrorMessage>
 			<InputContainer>
 				<Label>{"Email"}</Label>
-				<InputField type="text" id={"email"} placeholder={"Enter email"} name={"email"} onChange={() => {}} value={contact.email} />
+				<InputField type="text" id={"email"} placeholder={"Enter email"} name={"email"} onChange={handleChange} value={contact.email} />
 			</InputContainer>
 			<ErrorMessage>{"bwhbhsdbchsdjc"}</ErrorMessage>
 			<InputContainer>
 				<Label>{"Phone"}</Label>
-				<InputField type="text" id={"phone"} placeholder={"Enter phone"} name={"phone"} onChange={() => {}} value={contact.phone} />
+				<InputField type="text" id={"phone"} placeholder={"Enter phone"} name={"phone"} onChange={handleChange} value={contact.phone} />
 			</InputContainer>
 			<ErrorMessage>{"bwhbhsdbchsdjc"}</ErrorMessage>
 			<InputContainer>
@@ -135,8 +146,8 @@ export default function EditContactForm({ contactToEdit }: EditContactFormProps)
 					type="text"
 					id={"location.street.name"}
 					placeholder={"Place address"}
-					name={"first"}
-					onChange={() => {}}
+					name={"location.street.name"}
+					onChange={handleChange}
 					value={contact.location.street.name}
 				/>
 			</InputContainer>
