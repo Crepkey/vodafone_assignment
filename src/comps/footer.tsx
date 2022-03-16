@@ -1,6 +1,9 @@
+/* Utils */
+import { breakePoints } from "../utils/utils";
+
+/* Styles */
 import styled from "styled-components";
 import { colors } from "../utils/colors";
-import { breakePoints } from "../utils/utils";
 
 const MainContainer = styled.div`
 	color: ${colors.title};
