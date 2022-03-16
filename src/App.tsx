@@ -14,7 +14,7 @@ import Contacts from "./comps/Contacts";
 import Footer from "./comps/Footer";
 import AddContactForm from "./comps/AddContactForm";
 import ContactPage from "./comps/ContactPage";
-import DeletedContactPage from "./comps/DeletedContactPage";
+import DeletedContactPage from "./comps/SuccessPage";
 import InfoPage from "./comps/common/InfoPage";
 
 /* Styles */
