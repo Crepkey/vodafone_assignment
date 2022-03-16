@@ -11,7 +11,7 @@ import { Contact } from "./utils/interfaces";
 /* Components */
 import Header from "./comps/header";
 import Contacts from "./comps/Contacts";
-import Footer from "./comps/footer";
+import Footer from "./comps/footerComp";
 import AddContactForm from "./comps/AddContactForm";
 import ContactPage from "./comps/ContactPage";
 
