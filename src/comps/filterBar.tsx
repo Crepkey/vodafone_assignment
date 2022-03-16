@@ -1,11 +1,15 @@
+/* React */
+import { useEffect } from "react";
+
 /* Interfaces */
 import { Contact } from "../utils/interfaces";
+
+/* Utils */
 import uniq from "lodash/uniq";
 
 /* Styles */
 import styled from "styled-components";
 import { colors } from "../utils/colors";
-import { useEffect } from "react";
 
 const MainContainer = styled.div`
 	display: flex;
