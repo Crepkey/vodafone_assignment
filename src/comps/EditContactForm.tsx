@@ -12,6 +12,7 @@ import set from "lodash/set";
 /* Styles */
 import styled from "styled-components";
 import { colors } from "../utils/colors";
+import Button from "./common/Button";
 
 const Form = styled.form`
 	display: flex;
@@ -67,26 +68,6 @@ const ErrorMessage = styled.div`
 	text-align: right;
 	height: 0.8rem;
 	width: 100%;
-`;
-
-const SaveButton = styled.button`
-	padding: 6px 10px;
-	color: ${colors.normalButton};
-	background-color: rgba(0, 0, 0, 0);
-	border: 1px solid ${colors.normalButtons};
-	border-radius: 5px;
-	font-size: 0.9rem;
-	margin: 25px 15px 15px 15px;
-	transition: all 0.3s ease;
-	:hover {
-		cursor: pointer;
-		color: white;
-		background-color: ${colors.normalButton};
-	}
-	:active {
-		color: ${colors.normalButton};
-		background-color: rgba(0, 0, 0, 0);
-	}
 `;
 
 interface EditContactFormProps {
@@ -166,7 +147,7 @@ export default function EditContactForm({ contactToEdit, updateContact, setEditA
 				/>
 			</InputContainer>
 			<ErrorMessage>{errors.location?.street.name}</ErrorMessage>
-			<SaveButton>Save contact</SaveButton>
+			<Button style={{ margin: "25px 15px 15px 15px" }} colorStyle={"common"} text={"Save contact"} />
 		</Form>
 	);
 }
