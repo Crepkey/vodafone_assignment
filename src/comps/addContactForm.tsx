@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 /* Utils */
-import { emptyContact, generateID, validateForm, validationSchema } from "../utils/utils";
+import { emptyContact, generateID, validateField, validateForm, validationSchema } from "../utils/utils";
 import set from "lodash/set";
 import get from "lodash/get";
 import omit from "lodash/omit";
@@ -66,22 +66,6 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 	const [errors, setErrors] = useState<ContactErrors>({});
 	const history = useHistory();
 
-	function validateField(name: string, value: string) {
-		const subSchema: Joi.StringSchema = get(validationSchema, name);
-		const { error }: Joi.ValidationResult<any> = subSchema.validate(value);
-
-		if (error) {
-			const newErrors: ContactErrors = cloneDeep(errors);
-			const errorMessage: string = error.details[0].message;
-			set(newErrors, name, errorMessage);
-			return setErrors(newErrors);
-		}
-
-		const newErrors: ContactErrors = cloneDeep(errors);
-		const filteredErrors: ContactErrors = omit(newErrors, name);
-		setErrors(filteredErrors);
-	}
-
 	const handleSubmit = (event: React.SyntheticEvent) => {
 		event.preventDefault();
 
@@ -100,7 +84,7 @@ export default function AddContactForm({ saveNewContact }: AddContactFormProps) 
 	const handleChange = (event: React.BaseSyntheticEvent) => {
 		const name: string = event.currentTarget.name;
 		const value: string = event.currentTarget.value;
-		validateField(name, value);
+		validateField(name, value, errors, setErrors);
 		const newContact: Contact = cloneDeep(contact);
 		set(newContact, name, value);
 		setContact(newContact);

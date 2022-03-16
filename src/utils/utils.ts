@@ -1,6 +1,9 @@
 /* Libraries */
 import Joi from "joi";
+import cloneDeep from "lodash/cloneDeep";
+import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
+import omit from "lodash/omit";
 import set from "lodash/set";
 
 /* Interfaces */
@@ -83,7 +86,7 @@ export const validationSchema = {
 
 		last: Joi.string().required().label("Last name"),
 	},
-	/* TODO: Accept -, () */
+	/* TODO: Accept -, (), + */
 	phone: Joi.string()
 		.trim()
 		.regex(/^[0-9]{7,20}$/)
@@ -112,4 +115,20 @@ export function validateForm(contact: Contact, setErrors: (value: React.SetState
 
 	setErrors(newErrors);
 	return isEmpty(newErrors) ? false : true;
+}
+
+export function validateField(name: string, value: string, errors: ContactErrors, setErrors: (value: React.SetStateAction<ContactErrors>) => void) {
+	const subSchema: Joi.StringSchema = get(validationSchema, name);
+	const { error }: Joi.ValidationResult<any> = subSchema.validate(value);
+
+	if (error) {
+		const newErrors: ContactErrors = cloneDeep(errors);
+		const errorMessage: string = error.details[0].message;
+		set(newErrors, name, errorMessage);
+		return setErrors(newErrors);
+	}
+
+	const newErrors: ContactErrors = cloneDeep(errors);
+	const filteredErrors: ContactErrors = omit(newErrors, name);
+	setErrors(filteredErrors);
 }
