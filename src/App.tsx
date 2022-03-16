@@ -62,6 +62,7 @@ function App() {
 
 			const validatedContacts: Contact[] = validateIDs(parsedResponse.results);
 			setContacts(validatedContacts);
+			setFilteredContacts(validatedContacts);
 		} catch (error) {
 			setErrors(error as Error);
 		}

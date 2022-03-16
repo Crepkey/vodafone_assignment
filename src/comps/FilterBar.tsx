@@ -44,10 +44,6 @@ export default function FilterBar({ contacts, filterContacts }: FilterBarProps) 
 		return uniqLetters.sort();
 	})();
 
-	useEffect(() => {
-		filterContacts(letters[0]);
-	}, []);
-
 	return (
 		<MainContainer>
 			{letters.map((letter: string) => (
