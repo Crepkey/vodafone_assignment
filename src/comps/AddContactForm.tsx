@@ -9,7 +9,7 @@ import cloneDeep from "lodash/cloneDeep";
 
 /* Components */
 import PageTitle from "./pageTitle";
-import Input from "./common/InputField";
+import Input from "./common/Input";
 import Button from "./common/Button";
 
 /* Interfaces */
