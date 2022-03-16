@@ -145,10 +145,10 @@ export default function EditContactForm({ contactToEdit, updateContact, setEditA
 	}
 
 	const handleChange = (event: React.BaseSyntheticEvent) => {
-		const name = event.currentTarget.name;
-		const value = event.currentTarget.value;
+		const name: string = event.currentTarget.name;
+		const value: string = event.currentTarget.value;
 		validateField(name, value);
-		const newContact = cloneDeep(contact);
+		const newContact: Contact = cloneDeep(contact);
 		set(newContact, name, value);
 		setContact(newContact);
 	};
